@@ -27,7 +27,7 @@ export default function IncidentsList({ incidents }: IncidentsListProps) {
               <div className="">{incident.location}</div>
               <div className="">{incident.area}</div>
             </div>
-            <div>
+            <div className="w-16">
               <div>{incident.getIncidentTimeSimple()}</div>
               <div>Units: {incident.unitsAssigned.length}</div>
             </div>

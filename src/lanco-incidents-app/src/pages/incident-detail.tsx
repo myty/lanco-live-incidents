@@ -7,12 +7,7 @@ interface IncidentDetailProps extends RouteComponentProps {}
 
 export default function IncidentDetail(props: IncidentDetailProps) {
   const { id } = useParams();
-  const { incidents } = useIncidents();
-
-  const incident =
-    incidents.length >= 1
-      ? incidents.filter((incident) => incident.id === id)[0]
-      : null;
+  const { incident } = useIncidents({ id });
 
   const title = incident?.type ?? "Incident";
 
