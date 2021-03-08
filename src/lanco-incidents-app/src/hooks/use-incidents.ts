@@ -1,17 +1,24 @@
 import { LIVE_FEED } from "constants/app-constants";
-import { IncidentRecord } from "models/incident-record";
+import {
+  DistanceValueType,
+  Geocode,
+  IncidentRecord,
+} from "models/incident-record";
 import { useCallback, useEffect, useReducer } from "react";
-import RssParser from "rss-parser";
 import { DateTime } from "luxon";
+import axios from "axios";
 
-type CustomFeed = {};
-type CustomItem = { description: string };
-
-const rssParser = new RssParser<CustomFeed, CustomItem>({
-  customFields: {
-    item: ["description"],
-  },
-});
+interface FeedIncident {
+  id: string;
+  incident_dt: string;
+  type: string;
+  subType: string;
+  location: string;
+  area: string;
+  units_assigned: string[];
+  geo_location?: Geocode | null;
+  distance?: DistanceValueType | null;
+}
 
 interface UseIncidentsState {
   error?: any;
@@ -44,6 +51,7 @@ const reducer = (
         error: action.error,
       };
     case "LOADED":
+      // TODO: Add de-duping feature for the list, only update the records that should be updated
       return {
         ...state,
         state: action.type,
@@ -66,37 +74,36 @@ export default function useIncidents() {
   );
 
   const processFeed = useCallback(async () => {
-    const feed = await rssParser.parseURL(LIVE_FEED);
+    try {
+      const feedIncidents = await axios.get<FeedIncident[]>(LIVE_FEED);
 
-    const incidents = feed.items.map(
-      ({ title, description, pubDate, guid }) => {
-        var descSplit = description.split(";");
-        var area = descSplit.length >= 1 ? descSplit[0].trim() : "";
-        var isCounty = area.toUpperCase().includes("COUNTY");
-        var numSections = isCounty ? 1 : 2;
-        var typeSplit = title?.split("-") ?? [];
-        var unitsAssigned =
-          descSplit.length > numSections
-            ? descSplit[numSections]
-                .toLowerCase()
-                .split("<br>")
-                .map((s) => s.trim().toUpperCase())
-            : [];
+      const incidents = feedIncidents.data.map((fi) => {
+        const {
+          incident_dt,
+          id,
+          type,
+          subType,
+          location,
+          area,
+          units_assigned,
+        } = fi;
 
         return new IncidentRecord({
-          id: guid,
-          incidentDate: DateTime.fromHTTP(pubDate!),
-          type: typeSplit.length >= 1 ? typeSplit[0].trim() : "",
-          subType: typeSplit.length > 1 ? typeSplit[1].trim() : "",
-          location:
-            isCounty || descSplit.length < 1 ? undefined : descSplit[1].trim(),
+          id,
+          incidentDate: DateTime.fromISO(incident_dt, {}),
+          type,
+          subType,
+          location,
           area,
-          unitsAssigned,
+          unitsAssigned: units_assigned,
         });
-      }
-    );
+      });
 
-    dispatch({ type: "LOADED", incidents });
+      dispatch({ type: "LOADED", incidents });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: "ERROR", error });
+    }
   }, []);
 
   useEffect(() => {
@@ -108,6 +115,7 @@ export default function useIncidents() {
   return {
     error,
     incidents,
+    loading: state === "LOADING",
     refresh: () => dispatch({ type: "LOAD" }),
   };
 }
