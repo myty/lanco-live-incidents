@@ -2,5 +2,10 @@
   "name": "lanco-live-incidents",
   "version": "0.1.0",
   "author": "Michael Tyson <michaeltyson@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn --cwd src/lanco-incidents-app dev",
+    "build": "yarn --cwd src/lanco-incidents-app build",
+    "serve": "yarn --cwd src/lanco-incidents-app serve"
+  }
 }

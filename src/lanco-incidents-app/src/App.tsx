@@ -1,15 +1,21 @@
 import React from "react";
-import { Router } from "@reach/router";
 import Home from "pages/home";
 import IncidentDetail from "pages/incident-detail";
 import IncidentsProvider from "providers/IncidentsProvider";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <IncidentsProvider>
       <Router>
-        <Home path="/" />
-        <IncidentDetail path="incidents/:id" />
+        <Switch>
+          <Route path="/incidents/:id">
+            <IncidentDetail />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </Router>
     </IncidentsProvider>
   );

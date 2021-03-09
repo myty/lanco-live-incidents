@@ -1,6 +1,6 @@
-import { Link } from "@reach/router";
 import { IncidentRecord } from "models/incident-record";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export interface IncidentsListProps {
   incidents: IncidentRecord[];
