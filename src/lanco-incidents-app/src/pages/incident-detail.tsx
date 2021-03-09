@@ -1,5 +1,5 @@
 import Layout from "components/layout";
-import React from "react";
+import React, { Fragment, PropsWithChildren } from "react";
 import useIncidents from "hooks/use-incidents";
 import { IncidentRecord } from "models/incident-record";
 import { useHistory, useParams } from "react-router-dom";
@@ -71,18 +71,37 @@ function IncidentDetailContent({ incident }: IncidentDetailContentProps) {
   }
 
   return (
-    <div className="text-sm">
-      <h2 className="font-semibold">{incident.type}</h2>
-      <div>{incident.location}</div>
-      <div>{incident.area}</div>
-      <h2 className="pt-3 font-semibold">DATE &amp; TIME</h2>
-      <div>{incident.getIncidentFullDate()}</div>
-      <h2 className="pt-3 font-semibold">RESPONDING</h2>
-      <div>
-        {incident.unitsAssigned.map((unit) => (
-          <div key={unit}>{unit}</div>
-        ))}
-      </div>
+    <div className="text-xs">
+      <IncidentDetailSection title={incident.type}>
+        <div>{incident.location}</div>
+        <div>{incident.area}</div>
+      </IncidentDetailSection>
+      <IncidentDetailSection title={"Date & Time"}>
+        <div>{incident.getIncidentFullDate()}</div>
+      </IncidentDetailSection>
+      <IncidentDetailSection title={"Responding"}>
+        <div>
+          {incident.unitsAssigned.map((unit) => (
+            <div key={unit}>{unit}</div>
+          ))}
+        </div>
+      </IncidentDetailSection>
     </div>
+  );
+}
+
+interface IncidentDetailSectionProps {
+  title: string;
+}
+
+function IncidentDetailSection({
+  children,
+  title,
+}: PropsWithChildren<IncidentDetailSectionProps>) {
+  return (
+    <Fragment>
+      <h2 className="pt-3 text-sm font-semibold uppercase">{title}</h2>
+      {children}
+    </Fragment>
   );
 }
