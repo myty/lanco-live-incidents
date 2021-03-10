@@ -7,23 +7,23 @@ import { SITE_TITLE } from "constants/app-constants";
 interface HomeProps {}
 
 export default function Home(props: HomeProps) {
-  const { incidents, loading, refresh } = useIncidents();
+    const { incidents, loading, refresh } = useIncidents();
 
-  const buttonText = `Refresh${loading ? "ing..." : ""}`;
+    const buttonText = `Refresh${loading ? "ing..." : ""}`;
 
-  const refreshButton = (
-    <button
-      className="px-3 text-xs font-semibold bg-blue-900 hover:bg-blue-500"
-      onClick={refresh}
-      disabled={loading}
-    >
-      {buttonText}
-    </button>
-  );
+    const refreshButton = (
+        <button
+            className="px-3 text-xs font-semibold bg-blue-900 hover:bg-blue-500"
+            onClick={refresh}
+            disabled={loading}
+        >
+            {buttonText}
+        </button>
+    );
 
-  return (
-    <Layout headerLeft={SITE_TITLE} headerRight={refreshButton}>
-      <IncidentsList incidents={incidents} />
-    </Layout>
-  );
+    return (
+        <Layout headerLeft={SITE_TITLE} headerRight={refreshButton}>
+            <IncidentsList incidents={incidents} />
+        </Layout>
+    );
 }
