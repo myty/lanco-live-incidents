@@ -29,8 +29,7 @@ export default function IncidentDetail(props: IncidentDetailProps) {
                         history.goBack();
                     }}
                 />
-            }
-        >
+            }>
             <IncidentDetailContent incident={incident} />
         </Layout>
     );
@@ -45,13 +44,12 @@ function IncidentDetailTitle({ incident, onBack }: IncidentDetailTitleProps) {
 
     return (
         <div className="flex">
-            <button className="mr-1 w-7" onClick={onBack}>
+            <button className="mr-2 w-7" onClick={onBack}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
+                    stroke="currentColor">
                     <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
