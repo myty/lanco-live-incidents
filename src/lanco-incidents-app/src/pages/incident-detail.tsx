@@ -65,13 +65,20 @@ function IncidentDetailTitle({ incident, onBack }: IncidentDetailTitleProps) {
 }
 
 function IncidentDetailContent({ incident }: IncidentDetailContentProps) {
+    const { incidents } = useIncidents();
+
+    const otherIncidents = incidents.filter(
+        (other) => other.id !== incident?.id
+    );
+
     if (incident == null) {
         return <div>Loading...</div>;
     }
 
     return (
         <div>
-            <Map incident={incident} />
+            <Map incident={incident} otherIncidents={otherIncidents} />
+
             <div className="text-xs">
                 <IncidentDetailSection title={incident.type}>
                     <div>{incident.location}</div>
