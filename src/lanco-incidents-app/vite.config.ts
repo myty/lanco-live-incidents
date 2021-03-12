@@ -14,7 +14,7 @@ export default defineConfig({
             manifest: {
                 name: "Lancaster County Live Incidents",
                 short_name: "Lanco911",
-                theme_color: "#ffffff",
+                theme_color: "#263989",
                 icons: [
                     {
                         src: "/pwa-192x192.png",

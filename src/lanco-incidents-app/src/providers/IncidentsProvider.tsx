@@ -1,9 +1,5 @@
 import { LIVE_FEED } from "constants/app-constants";
-import {
-    DistanceValueType,
-    Geocode,
-    IncidentRecord,
-} from "models/incident-record";
+import { Geocode, IncidentRecord } from "models/incident-record";
 import {
     Dispatch,
     PropsWithChildren,
@@ -23,8 +19,7 @@ interface FeedIncident {
     location: string;
     area: string;
     units_assigned: string[];
-    geo_location?: Geocode | null;
-    distance?: DistanceValueType | null;
+    geocode_location?: Geocode | null;
 }
 
 interface IncidentsContextState {
@@ -58,15 +53,60 @@ const reducer = (
                 error: action.error,
             };
         case "LOADED":
-            // TODO: Add de-duping feature for the list, only update the records that should be updated
             return {
                 ...state,
                 state: action.type,
-                incidents: action.incidents,
+                incidents: updateIncidents(
+                    state.incidents,
+                    action.incidents
+                ).sort((a, b) => b.getTimeSince() - a.getTimeSince()),
             };
     }
 
     return state;
+};
+
+function updateIncidents(
+    originalList: IncidentRecord[],
+    newList: IncidentRecord[]
+): IncidentRecord[] {
+    const comparer = (
+        sourceItem: IncidentRecord,
+        mergeItem: IncidentRecord
+    ) => {
+        return sourceItem.id === mergeItem.id;
+    };
+
+    const isEqual = (a: IncidentRecord) => (b: IncidentRecord) =>
+        comparer(b, a);
+    const areNotIn = (a: IncidentRecord[]) => (b: IncidentRecord) =>
+        !a.some(isEqual(b));
+
+    const itemsToAdd = newList.filter(areNotIn(originalList));
+    const itemsToKeep = originalList
+        .map((item) => {
+            const foundItem = newList.find(isEqual(item));
+
+            if (foundItem == null) {
+                return undefined;
+            }
+
+            return item.with(foundItem);
+        })
+        .filter((item) => item != null) as IncidentRecord[];
+
+    return [...itemsToKeep, ...itemsToAdd];
+}
+
+const convertToGeocode = ({
+    lat,
+    lng,
+}: Partial<{ lat: number; lng: number }>): Geocode | undefined => {
+    if (lat == null || lng == null) {
+        return undefined;
+    }
+
+    return { lat, lng };
 };
 
 const defaultState: IncidentsContextState = {
@@ -102,6 +142,7 @@ export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
                     location,
                     area,
                     units_assigned,
+                    geocode_location,
                 } = fi;
 
                 return new IncidentRecord({
@@ -112,6 +153,7 @@ export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
                     location,
                     area,
                     unitsAssigned: units_assigned,
+                    geoLocation: convertToGeocode({ ...geocode_location }),
                 });
             });
 
@@ -130,8 +172,7 @@ export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
 
     return (
         <IncidentsContext.Provider
-            value={{ incidents, state, error, dispatch }}
-        >
+            value={{ incidents, state, error, dispatch }}>
             {children}
         </IncidentsContext.Provider>
     );

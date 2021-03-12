@@ -3,6 +3,7 @@ import React, { Fragment, PropsWithChildren } from "react";
 import useIncidents from "hooks/use-incidents";
 import { IncidentRecord } from "models/incident-record";
 import { useHistory, useParams } from "react-router-dom";
+import { Map } from "components/map";
 
 interface IncidentDetailProps {}
 
@@ -69,21 +70,24 @@ function IncidentDetailContent({ incident }: IncidentDetailContentProps) {
     }
 
     return (
-        <div className="text-xs">
-            <IncidentDetailSection title={incident.type}>
-                <div>{incident.location}</div>
-                <div>{incident.area}</div>
-            </IncidentDetailSection>
-            <IncidentDetailSection title={"Date & Time"}>
-                <div>{incident.getIncidentFullDate()}</div>
-            </IncidentDetailSection>
-            <IncidentDetailSection title={"Responding"}>
-                <div>
-                    {incident.unitsAssigned.map((unit) => (
-                        <div key={unit}>{unit}</div>
-                    ))}
-                </div>
-            </IncidentDetailSection>
+        <div>
+            <Map incident={incident} />
+            <div className="text-xs">
+                <IncidentDetailSection title={incident.type}>
+                    <div>{incident.location}</div>
+                    <div>{incident.area}</div>
+                </IncidentDetailSection>
+                <IncidentDetailSection title={"Date & Time"}>
+                    <div>{incident.getIncidentFullDate()}</div>
+                </IncidentDetailSection>
+                <IncidentDetailSection title={"Responding"}>
+                    <div>
+                        {incident.unitsAssigned.map((unit) => (
+                            <div key={unit}>{unit}</div>
+                        ))}
+                    </div>
+                </IncidentDetailSection>
+            </div>
         </div>
     );
 }
