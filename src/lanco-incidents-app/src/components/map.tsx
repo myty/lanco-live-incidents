@@ -23,7 +23,7 @@ const MarkerComponent = ({ text, primary }: MarkerComponentInterface) => {
     );
 };
 
-const apiKey: string = (import.meta.env.GOOGLE_MAPS_KEY as string) ?? "";
+const apiKey: string = (import.meta.env.VITE_GOOGLE_MAPS_KEY as string) ?? "";
 
 export function Map(props: MapProps) {
     const { incident } = props;
