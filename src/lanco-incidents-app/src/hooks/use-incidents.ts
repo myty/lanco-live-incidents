@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { IncidentsContext } from "providers/IncidentsProvider";
+import { IncidentsContext } from "providers/incidents-provider";
 
 interface UseIncidentsHookOptions {
     id?: string;

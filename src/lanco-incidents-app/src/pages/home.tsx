@@ -15,8 +15,7 @@ export default function Home(props: HomeProps) {
         <button
             className="px-3 text-xs font-semibold bg-blue-900 hover:bg-blue-500"
             onClick={refresh}
-            disabled={loading}
-        >
+            disabled={loading}>
             {buttonText}
         </button>
     );

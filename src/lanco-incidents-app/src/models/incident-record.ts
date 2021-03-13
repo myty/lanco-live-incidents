@@ -2,7 +2,6 @@ import { ImmutableRecord } from "simple-immutable-record";
 import { DateTime } from "luxon";
 
 export type Geocode = { lat: number; lng: number };
-export type DistanceValueType = { value: number; text: string };
 
 interface Incident {
     id: string;
@@ -13,7 +12,6 @@ interface Incident {
     area: string;
     unitsAssigned: string[];
     geoLocation?: Geocode;
-    distance?: DistanceValueType;
 }
 
 export class IncidentRecord extends ImmutableRecord<Incident>({
