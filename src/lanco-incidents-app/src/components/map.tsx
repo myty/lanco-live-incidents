@@ -1,17 +1,18 @@
 import React from "react";
-import GoogleMapReact from "google-map-react";
+import GoogleMapReact, { Coords } from "google-map-react";
 import { IncidentRecord } from "models/incident-record";
 import MapMarker from "components/map-marker";
 
 interface MapProps {
+    defaultCenter?: Coords;
     incident: IncidentRecord;
     otherIncidents?: IncidentRecord[];
 }
 
 const apiKey: string = (import.meta.env.VITE_GOOGLE_MAPS_KEY as string) ?? "";
 
-export function Map(props: MapProps) {
-    const { incident, otherIncidents = [] } = props;
+export const Map: React.FC<MapProps> = (props: MapProps) => {
+    const { defaultCenter, incident, otherIncidents = [] } = props;
     const { geoLocation } = incident;
     const { lat, lng } = geoLocation ?? {};
 
@@ -27,24 +28,34 @@ export function Map(props: MapProps) {
             }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: apiKey }}
-                defaultCenter={{ lat, lng }}
+                defaultCenter={defaultCenter}
                 defaultZoom={15}>
-                <MapMarker
-                    id={incident.id}
-                    lat={lat}
-                    lng={lng}
-                    primary={true}
-                />
-                {otherIncidents.map(({ geoLocation, id }) => {
+                {otherIncidents.map(({ geoLocation, id, location }) => {
                     const { lat, lng } = geoLocation ?? {};
 
                     if (lat == null || lng == null) {
                         return null;
                     }
 
-                    return <MapMarker id={id} lat={lat} lng={lng} />;
+                    return (
+                        <MapMarker
+                            id={id}
+                            key={id}
+                            lat={lat}
+                            lng={lng}
+                            text={location}
+                        />
+                    );
                 })}
+                <MapMarker
+                    id={incident.id}
+                    key={incident.id}
+                    lat={lat}
+                    lng={lng}
+                    primary={true}
+                    text={incident.location}
+                />
             </GoogleMapReact>
         </div>
     );
-}
+};

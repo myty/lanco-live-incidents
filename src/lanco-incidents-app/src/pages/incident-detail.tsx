@@ -1,9 +1,10 @@
 import Layout from "components/layout";
-import React, { Fragment, PropsWithChildren } from "react";
+import React, { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import useIncidents from "hooks/use-incidents";
 import { IncidentRecord } from "models/incident-record";
 import { useHistory, useParams } from "react-router-dom";
 import { Map } from "components/map";
+import { Coords } from "google-map-react";
 
 interface IncidentDetailProps {}
 
@@ -45,7 +46,7 @@ function IncidentDetailTitle({ incident, onBack }: IncidentDetailTitleProps) {
 
     return (
         <div className="flex">
-            <button className="mr-2 w-7" onClick={onBack}>
+            <button aria-label="Go Back" className="mr-2 w-7" onClick={onBack}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -65,11 +66,18 @@ function IncidentDetailTitle({ incident, onBack }: IncidentDetailTitleProps) {
 }
 
 function IncidentDetailContent({ incident }: IncidentDetailContentProps) {
+    const [defaultCenter, setDefaultCenter] = useState<Coords>();
     const { incidents } = useIncidents();
 
     const otherIncidents = incidents.filter(
         (other) => other.id !== incident?.id
     );
+
+    useEffect(() => {
+        if (defaultCenter == null && incident?.geoLocation != null) {
+            setDefaultCenter(incident.geoLocation);
+        }
+    }, [incident]);
 
     if (incident == null) {
         return <div>Loading...</div>;
@@ -77,7 +85,13 @@ function IncidentDetailContent({ incident }: IncidentDetailContentProps) {
 
     return (
         <div>
-            <Map incident={incident} otherIncidents={otherIncidents} />
+            {defaultCenter != null && (
+                <Map
+                    defaultCenter={defaultCenter}
+                    incident={incident}
+                    otherIncidents={otherIncidents}
+                />
+            )}
 
             <div className="text-xs">
                 <IncidentDetailSection title={incident.type}>
