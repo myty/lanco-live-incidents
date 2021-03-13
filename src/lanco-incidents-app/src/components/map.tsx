@@ -29,15 +29,20 @@ export function Map(props: MapProps) {
                 bootstrapURLKeys={{ key: apiKey }}
                 defaultCenter={{ lat, lng }}
                 defaultZoom={15}>
-                <MapMarker lat={lat} lng={lng} primary={true} />
-                {otherIncidents.map(({ geoLocation }) => {
+                <MapMarker
+                    id={incident.id}
+                    lat={lat}
+                    lng={lng}
+                    primary={true}
+                />
+                {otherIncidents.map(({ geoLocation, id }) => {
                     const { lat, lng } = geoLocation ?? {};
 
                     if (lat == null || lng == null) {
                         return null;
                     }
 
-                    return <MapMarker lat={lat} lng={lng} />;
+                    return <MapMarker id={id} lat={lat} lng={lng} />;
                 })}
             </GoogleMapReact>
         </div>
