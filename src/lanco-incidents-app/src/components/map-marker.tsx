@@ -34,9 +34,7 @@ export default function MapMarker({
             <div className="relative flex items-center justify-center w-8 h-8 bg-transparent border-4 border-blue-900 rounded-full -left-4 -top-4">
                 <div className="flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full opacity-30"></div>
             </div>
-            {primary && (
-                <div className="relative flex items-center justify-center w-2 h-2 bg-blue-900 rounded-full -left-1 -top-9"></div>
-            )}
+            <div className="relative flex items-center justify-center w-2 h-2 bg-blue-900 rounded-full opacity-70 -left-1 -top-9"></div>
         </div>
     );
 }

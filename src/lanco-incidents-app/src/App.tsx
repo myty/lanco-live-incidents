@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "pages/home";
-import IncidentDetail from "pages/incident-detail";
+import IncidentDetail from "pages/incident-detail/incident-detail";
 import IncidentsProvider from "providers/IncidentsProvider";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
