@@ -7,8 +7,12 @@ import GeolocationProvider from "providers/geolocation-provider";
 
 function App() {
     return (
-        <IncidentsProvider>
-            <GeolocationProvider>
+        <GeolocationProvider
+            enableHighAccuracy
+            maximumAge={1000}
+            timeout={20000}
+            watch>
+            <IncidentsProvider>
                 <Router>
                     <Switch>
                         <Route path="/incidents/:id">
@@ -19,8 +23,8 @@ function App() {
                         </Route>
                     </Switch>
                 </Router>
-            </GeolocationProvider>
-        </IncidentsProvider>
+            </IncidentsProvider>
+        </GeolocationProvider>
     );
 }
 

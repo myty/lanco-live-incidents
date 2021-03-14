@@ -1,9 +1,11 @@
 import React from "react";
 import GoogleMapReact, { Coords } from "google-map-react";
-import { IncidentRecord } from "models/incident-record";
-import MapMarker from "components/map-marker";
+import { Geocode, IncidentRecord } from "models/incident-record";
+import MapMarker from "components/map/map-marker";
+import MapCurrentLocationMarker from "components/map/map-current-location-marker";
 
 interface MapProps {
+    currentPosition?: Geocode;
     defaultCenter?: Coords;
     incident: IncidentRecord;
     otherIncidents?: IncidentRecord[];
@@ -12,7 +14,12 @@ interface MapProps {
 const apiKey: string = (import.meta.env.VITE_GOOGLE_MAPS_KEY as string) ?? "";
 
 export const Map: React.FC<MapProps> = (props: MapProps) => {
-    const { defaultCenter, incident, otherIncidents = [] } = props;
+    const {
+        currentPosition,
+        defaultCenter,
+        incident,
+        otherIncidents = [],
+    } = props;
     const { geoLocation } = incident;
     const { lat, lng } = geoLocation ?? {};
 
@@ -30,6 +37,12 @@ export const Map: React.FC<MapProps> = (props: MapProps) => {
                 bootstrapURLKeys={{ key: apiKey }}
                 defaultCenter={defaultCenter}
                 defaultZoom={15}>
+                {currentPosition != null && (
+                    <MapCurrentLocationMarker
+                        lat={currentPosition.lat}
+                        lng={currentPosition.lng}
+                    />
+                )}
                 {otherIncidents.map(({ geoLocation, id, location }) => {
                     const { lat, lng } = geoLocation ?? {};
 

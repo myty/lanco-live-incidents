@@ -22,57 +22,59 @@ export const GeolocationContext = React.createContext<
 });
 
 interface GeolocationProviderProps extends PositionOptions {
-    watchPosition?: boolean;
+    watch?: boolean;
 }
 
 const GeolocationProvider: React.FC<
     PropsWithChildren<GeolocationProviderProps>
-> = ({ children, watchPosition = false }) => {
+> = ({ children, watch = false, ...positionOptions }) => {
     const [
         { currentPosition, currentStatus },
         dispatch,
     ] = useState<GeolocationContextState>({});
 
+    const handlePostionChange = (position: GeolocationPosition) => {
+        console.log("postion updated", position);
+        dispatch((prev) => ({
+            ...prev,
+            currentPosition: position,
+            currentStatus: { permissionGranted: true },
+        }));
+    };
+
+    const handlePositionError = (status: GeolocationPositionError) => {
+        dispatch((prev) => ({
+            ...prev,
+            currentStatus: status,
+        }));
+    };
+
     const processCurrentPosition = useCallback(() => {
         if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    dispatch((prev) => ({
-                        ...prev,
-                        currentPosition: position,
-                        currentStatus: { permissionGranted: true },
-                    }));
-                },
-                (status: GeolocationPositionError) => {
-                    dispatch((prev) => ({
-                        ...prev,
-                        currentStatus: status,
-                    }));
-                }
-            );
-
-            if (watchPosition) {
-                navigator.geolocation.watchPosition(
-                    (position) => {
-                        dispatch((prev) => ({
-                            ...prev,
-                            currentPosition: position,
-                            currentStatus: { permissionGranted: true },
-                        }));
-                    },
-                    (status: GeolocationPositionError) => {
-                        dispatch((prev) => ({
-                            ...prev,
-                            currentStatus: status,
-                        }));
-                    }
+            if (watch) {
+                return navigator.geolocation.watchPosition(
+                    handlePostionChange,
+                    handlePositionError,
+                    positionOptions
                 );
             }
+
+            navigator.geolocation.getCurrentPosition(
+                handlePostionChange,
+                handlePositionError,
+                positionOptions
+            );
         }
-    }, [watchPosition]);
+    }, [watch]);
 
     useEffect(() => {
-        processCurrentPosition();
+        const watchId = processCurrentPosition();
+
+        return () => {
+            if (watchId != null) {
+                navigator.geolocation.clearWatch(watchId);
+            }
+        };
     }, [processCurrentPosition]);
 
     return (

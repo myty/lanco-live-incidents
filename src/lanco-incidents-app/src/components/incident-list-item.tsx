@@ -34,7 +34,9 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
                 </div>
                 <div className="w-16">
                     <div>{incident.getIncidentTimeSimple()}</div>
-                    <div>{distance == null ? "--" : `${distance} mi`}</div>
+                    <div>
+                        {distance == null ? "--" : `${distance.toFixed(2)} mi`}
+                    </div>
                     <div>Units: {incident.unitsAssigned.length}</div>
                 </div>
             </Link>

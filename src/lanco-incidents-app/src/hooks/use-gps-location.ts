@@ -18,8 +18,13 @@ export default function useGeolocation(options?: UseGeolocationOptions) {
 
     const distance =
         fromLocation != null && currentPosition != null
-            ? getDistance(currentPosition.coords, fromLocation) *
-              measurementMultiplier
+            ? getDistance(
+                  {
+                      lat: currentPosition.coords.latitude,
+                      lng: currentPosition.coords.longitude,
+                  },
+                  fromLocation
+              ) * measurementMultiplier
             : undefined;
 
     return {
