@@ -12,9 +12,12 @@ export default defineConfig({
 
         VitePWA({
             manifest: {
-                name: "Lancaster County Live Incidents",
-                short_name: "Lanco911",
+                name: "Lancaster Live Incidents",
+                short_name: "Incidents",
                 theme_color: "#263989",
+                background_color: "#263989",
+                lang: "en-US",
+                display: "standalone",
                 icons: [
                     {
                         src: "/pwa-192x192.png",
