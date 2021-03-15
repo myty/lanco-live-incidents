@@ -11,6 +11,7 @@ export default defineConfig({
         tsconfigPaths(),
 
         VitePWA({
+            injectRegister: false,
             manifest: {
                 name: "Lancaster Live Incidents",
                 short_name: "Incidents",
