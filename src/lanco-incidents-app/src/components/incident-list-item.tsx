@@ -32,7 +32,7 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
                     <div className="">{incident.location}</div>
                     <div className="">{incident.area}</div>
                 </div>
-                <div className="flex-shrink-0 w-12">
+                <div className="flex-shrink-0 ml-2 w-14">
                     <div>{incident.getIncidentTimeSimple()}</div>
                     <div>
                         {distance == null ? "--" : `${distance.toFixed(2)} mi`}

@@ -34,7 +34,6 @@ const GeolocationProvider: React.FC<
     ] = useState<GeolocationContextState>({});
 
     const handlePostionChange = (position: GeolocationPosition) => {
-        console.log("postion updated", position);
         dispatch((prev) => ({
             ...prev,
             currentPosition: position,
