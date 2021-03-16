@@ -7,8 +7,10 @@ import React, {
 import { Workbox, messageSW } from "workbox-window";
 
 export const ServiceWorkerContext = createContext({
-    offlineAppReady: false,
     appNeedsRefresh: false,
+    offlineAppReady: false,
+    updateIgnored: false,
+    ignoreUpdate: () => {},
     updateServiceWorker: () => {},
 });
 
@@ -21,6 +23,7 @@ const ServiceWorkerProvider: React.FC<
 > = ({ children, immediate }) => {
     const [offlineAppReady, setOfflineAppReady] = useState<boolean>(false);
     const [appNeedsRefresh, setAppNeedsRefresh] = useState<boolean>(false);
+    const [updateIgnored, setUpdateIgnored] = useState<boolean>(false);
 
     let registration: ServiceWorkerRegistration;
 
@@ -32,6 +35,10 @@ const ServiceWorkerProvider: React.FC<
             // listener in your service worker. See below.
             await messageSW(registration.waiting, { type: "SKIP_WAITING" });
         }
+    };
+
+    const ignoreUpdate = () => {
+        setUpdateIgnored(true);
     };
 
     const loadServiceWorker = () => {
@@ -78,7 +85,13 @@ const ServiceWorkerProvider: React.FC<
 
     return (
         <ServiceWorkerContext.Provider
-            value={{ offlineAppReady, appNeedsRefresh, updateServiceWorker }}>
+            value={{
+                appNeedsRefresh,
+                offlineAppReady,
+                updateIgnored,
+                ignoreUpdate,
+                updateServiceWorker,
+            }}>
             {children}
         </ServiceWorkerContext.Provider>
     );

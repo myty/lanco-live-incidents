@@ -5,12 +5,16 @@ export default function useServiceWorker() {
     const {
         appNeedsRefresh,
         offlineAppReady,
+        ignoreUpdate,
+        updateIgnored,
         updateServiceWorker,
     } = useContext(ServiceWorkerContext);
 
     return {
+        ignoreUpdate,
         offlineAppReady,
         appNeedsRefresh,
+        updateIgnored,
         updateServiceWorker,
     };
 }
