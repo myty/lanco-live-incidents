@@ -33,7 +33,9 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
     }, [incident]);
 
     if (incident == null) {
-        return <div>Loading...</div>;
+        return (
+            <div className="px-6 py-2 text-sm font-semibold">Loading...</div>
+        );
     }
 
     return (
@@ -47,7 +49,7 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
                 />
             )}
 
-            <div className="text-xs">
+            <div className="px-6 py-2 text-xs">
                 <IncidentDetailSection title={incident.type}>
                     {incident.subType && (
                         <div className="font-bold text-blue-800">

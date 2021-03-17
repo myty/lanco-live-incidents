@@ -12,7 +12,10 @@ export const IncidentDetailTitle: React.FC<IncidentDetailTitleProps> = ({
 }) => {
     return (
         <div className="flex">
-            <button aria-label="Go Back" className="mr-2 w-7" onClick={onBack}>
+            <button
+                aria-label="Go Back"
+                className="relative -left-2 w-7"
+                onClick={onBack}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

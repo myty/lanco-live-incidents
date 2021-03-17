@@ -13,7 +13,7 @@ export default function Home(props: HomeProps) {
 
     const refreshButton = (
         <button
-            className="px-3 text-xs font-semibold bg-blue-900 hover:bg-blue-500"
+            className="px-3 py-1 text-xs font-semibold bg-blue-900 hover:bg-blue-500"
             onClick={refresh}
             disabled={loading}>
             {buttonText}
@@ -22,7 +22,9 @@ export default function Home(props: HomeProps) {
 
     return (
         <Layout headerLeft={SITE_TITLE} headerRight={refreshButton}>
-            <IncidentsList incidents={incidents} />
+            <div className="p-3">
+                <IncidentsList incidents={incidents} />
+            </div>
         </Layout>
     );
 }
