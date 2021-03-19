@@ -1,8 +1,10 @@
 # Lancaster County Live Incidents
 
+Live Progressive Web App (PWA): https://lanco-live-incidents.netlify.app/
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a304cedd-afca-4827-a3bd-34b272c23ad3/deploy-status)](https://app.netlify.com/sites/lanco-live-incidents/deploys)
 
-A jazzed-up version of https://www.lcwc911.us/live-incident-list
+A jazzed-up version of [Lancaster County - Live Incident List](https://www.lcwc911.us/live-incident-list)
 
 ## The original concept
 
