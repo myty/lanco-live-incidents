@@ -15,7 +15,8 @@ const RefreshButton: React.FC<RefreshButtonProps> = ({
 
     return (
         <button
-            className="w-6 text-xs font-semibold text-white bg-blue-900"
+            aria-label="Refresh"
+            className="w-6 text-xs font-semibold text-white"
             onClick={onClick}
             disabled={disabled}>
             <svg

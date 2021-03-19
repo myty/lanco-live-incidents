@@ -1,5 +1,4 @@
 import ConfirmUpdateDialog from "components/confirm-update-dialog";
-import useServiceWorker from "hooks/use-service-worker";
 import React, { ReactNode } from "react";
 import { PropsWithChildren } from "react";
 
@@ -13,13 +12,6 @@ export default function Layout({
     headerLeft,
     headerRight,
 }: PropsWithChildren<LayoutProps>) {
-    const {
-        appNeedsRefresh,
-        ignoreUpdate,
-        updateIgnored,
-        updateServiceWorker,
-    } = useServiceWorker();
-
     return (
         <div className="flex h-screen">
             <div className="flex flex-col flex-1 w-full">
@@ -31,11 +23,7 @@ export default function Layout({
                         {headerRight}
                     </div>
                 </header>
-                <ConfirmUpdateDialog
-                    updateAvailable={appNeedsRefresh && !updateIgnored}
-                    onIgnore={ignoreUpdate}
-                    onUpdate={updateServiceWorker}
-                />
+                <ConfirmUpdateDialog />
                 <main className="h-full overflow-y-auto shadow-inner">
                     {children}
                 </main>

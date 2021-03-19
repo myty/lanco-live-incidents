@@ -37,6 +37,11 @@ const ServiceWorkerProvider: React.FC<
     });
 
     const updateServiceWorker = async () => {
+        setState((prev) => ({
+            ...prev,
+            isUpdating: true,
+        }));
+
         if (waitingServiceWorker != null) {
             // Send a message to the waiting service worker,
             // instructing it to activate.
