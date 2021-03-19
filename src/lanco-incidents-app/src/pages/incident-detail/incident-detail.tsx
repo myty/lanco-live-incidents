@@ -4,13 +4,14 @@ import useIncidents from "hooks/use-incidents";
 import { useHistory, useParams } from "react-router-dom";
 import { IncidentDetailTitle } from "./incident-detail-title";
 import { IncidentDetailContent } from "./incident-detail-content";
+import RefreshButton from "components/refresh-button";
 
 interface IncidentDetailProps {}
 
 export default function IncidentDetail(props: IncidentDetailProps) {
     const { id } = useParams<{ id: string }>();
     const history = useHistory();
-    const { incident } = useIncidents({ id });
+    const { incident, loading, refresh } = useIncidents({ id });
 
     return (
         <Layout
@@ -20,6 +21,13 @@ export default function IncidentDetail(props: IncidentDetailProps) {
                     onBack={() => {
                         history.goBack();
                     }}
+                />
+            }
+            headerRight={
+                <RefreshButton
+                    disabled={loading}
+                    animate={loading}
+                    onClick={refresh}
                 />
             }>
             <IncidentDetailContent incident={incident} />
