@@ -32,7 +32,7 @@ export default function Layout({
                     </div>
                 </header>
                 <ConfirmUpdateDialog
-                    updateAvailable={true}
+                    updateAvailable={appNeedsRefresh && !updateIgnored}
                     onIgnore={ignoreUpdate}
                     onUpdate={updateServiceWorker}
                 />
