@@ -21,41 +21,43 @@ interface ServiceWorkerProviderProps {
 const ServiceWorkerProvider: React.FC<
     PropsWithChildren<ServiceWorkerProviderProps>
 > = ({ children, immediate }) => {
-    const [offlineAppReady, setOfflineAppReady] = useState<boolean>(false);
-    const [appNeedsRefresh, setAppNeedsRefresh] = useState<boolean>(false);
-    const [updateIgnored, setUpdateIgnored] = useState<boolean>(false);
-
-    let registration: ServiceWorkerRegistration;
+    const [
+        {
+            offlineAppReady,
+            appNeedsRefresh,
+            updateIgnored,
+            waitingServiceWorker,
+        },
+        setState,
+    ] = useState({
+        offlineAppReady: false,
+        appNeedsRefresh: false,
+        updateIgnored: false,
+        waitingServiceWorker: undefined as ServiceWorker | undefined,
+    });
 
     const updateServiceWorker = async () => {
-        if (registration && registration.waiting) {
+        if (waitingServiceWorker != null) {
             // Send a message to the waiting service worker,
             // instructing it to activate.
             // Note: for this to work, you have to add a message
             // listener in your service worker. See below.
-            await messageSW(registration.waiting, { type: "SKIP_WAITING" });
+            await messageSW(waitingServiceWorker, {
+                type: "SKIP_WAITING",
+            });
         }
     };
 
     const ignoreUpdate = () => {
-        setUpdateIgnored(true);
+        setState((prev) => ({
+            ...prev,
+            updateIgnored: true,
+        }));
     };
 
     const loadServiceWorker = () => {
         if ("serviceWorker" in navigator) {
             const wb = new Workbox("/sw.js", { scope: "/" });
-
-            const showSkipWaitingPrompt = () => {
-                // `event.wasWaitingBeforeRegister` will be false if this is
-                // the first time the updated service worker is waiting.
-                // When `event.wasWaitingBeforeRegister` is true, a previously
-                // updated service worker is still waiting.
-                // You may want to customize the UI prompt accordingly.
-
-                // Assumes your app has some sort of prompt UI element
-                // that a user can either accept or reject.
-                setAppNeedsRefresh(true);
-            };
 
             wb.addEventListener("controlling", (event) => {
                 // Assuming the user accepted the update, set up a listener
@@ -66,16 +68,32 @@ const ServiceWorkerProvider: React.FC<
                     return;
                 }
 
-                setOfflineAppReady(true);
+                setState((prev) => ({
+                    ...prev,
+                    offlineAppReady: true,
+                }));
             });
 
             // Add an event listener to detect when the registered
             // service worker has installed but is waiting to activate.
-            wb.addEventListener("waiting", showSkipWaitingPrompt);
-            // @ts-ignore
-            wb.addEventListener("externalwaiting", showSkipWaitingPrompt);
+            wb.addEventListener("waiting", (event) => {
+                setState((prev) => ({
+                    ...prev,
+                    appNeedsRefresh: true,
+                    waitingServiceWorker: event.sw,
+                }));
+            });
 
-            wb.register({ immediate }).then((r) => (registration = r!));
+            // @ts-ignore
+            wb.addEventListener("externalwaiting", (event) => {
+                setState((prev) => ({
+                    ...prev,
+                    appNeedsRefresh: true,
+                    waitingServiceWorker: event.sw,
+                }));
+            });
+
+            wb.register({ immediate });
         }
     };
 

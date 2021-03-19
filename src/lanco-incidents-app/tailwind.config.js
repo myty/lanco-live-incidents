@@ -2,7 +2,16 @@ module.exports = {
     purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            keyframes: {
+                "reverse-spin": {
+                    "100%": { transform: "rotate(-360deg)" },
+                },
+            },
+            animation: {
+                "reverse-spin": "reverse-spin 1s linear infinite",
+            },
+        },
     },
     variants: {
         extend: {},

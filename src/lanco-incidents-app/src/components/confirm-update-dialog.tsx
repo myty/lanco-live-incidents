@@ -23,7 +23,7 @@ const ConfirmUpdateDialog: React.FC<ConfirmUpdateDialogProps> = ({
             <button
                 className="px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-800 rounded"
                 onClick={onIgnore}>
-                Ignore
+                Not Now
             </button>
             <button
                 className="px-2 py-1 font-semibold text-white bg-blue-900 border border-white rounded"
