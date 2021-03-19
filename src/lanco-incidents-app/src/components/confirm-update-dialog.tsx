@@ -4,8 +4,8 @@ import React, { useState } from "react";
 const ConfirmUpdateDialog: React.FC = () => {
     const {
         appNeedsRefresh,
-        updateIgnored,
         ignoreUpdate,
+        updateIgnored,
         updateServiceWorker,
     } = useServiceWorker();
 
@@ -21,8 +21,8 @@ const ConfirmUpdateDialog: React.FC = () => {
     }
 
     const updateButtonClasses = isUpdating
-        ? "text-gray-800 bg-gray-200 border-gray-800"
-        : "text-white bg-blue-900 border-white";
+        ? "text-gray-800 bg-gray-200 border-gray-500"
+        : "text-white bg-blue-900 border-gray-500";
 
     return (
         <div className="flex items-center px-4 py-2 text-sm bg-blue-200">
@@ -31,7 +31,7 @@ const ConfirmUpdateDialog: React.FC = () => {
             </div>
             {!isUpdating && (
                 <button
-                    className="flex-shrink-0 px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-800 rounded"
+                    className="flex-shrink-0 px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-500 rounded"
                     onClick={ignoreUpdate}>
                     Not Now
                 </button>
