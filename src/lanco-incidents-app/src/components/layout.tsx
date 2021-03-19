@@ -23,7 +23,7 @@ export default function Layout({
     return (
         <div className="flex h-screen">
             <div className="flex flex-col flex-1 w-full">
-                <header className="z-40 py-4 bg-blue-900 shadow-bottom text-gray-50">
+                <header className="z-40 py-4 bg-blue-900 text-gray-50">
                     <div className="flex items-center h-full px-6 mx-auto">
                         <div className="flex-grow inline-block text-lg font-semibold ">
                             {headerLeft}
@@ -32,11 +32,13 @@ export default function Layout({
                     </div>
                 </header>
                 <ConfirmUpdateDialog
-                    updateAvailable={appNeedsRefresh && !updateIgnored}
+                    updateAvailable={true}
                     onIgnore={ignoreUpdate}
                     onUpdate={updateServiceWorker}
                 />
-                <main className="h-full overflow-y-auto">{children}</main>
+                <main className="h-full overflow-y-auto shadow-inner">
+                    {children}
+                </main>
             </div>
         </div>
     );
