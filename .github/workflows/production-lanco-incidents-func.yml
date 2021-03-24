@@ -16,7 +16,7 @@ on:
 env:
     AZURE_FUNCTIONAPP_NAME: lanco-incidents-func
     AZURE_FUNCTIONAPP_PACKAGE_PATH: src/lanco-incidents-func"
-    DOTNET_VERSION: "5.0.200"
+    DOTNET_VERSION: "5.0.201"
 
 jobs:
     build-and-deploy:
@@ -31,11 +31,12 @@ jobs:
                   dotnet-version: ${{ env.DOTNET_VERSION }}
 
             - name: "Resolve Project Dependencies Using Dotnet"
-              shell: pwsh
-              run: |
-                  pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-                  dotnet build --configuration Release --output ./output
-                  popd
+                shell: pwsh
+                run: |
+                    pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+                    dotnet build --configuration Release --output ./output
+                    popd
+
             - name: "Run Azure Functions Action"
               uses: Azure/functions-action@v1
               id: fa
