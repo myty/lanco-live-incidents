@@ -115,3 +115,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .secrets
+src/lanco-incidents-func/output
