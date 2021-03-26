@@ -1,10 +1,9 @@
-using Microsoft.Extensions.Configuration;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using LancoIncidentsFunc.Interfaces;
+using LancoIncidentsFunc.Models;
 using Microsoft.Azure.Cosmos.Table;
 
 namespace LancoIncidentsFunc.Repositories
@@ -14,7 +13,7 @@ namespace LancoIncidentsFunc.Repositories
         private readonly CloudTableClient _tableClient;
         private readonly CloudTable _incidentTable;
 
-        public LocationRepository(Interfaces.IEnvironmentProvider env)
+        public LocationRepository(IEnvironmentProvider env)
         {
             var connectionString = env.GetEnvironmentVariable("AzureTableStorage");
 

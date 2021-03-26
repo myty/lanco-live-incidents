@@ -12,15 +12,16 @@ namespace LancoIncidentsFunc.Services
 {
     public class FeedService : IFeedService
     {
-        const string RSS_FEED = "https://webcad.lcwc911.us/Pages/Public/LiveIncidentsFeed.aspx";
-
+        private readonly IEnvironmentProvider _env;
         private readonly IDataCache<string, IEnumerable<Incident>> _feedCache;
         private readonly HttpClient _client;
 
         public FeedService(
-            IHttpClientFactory httpClientFactory,
-            IDataCache<string, IEnumerable<Incident>> feedCache)
+            IEnvironmentProvider env,
+            IDataCache<string, IEnumerable<Incident>> feedCache,
+            IHttpClientFactory httpClientFactory)
         {
+            _env = env;
             _feedCache = feedCache;
             _client = httpClientFactory.CreateClient();
         }
@@ -34,12 +35,14 @@ namespace LancoIncidentsFunc.Services
 
         public async Task<IEnumerable<Incident>> GetIncidentsAsync()
         {
-            if (_feedCache.TryGetValue(RSS_FEED, out var feed))
+            var rssFeed = _env.GetEnvironmentVariable("RSS_FEED");
+
+            if (_feedCache.TryGetValue(rssFeed, out var feed))
             {
                 return feed;
             }
 
-            var res = await _client.GetAsync($"{RSS_FEED}?_={DateTime.Now.Ticks}");
+            var res = await _client.GetAsync($"{rssFeed}?_={DateTime.Now.Ticks}");
             var xmlStream = await res.Content.ReadAsStreamAsync();
 
             var cts = new CancellationTokenSource();
@@ -88,7 +91,7 @@ namespace LancoIncidentsFunc.Services
                     return incident;
                 });
 
-            _feedCache.SaveValue(RSS_FEED, incidentsTallied);
+            _feedCache.SaveValue(rssFeed, incidentsTallied);
 
             return incidentsTallied;
         }

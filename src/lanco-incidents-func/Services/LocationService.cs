@@ -12,6 +12,8 @@ namespace LancoIncidentsFunc.Services
 {
     public class LocationService : ILocationService
     {
+        const string GEOCODE_API = "https://maps.googleapis.com/maps/api/geocode/json";
+
         private readonly IDataCache<(string, string), LocationEntity> _locationCache;
         private readonly ILocationRepository _locationRepository;
         private readonly HttpClient _client;
@@ -84,9 +86,8 @@ namespace LancoIncidentsFunc.Services
 
         async Task<Geocode> GetGeocodeAsync(string address, string apiKey)
         {
-            var apiBaseUrl = "https://maps.googleapis.com/maps/api/geocode/json";
             var encodedAddress = WebUtility.UrlEncode(address);
-            var apiFetchUrl = $"{apiBaseUrl}?address={encodedAddress}&key={apiKey}&_={DateTime.Now.Ticks}";
+            var apiFetchUrl = $"{GEOCODE_API}?address={encodedAddress}&key={apiKey}&_={DateTime.Now.Ticks}";
 
             var res = await _client.GetAsync(apiFetchUrl);
             res.EnsureSuccessStatusCode();
