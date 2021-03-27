@@ -7,7 +7,8 @@
         "dev": "yarn --cwd src/lanco-incidents-app dev",
         "build": "yarn --cwd src/lanco-incidents-app build",
         "serve": "yarn --cwd src/lanco-incidents-app serve",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "func": "cd src/lanco-incidents-func && func start"
     },
     "devDependencies": {
         "@ehutch79/vite-eslint": "^0.0.1",

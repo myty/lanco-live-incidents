@@ -16,28 +16,41 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
     });
 
     return (
-        <li>
-            <Link
-                className="flex p-2 mb-1 text-xs text-gray-500 bg-gray-100 border border-gray-200 rounded shadow-sm hover:bg-gray-50"
-                to={`/incidents/${incident.id}`}>
-                <div className="flex-grow">
-                    <div className="text-sm font-bold text-gray-900">
-                        {incident.type}
-                    </div>
-                    {incident.subType && (
-                        <div className="font-bold text-blue-800">
-                            {incident.subType}
+        <li className="flex flex-row mb-2 border-gray-400">
+            <Link className="w-full" to={`/incidents/${incident.id}`}>
+                <div className="flex items-center flex-1 p-4 transition duration-500 ease-in-out transform bg-white rounded-md shadow cursor-pointer select-none hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800">
+                    <div className="flex-grow">
+                        <div className="text-sm font-bold text-gray-900">
+                            {incident.type}
                         </div>
-                    )}
-                    <div className="">{incident.location}</div>
-                    <div className="">{incident.area}</div>
-                </div>
-                <div className="flex-shrink-0 ml-2 w-14">
-                    <div>{incident.getIncidentTimeSimple()}</div>
-                    <div>
-                        {distance == null ? "--" : `${distance.toFixed(2)} mi`}
+                        {incident.subType && (
+                            <div className="font-bold text-blue-800">
+                                {incident.subType}
+                            </div>
+                        )}
+                        <div className="">{incident.location}</div>
+                        <div className="">{incident.area}</div>
                     </div>
-                    <div>Units: {incident.unitsAssigned.length}</div>
+                    <div className="flex-shrink-0 ml-2 w-14">
+                        <div>{incident.getIncidentTimeSimple()}</div>
+                        <div>
+                            {distance == null
+                                ? "--"
+                                : `${distance.toFixed(2)} mi`}
+                        </div>
+                        <div>Units: {incident.unitsAssigned.length}</div>
+                    </div>
+                    <div className="flex justify-end w-24 text-right">
+                        <svg
+                            width="12"
+                            fill="currentColor"
+                            height="12"
+                            className="text-gray-500 hover:text-gray-800 dark:hover:text-white dark:text-gray-200"
+                            viewBox="0 0 1792 1792"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
+                        </svg>
+                    </div>
                 </div>
             </Link>
         </li>
