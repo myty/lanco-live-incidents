@@ -18,7 +18,7 @@ const Home: React.FC = () => {
                     onClick={refresh}
                 />
             }>
-            <div className="py-2 text-xs bg-gray-100">
+            <div className="p-2 text-xs bg-gray-100">
                 <IncidentsList incidents={incidents} />
             </div>
         </Layout>

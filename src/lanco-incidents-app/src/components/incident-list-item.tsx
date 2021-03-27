@@ -19,7 +19,7 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
         <li className="flex flex-row mb-2 border-gray-400">
             <Link className="w-full" to={`/incidents/${incident.id}`}>
                 <div className="flex items-center flex-1 p-4 transition duration-500 ease-in-out transform bg-white rounded-md shadow cursor-pointer select-none hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800">
-                    <div className="flex-grow">
+                    <div className="flex-grow pr-2">
                         <div className="text-sm font-bold text-gray-900">
                             {incident.type}
                         </div>
@@ -31,7 +31,7 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
                         <div className="">{incident.location}</div>
                         <div className="">{incident.area}</div>
                     </div>
-                    <div className="flex-shrink-0 ml-2 w-14">
+                    <div className="flex-shrink-0 w-16 ml-2">
                         <div>{incident.getIncidentTimeSimple()}</div>
                         <div>
                             {distance == null
@@ -40,7 +40,7 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
                         </div>
                         <div>Units: {incident.unitsAssigned.length}</div>
                     </div>
-                    <div className="flex justify-end w-24 text-right">
+                    <div className="flex-shrink-0 w-4 text-right">
                         <svg
                             width="12"
                             fill="currentColor"
