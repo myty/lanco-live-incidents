@@ -18,7 +18,7 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
     return (
         <li className="flex flex-row mb-2 border-gray-400">
             <Link className="w-full" to={`/incidents/${incident.id}`}>
-                <div className="flex items-center flex-1 p-4 transition duration-500 ease-in-out transform bg-white rounded-md shadow cursor-pointer select-none hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800">
+                <div className="flex items-center flex-1 p-4 bg-white rounded-md shadow cursor-pointer select-none">
                     <div className="flex-grow pr-2">
                         <div className="text-sm font-bold text-gray-900">
                             {incident.type}

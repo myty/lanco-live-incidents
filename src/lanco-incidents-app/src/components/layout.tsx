@@ -24,7 +24,7 @@ export default function Layout({
                     </div>
                 </header>
                 <ConfirmUpdateDialog />
-                <main className="h-full overflow-y-auto shadow-inner">
+                <main className="h-full overflow-y-auto shadow-inner bg-gray-100">
                     {children}
                 </main>
             </div>
