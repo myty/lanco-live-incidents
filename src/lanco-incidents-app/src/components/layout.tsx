@@ -6,9 +6,11 @@ import { PropsWithChildren } from "react";
 interface LayoutProps {
     headerLeft: ReactNode;
     headerRight?: ReactNode;
+    pageBgStyle: "bg-white" | "bg-gray-100";
 }
 
 export default function Layout({
+    pageBgStyle,
     children,
     headerLeft,
     headerRight,
@@ -27,8 +29,8 @@ export default function Layout({
         <div className="flex h-screen">
             <div className="flex flex-col flex-1 w-full">
                 <header
-                    className={`z-40 py-4 bg-blue-900 text-gray-50 ${headerShadowClass}`}>
-                    <div className="flex items-center h-full px-6 mx-auto">
+                    className={`z-40 bg-blue-900 text-gray-50 ${headerShadowClass}`}>
+                    <div className="flex items-center h-full px-6 py-4 mx-auto">
                         <div className="flex-grow inline-block text-lg font-semibold ">
                             {headerLeft}
                         </div>
@@ -40,7 +42,7 @@ export default function Layout({
                     onDismiss={ignoreUpdate}
                     onUpdate={updateServiceWorker}
                 />
-                <main className="h-full overflow-y-auto bg-white">
+                <main className={`h-full overflow-y-auto ${pageBgStyle}`}>
                     {children}
                 </main>
             </div>

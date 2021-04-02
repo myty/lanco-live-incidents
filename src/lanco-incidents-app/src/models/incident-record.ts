@@ -4,14 +4,15 @@ import { DateTime } from "luxon";
 export type Geocode = { lat: number; lng: number };
 
 interface Incident {
+    area: string;
+    distance?: number;
+    geoLocation?: Geocode;
     id: string;
     incidentDate: DateTime;
-    type: string;
-    subType: string;
     location: string;
-    area: string;
+    subType: string;
+    type: string;
     unitsAssigned: string[];
-    geoLocation?: Geocode;
 }
 
 export class IncidentRecord extends ImmutableRecord<Incident>({

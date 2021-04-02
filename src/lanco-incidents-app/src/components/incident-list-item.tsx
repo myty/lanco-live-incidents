@@ -1,4 +1,3 @@
-import useGeolocation from "hooks/use-gps-location";
 import { IncidentRecord } from "models/incident-record";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -10,11 +9,6 @@ interface IncidentListItemProps {
 export const IncidentListItem: React.FC<IncidentListItemProps> = ({
     incident,
 }) => {
-    const { distance } = useGeolocation({
-        fromLocation: incident.geoLocation,
-        measurement: "miles",
-    });
-
     return (
         <li className="flex flex-row mb-2 border-gray-400">
             <Link className="w-full" to={`/incidents/${incident.id}`}>
@@ -34,9 +28,9 @@ export const IncidentListItem: React.FC<IncidentListItemProps> = ({
                     <div className="flex-shrink-0 w-16 ml-2">
                         <div>{incident.getIncidentTimeSimple()}</div>
                         <div>
-                            {distance == null
+                            {incident.distance == null
                                 ? "--"
-                                : `${distance.toFixed(2)} mi`}
+                                : `${incident.distance.toFixed(2)} mi`}
                         </div>
                         <div>Units: {incident.unitsAssigned.length}</div>
                     </div>

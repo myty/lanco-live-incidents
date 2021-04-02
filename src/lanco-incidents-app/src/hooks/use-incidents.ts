@@ -1,5 +1,10 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { IncidentsContext } from "providers/incidents-provider";
+import { Sort } from "models/settings-record";
+import { chain } from "lodash";
+import useGeolocation from "hooks/use-gps-location";
+import { DistanceUtils } from "utils/distance-utils";
+import useSettings from "hooks/use-settings";
 
 interface UseIncidentsHookOptions {
     id?: string;
@@ -7,17 +12,53 @@ interface UseIncidentsHookOptions {
 
 export default function useIncidents(options?: UseIncidentsHookOptions) {
     const { id } = options ?? {};
-    const { incidents, state, error, dispatch } = useContext(IncidentsContext);
+    const { sort } = useSettings();
+    const { incidents: incidentRecords, state, error, dispatch } = useContext(
+        IncidentsContext
+    );
+    const { currentPosition } = useGeolocation();
 
-    const incident =
-        id && incidents.length >= 1
-            ? incidents.filter((incident) => incident.id === id)[0]
-            : null;
+    const incidents = useMemo(() => {
+        return chain(incidentRecords)
+            .filter((incident) => {
+                if (id != null) {
+                    return incident.id === id;
+                }
+
+                return true;
+            })
+            .map((incident) => {
+                const { geoLocation } = incident;
+                if (
+                    currentPosition == null ||
+                    geoLocation?.lat == null ||
+                    geoLocation?.lng == null
+                ) {
+                    return incident;
+                }
+
+                const distance = DistanceUtils.distanceBetween(geoLocation, {
+                    lat: currentPosition.coords.latitude,
+                    lng: currentPosition.coords.longitude,
+                });
+
+                return incident.with({ distance });
+            })
+            .orderBy((incident) => {
+                if (sort === Sort.Latest) {
+                    return -1 * incident.getTimeSince();
+                }
+
+                return incident?.distance ?? Number.MAX_SAFE_INTEGER;
+            });
+    }, [id, incidentRecords, sort]);
+
+    const incident = id != null ? incidents.first().value() : null;
 
     return {
         error,
         incident,
-        incidents,
+        incidents: incidents.value(),
         loading: state === "LOADING",
         refresh: () => dispatch({ type: "LOAD" }),
     };

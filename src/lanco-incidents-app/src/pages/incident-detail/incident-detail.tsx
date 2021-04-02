@@ -15,6 +15,7 @@ export default function IncidentDetail(props: IncidentDetailProps) {
 
     return (
         <Layout
+            pageBgStyle="bg-white"
             headerLeft={
                 <IncidentDetailTitle
                     incident={incident}
