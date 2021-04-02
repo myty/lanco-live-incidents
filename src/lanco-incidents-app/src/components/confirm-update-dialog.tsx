@@ -1,22 +1,24 @@
-import useServiceWorker from "hooks/use-service-worker";
 import React, { useState } from "react";
 
-const ConfirmUpdateDialog: React.FC = () => {
-    const {
-        appNeedsRefresh,
-        ignoreUpdate,
-        updateIgnored,
-        updateServiceWorker,
-    } = useServiceWorker();
+interface ConfirmUpdateDialogProps {
+    onDismiss: () => void;
+    onUpdate: () => void;
+    showUpdateMessage: boolean;
+}
 
+const ConfirmUpdateDialog: React.FC<ConfirmUpdateDialogProps> = ({
+    onDismiss,
+    onUpdate,
+    showUpdateMessage,
+}) => {
     const [isUpdating, setIsUpdating] = useState(false);
 
     const handleUpdate = () => {
         setIsUpdating(true);
-        updateServiceWorker();
+        onUpdate();
     };
 
-    if (!appNeedsRefresh || updateIgnored) {
+    if (!showUpdateMessage) {
         return null;
     }
 
@@ -25,14 +27,14 @@ const ConfirmUpdateDialog: React.FC = () => {
         : "text-white bg-blue-900 border-gray-500";
 
     return (
-        <div className="flex items-center px-4 py-2 text-sm bg-blue-200">
+        <div className="flex items-center px-4 py-2 text-sm bg-blue-200 shadow">
             <div className="flex-grow text-xs color-gray-900">
                 There are new updates available. Would you like to update?
             </div>
             {!isUpdating && (
                 <button
                     className="flex-shrink-0 px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-500 rounded"
-                    onClick={ignoreUpdate}>
+                    onClick={onDismiss}>
                     Not Now
                 </button>
             )}
