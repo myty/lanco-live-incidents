@@ -18,7 +18,7 @@ namespace LancoIncidentsFunc.Services
         {
             using var entry = _memoryCache.CreateEntry(key);
             entry.Value = value;
-            entry.AbsoluteExpiration = DateTime.UtcNow.AddHours(1);
+            entry.AbsoluteExpiration = DateTime.UtcNow.AddHours(24);
         }
 
         public bool TryGetValue((string, string) key, out LocationEntity value)
