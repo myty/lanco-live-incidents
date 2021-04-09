@@ -7,12 +7,7 @@ import React, { useState } from "react";
 export type FilterSortMenuStatus = "open" | "closed";
 
 const FilterSortMenu: React.FC = () => {
-    const {
-        incidentTypeFilters,
-        sort,
-        updateIncidentTypeFilters,
-        updateSort,
-    } = useSettings();
+    const { incidentTypeFilters, sort, updateSettings } = useSettings();
     const [status, setStatus] = useState<FilterSortMenuStatus>("closed");
 
     const handleMenuClose = () => setStatus("closed");
@@ -21,8 +16,7 @@ const FilterSortMenu: React.FC = () => {
         incidentTypeFilters: Record<string, boolean>,
         sort: Sort
     ) => {
-        updateSort(sort);
-        updateIncidentTypeFilters(incidentTypeFilters);
+        updateSettings(incidentTypeFilters, sort);
         handleMenuClose();
     };
 

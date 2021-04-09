@@ -15,14 +15,14 @@ interface SettingsContextState {
 
 type SettingsContextAction =
     | { type: "Initialize"; settings: Settings }
-    | { type: "UpdateIncidentSort"; sort: Sort }
+    | {
+          type: "UpdateSettings";
+          sort: Sort;
+          incidentTypeFilters: Record<string, boolean>;
+      }
     | {
           type: "SetIncidentTypeFilters";
           incidentTypes: string[];
-      }
-    | {
-          type: "UpdateIncidentTypeFilters";
-          incidentTypeFilters: Record<string, boolean>;
       };
 
 const defaultState: SettingsContextState = {
@@ -49,15 +49,9 @@ function settingsContextReducer(
                 settings: state.settings.with(action.settings),
                 status: "LOADED",
             };
-        case "UpdateIncidentSort":
-            const { sort } = action;
-            const settingsWithSort = state.settings.with({ sort });
-
-            localStorage.setItem("@settings", JSON.stringify(settingsWithSort));
-
-            return { ...state, settings: settingsWithSort };
-        case "UpdateIncidentTypeFilters":
+        case "UpdateSettings":
             const settingsWithIncidentTypeFilter = state.settings.with({
+                sort: action.sort,
                 incidentTypeFilters: {
                     ...state.settings.incidentTypeFilters,
                     ...action.incidentTypeFilters,

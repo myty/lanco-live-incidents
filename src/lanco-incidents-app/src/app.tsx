@@ -8,12 +8,12 @@ import SettingsProvider from "providers/settings-provider";
 
 function App() {
     return (
-        <SettingsProvider>
-            <GeolocationProvider
-                enableHighAccuracy
-                maximumAge={1000}
-                timeout={20000}
-                watch>
+        <GeolocationProvider
+            enableHighAccuracy
+            maximumAge={1000}
+            timeout={20000}
+            watch>
+            <SettingsProvider>
                 <IncidentsProvider>
                     <Router>
                         <Switch>
@@ -26,8 +26,8 @@ function App() {
                         </Switch>
                     </Router>
                 </IncidentsProvider>
-            </GeolocationProvider>
-        </SettingsProvider>
+            </SettingsProvider>
+        </GeolocationProvider>
     );
 }
 

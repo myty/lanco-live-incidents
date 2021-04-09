@@ -6,10 +6,10 @@ interface UseSettingsHook {
     addIncidentTypes: (incidentTypes: string[]) => void;
     incidentTypeFilters: Record<string, boolean>;
     sort: Sort;
-    updateIncidentTypeFilters: (
-        incidentTypeFilters: Record<string, boolean>
+    updateSettings: (
+        incidentTypeFilters: Record<string, boolean>,
+        sort: Sort
     ) => void;
-    updateSort: (sort: Sort) => void;
 }
 
 export default function useSettings(): UseSettingsHook {
@@ -23,14 +23,14 @@ export default function useSettings(): UseSettingsHook {
             dispatch({ type: "SetIncidentTypeFilters", incidentTypes }),
         incidentTypeFilters,
         sort,
-        updateIncidentTypeFilters: (
-            incidentTypeFilters: Record<string, boolean>
+        updateSettings: (
+            incidentTypeFilters: Record<string, boolean>,
+            sort: Sort
         ) =>
             dispatch({
-                type: "UpdateIncidentTypeFilters",
+                type: "UpdateSettings",
                 incidentTypeFilters,
+                sort,
             }),
-        updateSort: (sort: Sort) =>
-            dispatch({ type: "UpdateIncidentSort", sort }),
     };
 }
