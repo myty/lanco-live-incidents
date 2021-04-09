@@ -33,6 +33,8 @@ const GeolocationProvider: React.FC<
         dispatch,
     ] = useState<GeolocationContextState>({});
 
+    const { enableHighAccuracy, maximumAge, timeout } = positionOptions;
+
     const handlePostionChange = (position: GeolocationPosition) => {
         dispatch((prev) => ({
             ...prev,
@@ -54,17 +56,17 @@ const GeolocationProvider: React.FC<
                 return navigator.geolocation.watchPosition(
                     handlePostionChange,
                     handlePositionError,
-                    positionOptions
+                    { enableHighAccuracy, maximumAge, timeout }
                 );
             }
 
             navigator.geolocation.getCurrentPosition(
                 handlePostionChange,
                 handlePositionError,
-                positionOptions
+                { enableHighAccuracy, maximumAge, timeout }
             );
         }
-    }, [watch]);
+    }, [enableHighAccuracy, maximumAge, timeout, watch]);
 
     useEffect(() => {
         const watchId = processCurrentPosition();
