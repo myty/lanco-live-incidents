@@ -10,6 +10,8 @@ import {
 import { DateTime } from "luxon";
 import axios from "axios";
 import React from "react";
+import useSettings from "hooks/use-settings";
+import { chain } from "lodash";
 
 interface FeedIncident {
     id: string;
@@ -124,6 +126,7 @@ export const IncidentsContext = React.createContext<IncidentsContextType>({
 });
 
 export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
+    const { addIncidentTypes } = useSettings();
     const [{ incidents, state, error }, dispatch] = useReducer(
         reducer,
         defaultState
@@ -157,18 +160,25 @@ export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
                 });
             });
 
+            addIncidentTypes(
+                chain(incidents)
+                    .map((i) => i.type)
+                    .uniq()
+                    .value()
+            );
+
             dispatch({ type: "LOADED", incidents });
         } catch (error) {
             console.log(error);
             dispatch({ type: "ERROR", error });
         }
-    }, []);
+    }, [addIncidentTypes]);
 
     useEffect(() => {
         if (state === "LOADING") {
             processFeed();
         }
-    }, [state]);
+    }, [processFeed, state]);
 
     return (
         <IncidentsContext.Provider

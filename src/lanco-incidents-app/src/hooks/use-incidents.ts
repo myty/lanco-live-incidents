@@ -12,11 +12,15 @@ interface UseIncidentsHookOptions {
 
 export default function useIncidents(options?: UseIncidentsHookOptions) {
     const { id } = options ?? {};
-    const { sort } = useSettings();
+    const { incidentTypeFilters, sort } = useSettings();
     const { incidents: incidentRecords, state, error, dispatch } = useContext(
         IncidentsContext
     );
     const { currentPosition } = useGeolocation();
+
+    const allowedIncidentTypes = Object.keys(incidentTypeFilters).filter(
+        (key) => incidentTypeFilters[key]
+    );
 
     const incidents = useMemo(() => {
         return chain(incidentRecords)
@@ -25,7 +29,7 @@ export default function useIncidents(options?: UseIncidentsHookOptions) {
                     return incident.id === id;
                 }
 
-                return true;
+                return allowedIncidentTypes.includes(incident.type);
             })
             .map((incident) => {
                 const { geoLocation } = incident;
@@ -51,7 +55,7 @@ export default function useIncidents(options?: UseIncidentsHookOptions) {
 
                 return incident?.distance ?? Number.MAX_SAFE_INTEGER;
             });
-    }, [id, incidentRecords, sort]);
+    }, [allowedIncidentTypes, currentPosition, id, incidentRecords, sort]);
 
     const incident = id != null ? incidents.first().value() : null;
 

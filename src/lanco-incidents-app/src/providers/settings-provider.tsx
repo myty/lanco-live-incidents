@@ -15,7 +15,15 @@ interface SettingsContextState {
 
 type SettingsContextAction =
     | { type: "Initialize"; settings: Settings }
-    | { type: "UpdateIncidentSort"; sort: Sort };
+    | { type: "UpdateIncidentSort"; sort: Sort }
+    | {
+          type: "SetIncidentTypeFilters";
+          incidentTypes: string[];
+      }
+    | {
+          type: "UpdateIncidentTypeFilters";
+          incidentTypeFilters: Record<string, boolean>;
+      };
 
 const defaultState: SettingsContextState = {
     settings: new SettingsRecord(),
@@ -28,7 +36,7 @@ export type SettingsContextType = SettingsContextState & {
 
 export const SettingsContext = createContext<SettingsContextType>({
     ...defaultState,
-    dispatch: (value: SettingsContextAction) => {},
+    dispatch: () => {},
 });
 
 function settingsContextReducer(
@@ -43,11 +51,53 @@ function settingsContextReducer(
             };
         case "UpdateIncidentSort":
             const { sort } = action;
-            const settings = state.settings.with({ sort });
+            const settingsWithSort = state.settings.with({ sort });
 
-            localStorage.setItem("@settings", JSON.stringify(settings));
+            localStorage.setItem("@settings", JSON.stringify(settingsWithSort));
 
-            return { ...state, settings };
+            return { ...state, settings: settingsWithSort };
+        case "UpdateIncidentTypeFilters":
+            const settingsWithIncidentTypeFilter = state.settings.with({
+                incidentTypeFilters: {
+                    ...state.settings.incidentTypeFilters,
+                    ...action.incidentTypeFilters,
+                },
+            });
+
+            localStorage.setItem(
+                "@settings",
+                JSON.stringify(settingsWithIncidentTypeFilter)
+            );
+
+            return { ...state, settings: settingsWithIncidentTypeFilter };
+        case "SetIncidentTypeFilters":
+            const { incidentTypes } = action;
+            const savedIncidentTypeFilters = Object.keys(
+                state.settings.incidentTypeFilters
+            );
+
+            const incidentTypeFiltersToAdd = incidentTypes
+                .filter((i) => !savedIncidentTypeFilters.includes(i))
+                .reduce((prev: Record<string, boolean>, current: string) => {
+                    return {
+                        ...prev,
+                        [current]: true,
+                    };
+                }, {});
+
+            const settingsWithIncidentTypes = state.settings.with({
+                incidentTypeFilters: {
+                    ...state.settings.incidentTypeFilters,
+                    ...incidentTypeFiltersToAdd,
+                },
+            });
+
+            localStorage.setItem(
+                "@settings",
+                JSON.stringify(settingsWithIncidentTypes)
+            );
+
+            return { ...state, settings: settingsWithIncidentTypes };
     }
 }
 

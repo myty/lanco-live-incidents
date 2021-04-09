@@ -1,6 +1,7 @@
 import React, {
     createContext,
     PropsWithChildren,
+    useCallback,
     useEffect,
     useState,
 } from "react";
@@ -60,7 +61,7 @@ const ServiceWorkerProvider: React.FC<
         }));
     };
 
-    const loadServiceWorker = () => {
+    const loadServiceWorker = useCallback(() => {
         if ("serviceWorker" in navigator) {
             const wb = new Workbox("/sw.js", { scope: "/" });
 
@@ -100,11 +101,11 @@ const ServiceWorkerProvider: React.FC<
 
             wb.register({ immediate });
         }
-    };
+    }, [immediate]);
 
     useEffect(() => {
         loadServiceWorker();
-    }, []);
+    }, [loadServiceWorker]);
 
     return (
         <ServiceWorkerContext.Provider

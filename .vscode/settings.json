@@ -6,5 +6,8 @@
         "**/dist/**": true,
         "**/node_modules/**": true,
         "**/tsconfig.tsbuildinfo": true
-    }
+    },
+    "eslint.workingDirectories": [
+        { "directory": "src/lanco-incidents-app", "changeProcessCWD": true }
+    ]
 }

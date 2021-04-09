@@ -30,7 +30,7 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
         if (defaultCenter == null && incident?.geoLocation != null) {
             setDefaultCenter(incident.geoLocation);
         }
-    }, [incident]);
+    }, [defaultCenter, incident]);
 
     if (incident == null) {
         return (

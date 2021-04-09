@@ -7,8 +7,10 @@ export enum Sort {
 
 export interface Settings {
     sort: Sort;
+    incidentTypeFilters: Record<string, boolean>;
 }
 
 export class SettingsRecord extends ImmutableRecord<Settings>({
     sort: Sort.Latest,
+    incidentTypeFilters: {},
 }) {}
