@@ -1,6 +1,6 @@
 import { Sort } from "models/settings-record";
 import { SettingsContext } from "providers/settings-provider";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 
 interface UseSettingsHook {
     addIncidentTypes: (incidentTypes: string[]) => void;
@@ -19,18 +19,21 @@ export default function useSettings(): UseSettingsHook {
     } = useContext(SettingsContext);
 
     return {
-        addIncidentTypes: (incidentTypes: string[]) =>
-            dispatch({ type: "SetIncidentTypeFilters", incidentTypes }),
+        addIncidentTypes: useCallback(
+            (incidentTypes: string[]) =>
+                dispatch({ type: "SetIncidentTypeFilters", incidentTypes }),
+            [dispatch]
+        ),
         incidentTypeFilters,
         sort,
-        updateSettings: (
-            incidentTypeFilters: Record<string, boolean>,
-            sort: Sort
-        ) =>
-            dispatch({
-                type: "UpdateSettings",
-                incidentTypeFilters,
-                sort,
-            }),
+        updateSettings: useCallback(
+            (incidentTypeFilters: Record<string, boolean>, sort: Sort) =>
+                dispatch({
+                    type: "UpdateSettings",
+                    incidentTypeFilters,
+                    sort,
+                }),
+            [dispatch]
+        ),
     };
 }

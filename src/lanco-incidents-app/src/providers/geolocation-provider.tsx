@@ -64,7 +64,7 @@ const GeolocationProvider: React.FC<
                 positionOptions
             );
         }
-    }, [positionOptions, watch]);
+    }, [watch]);
 
     useEffect(() => {
         const watchId = processCurrentPosition();
