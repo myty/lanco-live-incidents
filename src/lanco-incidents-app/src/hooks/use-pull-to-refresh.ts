@@ -1,13 +1,39 @@
 import { first } from "lodash";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 
 interface PullToRefreshOptions {
+    /** Element to watch for touch events */
     element?: HTMLElement;
+
+    /** Called when the pull distance is greater than the trigger distance */
     onRefresh: () => void;
+
+    /** (Optional) The distance in pixels of a pull event in which the onRefresh callback will be triggered. Defaults to `40` */
     triggerDistance?: number;
 }
 
-export default function usePullToRefresh(options: PullToRefreshOptions) {
+interface PullToRefreshHook {
+    pullDistance: number;
+    pulling: boolean;
+    refreshing: boolean;
+}
+
+type PullToRefreshAction =
+    | { type: "CHANGE_PULL_DISTANCE"; pullDistance: number }
+    | { type: "RESET_PULL_DISTANCE" }
+    | { type: "START_REFRESH" }
+    | { type: "FINISH_REFRESH" };
+
+const defaultPullToRefreshHook: PullToRefreshHook = {
+    pullDistance: 0,
+    pulling: false,
+    refreshing: false,
+};
+
+export default function usePullToRefresh(
+    options: PullToRefreshOptions
+): PullToRefreshHook {
+    // Props
     const { element, onRefresh, triggerDistance = 40 } = options;
 
     // Private Values
@@ -16,21 +42,19 @@ export default function usePullToRefresh(options: PullToRefreshOptions) {
     const _currentY = useRef<number>();
 
     // Public Values
-    const [refreshing, setRefreshing] = useState<boolean>(
-        _isRefreshing.current
+    const [
+        { pulling, pullDistance, refreshing },
+        dispatch,
+    ] = useReducer(pullToRefreshReducer, undefined, () =>
+        calcultionsAndDefaults()
     );
-    const [pullDistance, setPullDistance] = useState<number>(0);
 
-    const pulling = useMemo(() => {
-        return pullDistance > 0;
-    }, [pullDistance]);
-
+    // Handlers
     const handleRefresh = useCallback(() => {
         _isRefreshing.current = true;
-        setRefreshing(true);
-        setPullDistance(0);
+        dispatch({ type: "START_REFRESH" });
         onRefresh();
-        setRefreshing(false);
+        dispatch({ type: "FINISH_REFRESH" });
         _isRefreshing.current = false;
     }, [onRefresh]);
 
@@ -67,21 +91,11 @@ export default function usePullToRefresh(options: PullToRefreshOptions) {
                 _startY.current != null &&
                 _currentY.current != null
             ) {
-                const nextPullDistance = Math.round(
-                    _currentY.current - _startY.current
-                );
-                setPullDistance((prev) => {
-                    if (nextPullDistance === prev) {
-                        return prev;
-                    }
-
-                    if (nextPullDistance < 0) {
-                        if (prev === 0) return prev;
-
-                        return 0;
-                    }
-
-                    return nextPullDistance;
+                dispatch({
+                    type: "CHANGE_PULL_DISTANCE",
+                    pullDistance: Math.round(
+                        _currentY.current - _startY.current
+                    ),
                 });
             }
         };
@@ -101,7 +115,7 @@ export default function usePullToRefresh(options: PullToRefreshOptions) {
             return;
         }
 
-        const handleTouchEnd = (event: TouchEvent) => {
+        const handleTouchEnd = () => {
             // Activate custom pull-to-refresh effects when at the top of the container,
             // the user is scrolling up, they are at or past the trigger distance, and
             // they've triggere a touchend event
@@ -116,7 +130,7 @@ export default function usePullToRefresh(options: PullToRefreshOptions) {
                 return;
             }
 
-            setPullDistance(0);
+            dispatch({ type: "RESET_PULL_DISTANCE" });
         };
 
         element.addEventListener("touchend", handleTouchEnd, {
@@ -134,3 +148,67 @@ export default function usePullToRefresh(options: PullToRefreshOptions) {
         refreshing,
     };
 }
+
+const pullToRefreshReducer = (
+    state: PullToRefreshHook,
+    action: PullToRefreshAction
+): PullToRefreshHook => {
+    switch (action.type) {
+        case "RESET_PULL_DISTANCE":
+            return calcultionsAndDefaults({
+                ...state,
+                pullDistance: 0,
+            });
+        case "CHANGE_PULL_DISTANCE":
+            return calcultionsAndDefaults({
+                ...state,
+                pullDistance: getNextPullDistance(
+                    state.pullDistance,
+                    action.pullDistance
+                ),
+            });
+        case "START_REFRESH":
+            return calcultionsAndDefaults({
+                ...state,
+                pullDistance: 0,
+                refreshing: true,
+            });
+        case "FINISH_REFRESH":
+            return calcultionsAndDefaults({
+                ...state,
+                pullDistance: 0,
+                refreshing: false,
+            });
+    }
+};
+
+const getNextPullDistance = (
+    prevDistance: number,
+    nextPullDistance: number
+): number => {
+    if (nextPullDistance === prevDistance) {
+        return prevDistance;
+    }
+
+    if (nextPullDistance < defaultPullToRefreshHook.pullDistance) {
+        if (prevDistance === defaultPullToRefreshHook.pullDistance)
+            return prevDistance;
+
+        return defaultPullToRefreshHook.pullDistance;
+    }
+
+    return nextPullDistance;
+};
+
+const calcultionsAndDefaults = (
+    state?: Partial<PullToRefreshHook>
+): PullToRefreshHook => {
+    const { pullDistance = 0 } = state ?? {};
+    const pulling = pullDistance > 0;
+
+    return {
+        ...defaultPullToRefreshHook,
+        ...state,
+        pulling: pulling === state?.pulling ? state.pulling : pulling,
+    };
+};
