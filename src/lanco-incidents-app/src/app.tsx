@@ -5,6 +5,7 @@ import IncidentsProvider from "providers/incidents-provider";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GeolocationProvider from "providers/geolocation-provider";
 import SettingsProvider from "providers/settings-provider";
+import Settings from "pages/settings";
 
 function App() {
     return (
@@ -19,6 +20,9 @@ function App() {
                         <Switch>
                             <Route path="/incidents/:id">
                                 <IncidentDetail />
+                            </Route>
+                            <Route path="/settings">
+                                <Settings />
                             </Route>
                             <Route path="/">
                                 <Home />
