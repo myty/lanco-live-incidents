@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const SettingsButton = () => {
     return (
-        <NavLink className="mr-2" to="/settings">
+        <NavLink className="mr-4" to="/settings">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6"
