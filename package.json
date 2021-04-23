@@ -7,7 +7,8 @@
         "dev": "yarn --cwd src/lanco-incidents-app dev",
         "build": "yarn --cwd src/lanco-incidents-app build",
         "serve": "yarn --cwd src/lanco-incidents-app serve",
-        "ts-check": "yarn --cwd src/lanco-incidents-app ts-check",
+        "lint": "yarn --cwd src/lanco-incidents-app lint",
+        "test-app": "yarn --cwd src/lanco-incidents-app test",
         "prepare": "husky install",
         "func": "cd src/lanco-incidents-func && func start"
     },

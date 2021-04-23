@@ -6,7 +6,7 @@ import ServiceWorkerProvider from "providers/service-worker-provider";
 
 ReactDOM.render(
     <React.StrictMode>
-        <ServiceWorkerProvider>
+        <ServiceWorkerProvider serviceWorkerPath="/sw.js">
             <App />
         </ServiceWorkerProvider>
     </React.StrictMode>,

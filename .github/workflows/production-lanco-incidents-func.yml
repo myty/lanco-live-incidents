@@ -17,7 +17,7 @@ env:
   AZURE_FUNCTIONAPP_NAME: lanco-incidents-func
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "src/lanco-incidents-func"
   DOTNET_3_1_VERSION: "3.1.x"
-  DOTNET_5_0_VERSION: "5.0.201"
+  DOTNET_5_0_VERSION: "5.0.x"
 
 jobs:
   build-and-deploy:

@@ -5,6 +5,7 @@ dist
 # don't lint nyc coverage output
 coverage
 
+jest.config.ts
 vite.config.ts
 tailwind.config.js
 deploy.js
