@@ -3,7 +3,7 @@ import { useCallback, useEffect, useReducer, useRef } from "react";
 
 interface PullToRefreshOptions {
     /** Element to watch for touch events */
-    element?: HTMLElement;
+    element: HTMLElement | null;
 
     /** Called when the pull distance is greater than the trigger distance */
     onRefresh: () => void;
