@@ -1,10 +1,68 @@
 import Layout from "containers/layout";
-import React, { useCallback, useMemo, useState } from "react";
-import useSettings from "hooks/use-settings";
-import { chain } from "lodash";
-import { Sort } from "models/settings-record";
+import React, { useCallback, useEffect, useMemo, useReducer } from "react";
+import useSettings, { UseSettingsHook } from "hooks/use-settings";
+import _, { chain } from "lodash";
 import { useHistory } from "react-router";
 import PageTitle from "components/page-title";
+import SettingsSectionSort from "components/settings/settings-sections/settings-section-sortby";
+import { Sort } from "models/settings-record";
+
+type TypeOfKey<Type, Key extends keyof Type> = Type[Key];
+
+interface SettingsState {
+    incidentFilters: TypeOfKey<UseSettingsHook, "incidentTypeFilters">;
+    sort: TypeOfKey<UseSettingsHook, "sort">;
+}
+
+type SettingsReducerAction =
+    | {
+          type: "initialize";
+          incidentFilters: TypeOfKey<UseSettingsHook, "incidentTypeFilters">;
+          sort: TypeOfKey<UseSettingsHook, "sort">;
+      }
+    | {
+          type: "setSort";
+          sort: TypeOfKey<UseSettingsHook, "sort">;
+      }
+    | {
+          type: "toggleIncidentFilter";
+          key: string;
+      };
+
+const settingsStateDefault: SettingsState = {
+    sort: Sort.Latest,
+    incidentFilters: {},
+};
+
+const settingsReducer = (
+    state: SettingsState,
+    action: SettingsReducerAction
+): SettingsState => {
+    switch (action.type) {
+        case "initialize": {
+            return {
+                ...state,
+                sort: action.sort,
+                incidentFilters: action.incidentFilters,
+            };
+        }
+        case "toggleIncidentFilter": {
+            return {
+                ...state,
+                incidentFilters: {
+                    ...state.incidentFilters,
+                    [action.key]: !state.incidentFilters[action.key],
+                },
+            };
+        }
+        case "setSort": {
+            return {
+                ...state,
+                sort: action.sort,
+            };
+        }
+    }
+};
 
 const Settings: React.FC = () => {
     const { goBack } = useHistory();
@@ -15,90 +73,85 @@ const Settings: React.FC = () => {
         updateSettings,
     } = useSettings();
 
-    const [sort, setSort] = useState(originalSort);
-    const [incidentTypeFilters, setIncidentFilters] = useState(
-        originalIncidentTypeFilters
+    const [{ sort, incidentFilters }, dispatch] = useReducer(
+        settingsReducer,
+        settingsStateDefault
     );
 
-    const incidentTypeFilterList = useMemo(() => {
-        const kvps = Object.keys(incidentTypeFilters).map((key) => ({
+    const sortedIncidentFilters = useMemo(() => {
+        const kvps = Object.keys(incidentFilters).map((key) => ({
             key,
-            value: incidentTypeFilters[key],
+            value: incidentFilters[key],
         }));
 
         return chain(kvps).sortBy("key").value();
-    }, [incidentTypeFilters]);
+    }, [incidentFilters]);
 
     const setIncidentFilter = (key: string) => {
-        setIncidentFilters((prev) => ({
-            ...prev,
-            [key]: !prev[key],
-        }));
+        dispatch({ type: "toggleIncidentFilter", key });
     };
 
     const handleApply = useCallback(() => {
-        updateSettings(incidentTypeFilters, sort);
+        updateSettings(incidentFilters, sort);
         goBack();
-    }, [updateSettings, incidentTypeFilters, sort, goBack]);
+    }, [updateSettings, incidentFilters, sort, goBack]);
+
+    const handleSort = (sort: Sort) => {
+        dispatch({ type: "setSort", sort });
+    };
+
+    const isDirty =
+        originalSort !== sort ||
+        !_.isEqual(originalIncidentTypeFilters, incidentFilters);
+
+    useEffect(() => {
+        dispatch({
+            type: "initialize",
+            sort: originalSort,
+            incidentFilters: originalIncidentTypeFilters,
+        });
+    }, [originalSort, originalIncidentTypeFilters]);
 
     return (
         <Layout
             pageBgStyle="bg-gray-100"
             headerLeft={<PageTitle onBack={goBack}>Settings</PageTitle>}>
-            <div className="flex flex-col">
-                <div className="flex-auto p-4 mx-2 mt-2 text-sm bg-white border-gray-400 rounded-md shadow">
-                    <div className="font-medium ">Sort By:</div>
-                    <div>
-                        <label className="inline-flex items-center pt-2">
-                            <input
-                                className="text-blue-800 form-radio"
-                                type="radio"
-                                checked={sort === Sort.Distance}
-                                value={Sort.Distance}
-                                onChange={() => setSort(Sort.Distance)}
-                            />
-                            <span className="ml-2">Distance</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label className="inline-flex items-center pt-2">
-                            <input
-                                className="text-blue-800 form-radio"
-                                type="radio"
-                                checked={sort === Sort.Latest}
-                                value={Sort.Latest}
-                                onChange={() => setSort(Sort.Latest)}
-                            />
-                            <span className="ml-2">Latest</span>
-                        </label>
+            <div className="flex flex-col max-h-full">
+                <div className="flex flex-col flex-grow">
+                    <SettingsSectionSort
+                        onSortChange={handleSort}
+                        sort={sort}
+                    />
+
+                    <div className="flex-auto p-4 mx-2 mt-2 text-sm bg-white border-gray-400 rounded-md shadow">
+                        <div className="font-medium">Filter:</div>
+                        {sortedIncidentFilters.map((type) => (
+                            <div key={type.key}>
+                                <label className="inline-flex items-center pt-2">
+                                    <input
+                                        className="text-blue-800 form-checkbox"
+                                        type="checkbox"
+                                        checked={type.value}
+                                        onChange={() =>
+                                            setIncidentFilter(type.key)
+                                        }
+                                    />
+                                    <span className="ml-2">{type.key}</span>
+                                </label>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                <div className="flex-auto p-4 mx-2 mt-2 text-sm bg-white border-gray-400 rounded-md shadow">
-                    <div className="font-medium">Filter:</div>
-                    {incidentTypeFilterList.map((type) => (
-                        <div key={type.key}>
-                            <label className="inline-flex items-center pt-2">
-                                <input
-                                    className="text-blue-800 form-checkbox"
-                                    type="checkbox"
-                                    checked={type.value}
-                                    onChange={() => setIncidentFilter(type.key)}
-                                />
-                                <span className="ml-2">{type.key}</span>
-                            </label>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="flex flex-row justify-end flex-auto m-2 mb-2">
+                <div className="flex flex-row justify-end flex-grow-0 m-2 mb-2">
                     <button
-                        className="flex-grow px-2 py-1 mr-1 font-medium uppercase border border-gray-400 rounded bg-gray-50"
+                        className="flex-grow p-2 mr-1 font-medium uppercase border border-gray-400 rounded bg-gray-50"
                         onClick={goBack}>
                         Cancel
                     </button>
                     <button
-                        className="flex-grow px-2 py-1 ml-1 font-medium text-white uppercase bg-blue-800 border border-gray-400 rounded"
+                        className="flex-grow p-2 ml-1 font-medium text-white uppercase bg-blue-800 border border-gray-400 rounded disabled:bg-gray-50 disabled:text-gray-300"
+                        disabled={!isDirty}
                         onClick={handleApply}>
                         Apply
                     </button>
