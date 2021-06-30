@@ -2,7 +2,7 @@ import { Sort } from "models/settings-record";
 import { SettingsContext } from "providers/settings-provider";
 import { useCallback, useContext } from "react";
 
-interface UseSettingsHook {
+export interface UseSettingsHook {
     addIncidentTypes: (incidentTypes: string[]) => void;
     incidentTypeFilters: Record<string, boolean>;
     sort: Sort;
