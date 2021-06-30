@@ -116,45 +116,48 @@ const Settings: React.FC = () => {
         <Layout
             pageBgStyle="bg-gray-100"
             headerLeft={<PageTitle onBack={goBack}>Settings</PageTitle>}>
-            <div className="flex flex-col max-h-full">
-                <div className="flex flex-col flex-grow">
-                    <SettingsSectionSort
-                        onSortChange={handleSort}
-                        sort={sort}
-                    />
+            <div className="flex flex-col flex-auto max-h-full">
+                <div className="flex flex-auto overflow-y-auto">
+                    <div className="block w-full">
+                        <SettingsSectionSort
+                            onSortChange={handleSort}
+                            sort={sort}
+                        />
 
-                    <div className="flex-auto p-4 mx-2 mt-2 text-sm bg-white border-gray-400 rounded-md shadow">
-                        <div className="font-medium">Filter:</div>
-                        {sortedIncidentFilters.map((type) => (
-                            <div key={type.key}>
-                                <label className="inline-flex items-center pt-2">
-                                    <input
-                                        className="text-blue-800 form-checkbox"
-                                        type="checkbox"
-                                        checked={type.value}
-                                        onChange={() =>
-                                            setIncidentFilter(type.key)
-                                        }
-                                    />
-                                    <span className="ml-2">{type.key}</span>
-                                </label>
-                            </div>
-                        ))}
+                        <div className="flex-auto p-4 m-2 text-sm bg-white border-gray-400 rounded-md shadow">
+                            <div className="font-medium">Filter:</div>
+                            {sortedIncidentFilters.map((type) => (
+                                <div key={type.key}>
+                                    <label className="inline-flex items-center pt-2">
+                                        <input
+                                            className="text-blue-800 form-checkbox"
+                                            type="checkbox"
+                                            checked={type.value}
+                                            onChange={() =>
+                                                setIncidentFilter(type.key)
+                                            }
+                                        />
+                                        <span className="ml-2">{type.key}</span>
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-
-                <div className="flex flex-row justify-end flex-grow-0 m-2 mb-2">
-                    <button
-                        className="flex-grow p-2 mr-1 font-medium uppercase border border-gray-400 rounded bg-gray-50"
-                        onClick={goBack}>
-                        Cancel
-                    </button>
-                    <button
-                        className="flex-grow p-2 ml-1 font-medium text-white uppercase bg-blue-800 border border-gray-400 rounded disabled:bg-gray-50 disabled:text-gray-300"
-                        disabled={!isDirty}
-                        onClick={handleApply}>
-                        Apply
-                    </button>
+                <div className="p-2">
+                    <div className="flex w-full">
+                        <button
+                            className="flex-grow p-2 mr-1 font-medium uppercase border border-gray-400 rounded bg-gray-50"
+                            onClick={goBack}>
+                            Cancel
+                        </button>
+                        <button
+                            className="flex-grow p-2 ml-1 font-medium text-white uppercase bg-blue-800 border border-gray-400 rounded disabled:bg-gray-50 disabled:text-gray-300"
+                            disabled={!isDirty}
+                            onClick={handleApply}>
+                            Apply
+                        </button>
+                    </div>
                 </div>
             </div>
         </Layout>
