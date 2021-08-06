@@ -1,4 +1,4 @@
-import { Sort } from "models/settings-record";
+import { Sort } from "models/view-models/settings-record";
 import { SettingsContext } from "providers/settings-provider";
 import { useCallback, useContext } from "react";
 

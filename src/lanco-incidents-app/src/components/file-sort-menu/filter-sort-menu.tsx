@@ -1,7 +1,7 @@
 import FilterSortMenuClosed from "components/file-sort-menu/filter-sort-menu-closed";
 import FilterSortMenuOpened from "components/file-sort-menu/filter-sort-menu-opened";
 import useSettings from "hooks/use-settings";
-import { Sort } from "models/settings-record";
+import { Sort } from "models/view-models/settings-record";
 import React, { useState } from "react";
 
 export type FilterSortMenuStatus = "open" | "closed";
