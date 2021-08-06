@@ -1,17 +1,17 @@
 import Layout from "containers/layout";
 import React from "react";
-import useIncidents from "hooks/use-incidents";
 import { useHistory, useParams } from "react-router-dom";
 import { IncidentDetailContent } from "./incident-detail-content";
 import PageTitle from "components/page-title";
 import { IncidentRecord } from "models/view-models/incident-record";
+import useIncident from "hooks/use-incident";
 
 interface IncidentDetailProps {}
 
 export default function IncidentDetail(props: IncidentDetailProps) {
     const { id } = useParams<{ id: string }>();
     const { goBack } = useHistory();
-    const { incident } = useIncidents({ id });
+    const { incident } = useIncident({ id });
 
     return (
         <Layout

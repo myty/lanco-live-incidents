@@ -1,27 +1,21 @@
-import { useCallback, useContext, useMemo } from "react";
-import { IncidentsContext } from "providers/incidents-provider";
+import { useCallback, useEffect, useMemo } from "react";
 import { Sort } from "models/view-models/settings-record";
 import { chain } from "lodash";
 import useGeolocation from "hooks/use-gps-location";
 import { DistanceUtils } from "utils/distance-utils";
 import useSettings from "hooks/use-settings";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { IncidentRecord } from "models/view-models/incident-record";
 import axios from "axios";
 import { LIVE_FEED } from "constants/app-constants";
 import { FeedIncident } from "models/dtos/feed-incident";
+import { IncidentsAtom } from "atoms/incidents";
 
-interface UseIncidentsHookOptions {
-    id?: string;
-}
-
-const IncidentsAtom = atom<Array<IncidentRecord>>([]);
-
-export default function useIncidents(options?: UseIncidentsHookOptions) {
-    const { id } = options ?? {};
+export default function useIncidents() {
     const { incidentTypeFilters, sort } = useSettings();
-    const [incidentRecords, setIncidentRecords] = useAtom(IncidentsAtom);
-    const { state, error, dispatch } = useContext(IncidentsContext);
+    const [{ incidents: incidentRecords, state, error }, dispatch] = useAtom(
+        IncidentsAtom
+    );
     const { currentPosition } = useGeolocation();
 
     const allowedIncidentTypes = Object.keys(incidentTypeFilters).filter(
@@ -32,23 +26,20 @@ export default function useIncidents(options?: UseIncidentsHookOptions) {
         try {
             const feedIncidents = await axios.get<FeedIncident[]>(LIVE_FEED);
 
-            setIncidentRecords(
-                feedIncidents.data.map(IncidentRecord.fromFeedIncident)
-            );
+            dispatch({
+                type: "LOADED",
+                incidents: feedIncidents.data.map(
+                    IncidentRecord.fromFeedIncident
+                ),
+            });
         } catch (error: unknown) {
             dispatch({ type: "ERROR", error });
         }
-    }, [dispatch, setIncidentRecords]);
+    }, [dispatch]);
 
     const incidents = useMemo(() => {
         return chain(incidentRecords)
-            .filter((incident) => {
-                if (id != null) {
-                    return incident.id === id;
-                }
-
-                return allowedIncidentTypes.includes(incident.type);
-            })
+            .filter((incident) => allowedIncidentTypes.includes(incident.type))
             .map((incident) => {
                 const { geoLocation } = incident;
                 if (
@@ -73,17 +64,22 @@ export default function useIncidents(options?: UseIncidentsHookOptions) {
 
                 return incident?.distance ?? Number.MAX_SAFE_INTEGER;
             });
-    }, [allowedIncidentTypes, currentPosition, id, incidentRecords, sort]);
+    }, [allowedIncidentTypes, currentPosition, incidentRecords, sort]);
 
-    const incident = id != null ? incidents.first().value() : null;
+    const refresh = useCallback(() => {
+        processFeed();
+    }, [processFeed]);
+
+    useEffect(() => {
+        if (state === "LOADING") {
+            processFeed();
+        }
+    }, [processFeed, state]);
 
     return {
         error,
-        incident,
         incidents: incidents.value(),
         loading: state === "LOADING",
-        refresh: useCallback(() => {
-            processFeed();
-        }, [processFeed]),
+        refresh,
     };
 }
