@@ -12,13 +12,13 @@ import { LIVE_FEED } from "constants/app-constants";
 import { FeedIncident } from "models/dtos/feed-incident";
 
 interface UseIncidentsHookOptions {
-    id?: string;
+    id: string;
 }
 
 const IncidentsAtom = atom<Array<IncidentRecord>>([]);
 
-export default function useIncidents(options?: UseIncidentsHookOptions) {
-    const { id } = options ?? {};
+export default function useIncidents(options: UseIncidentsHookOptions) {
+    const { id } = options;
     const { incidentTypeFilters, sort } = useSettings();
     const [incidentRecords, setIncidentRecords] = useAtom(IncidentsAtom);
     const { state, error, dispatch } = useContext(IncidentsContext);
@@ -38,7 +38,7 @@ export default function useIncidents(options?: UseIncidentsHookOptions) {
         } catch (error: unknown) {
             dispatch({ type: "ERROR", error });
         }
-    }, [dispatch, setIncidentRecords]);
+    }, []);
 
     const incidents = useMemo(() => {
         return chain(incidentRecords)
