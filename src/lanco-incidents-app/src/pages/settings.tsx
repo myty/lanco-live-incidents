@@ -5,7 +5,7 @@ import _, { chain } from "lodash";
 import { useHistory } from "react-router";
 import PageTitle from "components/page-title";
 import SettingsSectionSort from "components/settings/settings-sections/settings-section-sortby";
-import { Sort } from "models/settings-record";
+import { Sort } from "models/view-models/settings-record";
 
 type TypeOfKey<Type, Key extends keyof Type> = Type[Key];
 

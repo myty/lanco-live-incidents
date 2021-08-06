@@ -9,5 +9,11 @@
     },
     "eslint.workingDirectories": [
         { "directory": "src/lanco-incidents-app", "changeProcessCWD": true }
-    ]
+    ],
+    "azureFunctions.projectSubpath": "src\\lanco-incidents-func",
+    "azureFunctions.deploySubpath": "src\\lanco-incidents-func/bin/Release/net5.0/publish",
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~3",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "publish (functions)"
 }

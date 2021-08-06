@@ -3,7 +3,7 @@ import useIncidents from "hooks/use-incidents";
 import { Map } from "components/map/map";
 import { Coords } from "google-map-react";
 import { IncidentDetailSection } from "./incident-detail-section";
-import { IncidentRecord } from "models/incident-record";
+import { IncidentRecord } from "models/view-models/incident-record";
 import useGeolocation from "hooks/use-gps-location";
 
 export interface IncidentDetailContentProps {

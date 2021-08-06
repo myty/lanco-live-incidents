@@ -1,4 +1,8 @@
-import { Settings, SettingsRecord, Sort } from "models/settings-record";
+import {
+    Settings,
+    SettingsRecord,
+    Sort,
+} from "models/view-models/settings-record";
 import React, {
     createContext,
     Dispatch,

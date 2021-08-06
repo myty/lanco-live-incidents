@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
 import { IncidentsContext } from "providers/incidents-provider";
-import { Sort } from "models/settings-record";
+import { Sort } from "models/view-models/settings-record";
 import { chain } from "lodash";
 import useGeolocation from "hooks/use-gps-location";
 import { DistanceUtils } from "utils/distance-utils";

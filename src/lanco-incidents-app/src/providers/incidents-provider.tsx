@@ -1,5 +1,5 @@
 import { LIVE_FEED } from "constants/app-constants";
-import { Geocode, IncidentRecord } from "models/incident-record";
+import { IncidentRecord } from "models/view-models/incident-record";
 import {
     Dispatch,
     PropsWithChildren,
@@ -7,31 +7,20 @@ import {
     useEffect,
     useReducer,
 } from "react";
-import { DateTime } from "luxon";
 import axios from "axios";
 import React from "react";
 import useSettings from "hooks/use-settings";
 import { chain } from "lodash";
-
-interface FeedIncident {
-    id: string;
-    incident_dt: string;
-    type: string;
-    subType: string;
-    location: string;
-    area: string;
-    units_assigned: string[];
-    geocode_location?: Geocode | null;
-}
+import { FeedIncident } from "models/dtos/feed-incident";
 
 interface IncidentsContextState {
-    error?: any;
+    error?: unknown;
     incidents: IncidentRecord[];
     state: "LOADING" | "LOADED" | "FAILED";
 }
 
 type IncidentsContextAction =
-    | { type: "ERROR"; error: any }
+    | { type: "ERROR"; error: unknown }
     | { type: "LOAD" }
     | { type: "LOADED"; incidents: IncidentRecord[] };
 
@@ -100,17 +89,6 @@ function updateIncidents(
     return [...itemsToKeep, ...itemsToAdd];
 }
 
-const convertToGeocode = ({
-    lat,
-    lng,
-}: Partial<{ lat: number; lng: number }>): Geocode | undefined => {
-    if (lat == null || lng == null) {
-        return undefined;
-    }
-
-    return { lat, lng };
-};
-
 const defaultState: IncidentsContextState = {
     incidents: [],
     state: "LOADING",
@@ -136,29 +114,9 @@ export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
         try {
             const feedIncidents = await axios.get<FeedIncident[]>(LIVE_FEED);
 
-            const incidents = feedIncidents.data.map((fi) => {
-                const {
-                    incident_dt,
-                    id,
-                    type,
-                    subType,
-                    location,
-                    area,
-                    units_assigned,
-                    geocode_location,
-                } = fi;
-
-                return new IncidentRecord({
-                    id,
-                    incidentDate: DateTime.fromISO(incident_dt, {}),
-                    type,
-                    subType,
-                    location,
-                    area,
-                    unitsAssigned: units_assigned,
-                    geoLocation: convertToGeocode({ ...geocode_location }),
-                });
-            });
+            const incidents = feedIncidents.data.map(
+                IncidentRecord.fromFeedIncident
+            );
 
             addIncidentTypes(
                 chain(incidents)
@@ -168,8 +126,7 @@ export default function IncidentsProvider({ children }: PropsWithChildren<{}>) {
             );
 
             dispatch({ type: "LOADED", incidents });
-        } catch (error) {
-            console.log(error);
+        } catch (error: unknown) {
             dispatch({ type: "ERROR", error });
         }
     }, [addIncidentTypes]);

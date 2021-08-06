@@ -1,4 +1,4 @@
-import { IncidentRecord } from "models/incident-record";
+import { IncidentRecord } from "models/view-models/incident-record";
 import React from "react";
 import { Link } from "react-router-dom";
 

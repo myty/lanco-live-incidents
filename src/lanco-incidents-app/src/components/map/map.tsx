@@ -1,8 +1,9 @@
 import React from "react";
 import GoogleMapReact, { Coords } from "google-map-react";
-import { Geocode, IncidentRecord } from "models/incident-record";
+import { IncidentRecord } from "models/view-models/incident-record";
 import MapMarker from "components/map/map-marker";
 import MapCurrentLocationMarker from "components/map/map-current-location-marker";
+import { Geocode } from "types/geocode";
 
 interface MapProps {
     currentPosition?: Geocode;

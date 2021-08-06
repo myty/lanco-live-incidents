@@ -4,7 +4,7 @@ import useIncidents from "hooks/use-incidents";
 import { useHistory, useParams } from "react-router-dom";
 import { IncidentDetailContent } from "./incident-detail-content";
 import PageTitle from "components/page-title";
-import { IncidentRecord } from "models/incident-record";
+import { IncidentRecord } from "models/view-models/incident-record";
 
 interface IncidentDetailProps {}
 

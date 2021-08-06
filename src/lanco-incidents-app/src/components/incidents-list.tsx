@@ -1,5 +1,5 @@
 import { IncidentListItem } from "components/incident-list-item";
-import { IncidentRecord } from "models/incident-record";
+import { IncidentRecord } from "models/view-models/incident-record";
 import React from "react";
 
 export interface IncidentsListProps {

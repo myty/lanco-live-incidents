@@ -1,4 +1,4 @@
-import { Sort } from "models/settings-record";
+import { Sort } from "models/view-models/settings-record";
 import React from "react";
 
 interface SettingsSectionSortProps {
