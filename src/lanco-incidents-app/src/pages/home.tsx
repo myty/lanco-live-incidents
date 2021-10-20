@@ -1,7 +1,7 @@
 import Layout from "containers/layout";
 import IncidentsList from "components/incidents-list";
 import useIncidents from "hooks/use-incidents";
-import React from "react";
+import React, { useMemo } from "react";
 import { SITE_TITLE } from "constants/app-constants";
 import RefreshButton from "components/refresh-button";
 import SettingsButton from "components/settings-button";
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
                 </>
             }>
             <div className="px-2 pt-2 text-xs overscroll-y-contain">
-                <IncidentsList incidents={incidents} />
+                <IncidentsList incidents={incidents} loading={loading} />
             </div>
         </Layout>
     );

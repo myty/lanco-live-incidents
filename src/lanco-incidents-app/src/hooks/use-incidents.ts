@@ -13,9 +13,8 @@ import { IncidentsAtom } from "atoms/incidents";
 
 export default function useIncidents() {
     const { incidentTypeFilters, sort } = useSettings();
-    const [{ incidents: incidentRecords, state, error }, dispatch] = useAtom(
-        IncidentsAtom
-    );
+    const [{ incidents: incidentRecords, state, error }, dispatch] =
+        useAtom(IncidentsAtom);
     const { currentPosition } = useGeolocation();
 
     const allowedIncidentTypes = Object.keys(incidentTypeFilters).filter(
@@ -24,6 +23,8 @@ export default function useIncidents() {
 
     const processFeed = useCallback(async () => {
         try {
+            dispatch({ type: "LOAD" });
+
             const feedIncidents = await axios.get<FeedIncident[]>(LIVE_FEED);
 
             dispatch({
