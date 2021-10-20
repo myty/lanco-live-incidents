@@ -24,7 +24,7 @@ const Home: React.FC = () => {
                 </>
             }>
             <div className="px-2 pt-2 text-xs overscroll-y-contain">
-                <IncidentsList incidents={incidents} />
+                <IncidentsList incidents={incidents} loading={loading} />
             </div>
         </Layout>
     );
