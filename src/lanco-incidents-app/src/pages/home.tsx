@@ -1,7 +1,7 @@
 import Layout from "containers/layout";
 import IncidentsList from "components/incidents-list";
 import useIncidents from "hooks/use-incidents";
-import React, { useMemo } from "react";
+import React from "react";
 import { SITE_TITLE } from "constants/app-constants";
 import RefreshButton from "components/refresh-button";
 import SettingsButton from "components/settings-button";
