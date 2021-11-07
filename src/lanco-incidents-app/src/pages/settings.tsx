@@ -2,7 +2,7 @@ import Layout from "containers/layout";
 import React, { useCallback, useEffect, useMemo, useReducer } from "react";
 import useSettings, { UseSettingsHook } from "hooks/use-settings";
 import _, { chain } from "lodash";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import PageTitle from "components/page-title";
 import SettingsSectionSort from "components/settings/settings-sections/settings-section-sortby";
 import { Sort } from "models/view-models/settings-record";
@@ -65,7 +65,7 @@ const settingsReducer = (
 };
 
 const Settings: React.FC = () => {
-    const { goBack } = useHistory();
+    const navigate = useNavigate();
 
     const {
         sort: originalSort,
@@ -90,6 +90,10 @@ const Settings: React.FC = () => {
     const setIncidentFilter = (key: string) => {
         dispatch({ type: "toggleIncidentFilter", key });
     };
+
+    const goBack = useCallback(() => {
+        navigate(-1);
+    }, [navigate]);
 
     const handleApply = useCallback(() => {
         updateSettings(incidentFilters, sort);

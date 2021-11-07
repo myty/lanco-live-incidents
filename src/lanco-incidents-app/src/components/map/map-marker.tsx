@@ -1,6 +1,6 @@
 import { Coords } from "google-map-react";
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface MapMarkerProps extends Partial<Coords> {
     id: string;
@@ -13,17 +13,12 @@ export default function MapMarker({
     primary = false,
     text,
 }: MapMarkerProps) {
-    const history = useHistory();
-    const handleMapMarkerClick = () => {
-        history.replace("", { state: false });
-    };
-
     if (!primary) {
         return (
             <Link
                 className="relative flex items-center justify-center w-6 h-6 bg-gray-600 border-4 rounded-full -left-3 -top-3"
-                onClick={handleMapMarkerClick}
-                to={`/incidents/${id}`}>
+                to={`/incidents/${id}`}
+                replace={true}>
                 <div className="sr-only">{text}</div>
             </Link>
         );

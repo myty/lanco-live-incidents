@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "pages/home";
 import IncidentDetail from "pages/incident-detail/incident-detail";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GeolocationProvider from "providers/geolocation-provider";
 import SettingsProvider from "providers/settings-provider";
 import Settings from "pages/settings";
@@ -15,17 +15,14 @@ function App() {
             watch>
             <SettingsProvider>
                 <Router>
-                    <Switch>
-                        <Route path="/incidents/:id">
-                            <IncidentDetail />
-                        </Route>
-                        <Route path="/settings">
-                            <Settings />
-                        </Route>
-                        <Route path="/">
-                            <Home />
-                        </Route>
-                    </Switch>
+                    <Routes>
+                        <Route
+                            path="/incidents/:id"
+                            element={<IncidentDetail />}
+                        />
+                        <Route path="/settings" element={<Settings />} />
+                        <Route path="/" element={<Home />} />
+                    </Routes>
                 </Router>
             </SettingsProvider>
         </GeolocationProvider>

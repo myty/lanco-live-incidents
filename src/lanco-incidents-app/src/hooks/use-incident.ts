@@ -2,7 +2,7 @@ import { chain } from "lodash";
 import useIncidents from "hooks/use-incidents";
 
 interface UseIncidentsHookOptions {
-    id: string;
+    id?: string | null;
 }
 
 export default function useIncident(options: UseIncidentsHookOptions) {
@@ -10,13 +10,7 @@ export default function useIncident(options: UseIncidentsHookOptions) {
 
     const { incidents, error, loading, refresh } = useIncidents();
 
-    const incident =
-        id != null
-            ? chain(incidents)
-                  .filter((i) => i.id === id)
-                  .first()
-                  .value()
-            : null;
+    const incident = id != null ? chain(incidents).find({ id }).value() : null;
 
     return {
         error,

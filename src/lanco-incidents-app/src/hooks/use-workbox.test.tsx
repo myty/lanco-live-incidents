@@ -8,7 +8,7 @@ const mockRegister = jest.fn();
 const mockGetSW = jest.fn().mockResolvedValue({});
 const mockedWorkbox = jest
     .spyOn(workboxWindow, "Workbox")
-    .mockImplementation((scriptUrl: string, registrationOptions?: any) => {
+    .mockImplementation(() => {
         return {
             register: mockRegister,
             getSW: mockGetSW,
