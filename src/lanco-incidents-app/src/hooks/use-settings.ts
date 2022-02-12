@@ -1,9 +1,10 @@
+import { IncidentsAtom } from "atoms/incidents";
+import { useAtom } from "jotai";
 import { Sort } from "models/view-models/settings-record";
 import { SettingsContext } from "providers/settings-provider";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 
 export interface UseSettingsHook {
-    addIncidentTypes: (incidentTypes: string[]) => void;
     incidentTypeFilters: Record<string, boolean>;
     sort: Sort;
     updateSettings: (
@@ -18,12 +19,14 @@ export default function useSettings(): UseSettingsHook {
         dispatch,
     } = useContext(SettingsContext);
 
+    const [{ incidents: incidentRecords }] = useAtom(IncidentsAtom);
+
+    useEffect(() => {
+        const incidentTypes = incidentRecords.map((incident) => incident.type);
+        dispatch({ type: "SetIncidentTypeFilters", incidentTypes });
+    }, [dispatch, incidentRecords]);
+
     return {
-        addIncidentTypes: useCallback(
-            (incidentTypes: string[]) =>
-                dispatch({ type: "SetIncidentTypeFilters", incidentTypes }),
-            [dispatch]
-        ),
         incidentTypeFilters,
         sort,
         updateSettings: useCallback(
