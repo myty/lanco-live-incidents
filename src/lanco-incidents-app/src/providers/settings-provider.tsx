@@ -1,24 +1,17 @@
-import {
-    Settings,
-    SettingsRecord,
-    Sort,
-} from "models/view-models/settings-record";
+import { SettingsRecord, Sort } from "models/view-models/settings-record";
 import React, {
     createContext,
     Dispatch,
     PropsWithChildren,
-    useEffect,
     useReducer,
 } from "react";
 
 interface SettingsContextState {
     error?: any;
     settings: SettingsRecord;
-    status: "LOADING" | "LOADED";
 }
 
 type SettingsContextAction =
-    | { type: "Initialize"; settings: Settings }
     | {
           type: "UpdateSettings";
           sort: Sort;
@@ -31,7 +24,6 @@ type SettingsContextAction =
 
 const defaultState: SettingsContextState = {
     settings: new SettingsRecord(),
-    status: "LOADING",
 };
 
 export type SettingsContextType = SettingsContextState & {
@@ -48,11 +40,6 @@ function settingsContextReducer(
     action: SettingsContextAction
 ): SettingsContextState {
     switch (action.type) {
-        case "Initialize":
-            return {
-                settings: state.settings.with(action.settings),
-                status: "LOADED",
-            };
         case "UpdateSettings":
             const settingsWithIncidentTypeFilter = state.settings.with({
                 sort: action.sort,
@@ -100,24 +87,14 @@ function settingsContextReducer(
 }
 
 const SettingsProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-    const [{ settings, status }, dispatch] = useReducer(
-        settingsContextReducer,
-        {
-            settings: new SettingsRecord(),
-            status: "LOADING",
-        }
-    );
-
-    useEffect(() => {
-        const settings: Settings = JSON.parse(
-            localStorage.getItem("@settings") ?? "{}"
-        );
-
-        dispatch({ type: "Initialize", settings });
-    }, []);
+    const [{ settings }, dispatch] = useReducer(settingsContextReducer, {
+        settings: new SettingsRecord(
+            JSON.parse(localStorage.getItem("@settings") ?? "{}")
+        ),
+    });
 
     return (
-        <SettingsContext.Provider value={{ settings, status, dispatch }}>
+        <SettingsContext.Provider value={{ settings, dispatch }}>
             {children}
         </SettingsContext.Provider>
     );
