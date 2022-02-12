@@ -129,12 +129,14 @@ const Settings: React.FC = () => {
                         />
 
                         <div className="flex-auto p-4 m-2 text-sm bg-white border-gray-400 rounded-md shadow">
-                            <div className="font-medium">Filter:</div>
+                            <div className="font-medium text-gray-500">
+                                Filter:
+                            </div>
                             {sortedIncidentFilters.map((type) => (
                                 <div key={type.key}>
-                                    <label className="inline-flex items-center pt-2">
+                                    <label className="inline-flex items-center pt-2 text-lg">
                                         <input
-                                            className="text-blue-800 form-checkbox"
+                                            className="w-6 h-6 text-blue-800 rounded form-checkbox"
                                             type="checkbox"
                                             checked={type.value}
                                             onChange={() =>

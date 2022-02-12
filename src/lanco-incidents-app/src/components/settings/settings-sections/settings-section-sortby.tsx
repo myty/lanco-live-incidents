@@ -12,11 +12,11 @@ const SettingsSectionSort: React.FC<SettingsSectionSortProps> = ({
 }) => {
     return (
         <div className="flex-auto p-4 mx-2 mt-2 text-sm bg-white border-gray-400 rounded-md shadow">
-            <div className="font-medium ">Sort By:</div>
+            <div className="font-medium text-gray-500">Sort By:</div>
             <div>
-                <label className="inline-flex items-center pt-2">
+                <label className="inline-flex items-center pt-2 text-lg">
                     <input
-                        className="text-blue-800 form-radio"
+                        className="w-6 h-6 text-blue-800 form-radio"
                         type="radio"
                         checked={sort === Sort.Distance}
                         value={Sort.Distance}
@@ -26,9 +26,9 @@ const SettingsSectionSort: React.FC<SettingsSectionSortProps> = ({
                 </label>
             </div>
             <div>
-                <label className="inline-flex items-center pt-2">
+                <label className="inline-flex items-center pt-2 text-lg">
                     <input
-                        className="text-blue-800 form-radio"
+                        className="w-6 h-6 text-blue-800 form-radio"
                         type="radio"
                         checked={sort === Sort.Latest}
                         value={Sort.Latest}
