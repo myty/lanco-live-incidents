@@ -17,10 +17,10 @@
     },
     "devDependencies": {
         "@ehutch79/vite-eslint": "^0.0.1",
-        "@typescript-eslint/eslint-plugin": "^5.12.0",
-        "@typescript-eslint/parser": "^5.12.0",
-        "eslint": "^8.9.0",
-        "eslint-config-airbnb": "^19.0.4",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "@typescript-eslint/parser": "^4.33.0",
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb": "^18.2.1",
         "eslint-config-airbnb-typescript": "^16.1.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-import": "^2.25.4",
@@ -28,7 +28,7 @@
         "eslint-plugin-react": "^7.28.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "husky": "^7.0.4",
-        "lint-staged": "^12.3.4",
+        "lint-staged": "^11.2.6",
         "prettier": "2.5.1"
     },
     "lint-staged": {
@@ -36,6 +36,6 @@
         "*.{ts,tsx,js,css,md}": "prettier --write"
     },
     "volta": {
-        "node": "17.5.0"
+        "node": "12.18.0"
     }
 }
