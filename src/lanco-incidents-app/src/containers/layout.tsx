@@ -1,5 +1,8 @@
+import { IsAppUpdatingAtom } from "atoms/app-update";
 import ConfirmUpdateDialog from "components/confirm-update-dialog";
+import ScreenLoader from "components/screen-loader/screen-loader";
 import useServiceWorker from "hooks/use-service-worker";
+import { useAtomValue } from "jotai";
 import React, { ReactNode } from "react";
 import { PropsWithChildren } from "react";
 
@@ -22,19 +25,22 @@ export default function Layout({
         updateServiceWorker,
     } = useServiceWorker();
 
-    const showUpdateMessage = appNeedsRefresh && !updateIgnored;
+    const isUpdating = useAtomValue(IsAppUpdatingAtom);
+
+    const showUpdateMessage = appNeedsRefresh && !updateIgnored && !isUpdating;
     const headerShadowClass = showUpdateMessage ? "" : "shadow";
 
     return (
         <div className="flex h-screen">
             <div className="flex flex-col flex-1 w-full">
                 <header
-                    className={`z-40 bg-blue-900 text-gray-50 ${headerShadowClass}`}>
+                    className={`z-40 bg-blue-900 text-gray-50 ${headerShadowClass}`}
+                >
                     <div className="flex items-center h-full px-6 py-4 mx-auto">
                         <div className="flex-grow inline-block pr-6 text-lg font-semibold">
                             {headerLeft}
                         </div>
-                        {headerRight}
+                        {!isUpdating ? headerRight : null}
                     </div>
                 </header>
                 <ConfirmUpdateDialog
@@ -43,7 +49,11 @@ export default function Layout({
                     onUpdate={updateServiceWorker}
                 />
                 <main className={`h-full overflow-y-auto ${pageBgStyle}`}>
-                    {children}
+                    {isUpdating ? (
+                        <ScreenLoader text="Updating..." />
+                    ) : (
+                        children
+                    )}
                 </main>
             </div>
         </div>

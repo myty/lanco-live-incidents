@@ -1,5 +1,5 @@
-import IconLoader from "components/icons/icon-refresh";
 import { IncidentListItem } from "components/incident-list-item";
+import ScreenLoader from "components/screen-loader/screen-loader";
 import { IncidentRecord } from "models/view-models/incident-record";
 import React from "react";
 
@@ -15,14 +15,7 @@ export default function IncidentsList({
     const emptyList = (incidents?.length ?? 0) === 0;
 
     if (loading && emptyList) {
-        return (
-            <div className="flex items-center justify-center text-xl font-light text-gray-400 h-96">
-                <div className="text-center">
-                    <IconLoader animate={true} className="w-12 h-12 mx-auto" />{" "}
-                    <div className="mx-auto">Loading incidents</div>
-                </div>
-            </div>
-        );
+        return <ScreenLoader text="Loading incidents" />;
     }
 
     if (emptyList) {

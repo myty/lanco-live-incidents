@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { IsAppUpdatingAtom } from "atoms/app-update";
+import { useAtom } from "jotai";
+import React from "react";
 
 interface ConfirmUpdateDialogProps {
     onDismiss: () => void;
@@ -11,14 +13,14 @@ const ConfirmUpdateDialog: React.FC<ConfirmUpdateDialogProps> = ({
     onUpdate,
     showUpdateMessage,
 }) => {
-    const [isUpdating, setIsUpdating] = useState(false);
+    const [isUpdating, setIsUpdating] = useAtom(IsAppUpdatingAtom);
 
     const handleUpdate = () => {
         setIsUpdating(true);
         onUpdate();
     };
 
-    if (!showUpdateMessage) {
+    if (!showUpdateMessage || isUpdating) {
         return null;
     }
 
@@ -27,23 +29,28 @@ const ConfirmUpdateDialog: React.FC<ConfirmUpdateDialogProps> = ({
         : "text-white bg-blue-900 border-gray-500";
 
     return (
-        <div className="flex items-center px-4 py-2 text-sm bg-blue-200 shadow">
-            <div className="flex-grow text-xs color-gray-900">
-                There are new updates available. Would you like to update?
+        <div className="flex flex-col items-center p-2 text-base bg-blue-200 shadow">
+            <div className="flex-grow text-sm color-gray-900">
+                New functionality is available. Would you like to update now?
             </div>
-            {!isUpdating && (
-                <button
-                    className="flex-shrink-0 px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-500 rounded"
-                    onClick={onDismiss}>
-                    Not Now
-                </button>
-            )}
-            <button
-                className={`flex-shrink-0 px-2 py-1 font-semibold border rounded ${updateButtonClasses}`}
-                disabled={isUpdating}
-                onClick={handleUpdate}>
-                {!isUpdating ? "Update" : "Updating..."}
-            </button>
+            <div className="flex w-full">
+                <div className="grow"></div>
+                <div className="flex-none">
+                    <button
+                        className="flex-shrink-0 px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-500 rounded"
+                        onClick={onDismiss}
+                    >
+                        Not Now
+                    </button>
+                    <button
+                        className={`flex-shrink-0 px-2 py-1 font-semibold border rounded ${updateButtonClasses}`}
+                        disabled={isUpdating}
+                        onClick={handleUpdate}
+                    >
+                        Update
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
