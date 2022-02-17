@@ -11,7 +11,7 @@
         "app:test": "yarn --cwd src/lanco-incidents-app test",
         "prepare": "dotnet tool restore && husky install && dotnet husky install",
         "func:restore": "cd src/lanco-incidents-func && dotnet restore",
-        "func:build": "cd src/lanco-incidents-func && dotnet build",
+        "func:build": "cd src/lanco-incidents-func && dotnet clean && dotnet build",
         "func:start": "cd src/lanco-incidents-func && func start",
         "func:outdated": "cd src/lanco-incidents-func && dotnet outdated"
     },
