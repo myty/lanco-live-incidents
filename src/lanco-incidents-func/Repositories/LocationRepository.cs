@@ -18,12 +18,9 @@ namespace LancoIncidentsFunc.Repositories
             var connectionString = env.GetEnvironmentVariable("AzureTableStorage");
 
             // Connect to the Storage account.
-            _tableClient = CloudStorageAccount
-                .Parse(connectionString)
-                .CreateCloudTableClient();
+            _tableClient = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
-            _incidentTable = _tableClient
-                .GetTableReference("IncidentLocations");
+            _incidentTable = _tableClient.GetTableReference("IncidentLocations");
         }
 
         public async Task SaveAsync(ITableEntity locationEntity)
@@ -37,7 +34,10 @@ namespace LancoIncidentsFunc.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception($"Method: LocationService.SaveAsync, RowKey: {locationEntity.RowKey}", ex);
+                throw new Exception(
+                    $"Method: LocationService.SaveAsync, RowKey: {locationEntity.RowKey}",
+                    ex
+                );
             }
         }
 
@@ -53,8 +53,11 @@ namespace LancoIncidentsFunc.Repositories
                 }
 
                 var columns = new List<string> { "Lat_VC", "Lng_VC" };
-                var retrieveOperation = TableOperation
-                    .Retrieve<LocationEntity>(area, WebUtility.UrlEncode(address), columns);
+                var retrieveOperation = TableOperation.Retrieve<LocationEntity>(
+                    area,
+                    WebUtility.UrlEncode(address),
+                    columns
+                );
 
                 await _incidentTable.CreateIfNotExistsAsync();
                 var result = await _incidentTable.ExecuteAsync(retrieveOperation);
@@ -63,7 +66,10 @@ namespace LancoIncidentsFunc.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception($"Method: LocationService.FindByAddressAsync, RowKey: {address}", ex);
+                throw new Exception(
+                    $"Method: LocationService.FindByAddressAsync, RowKey: {address}",
+                    ex
+                );
             }
         }
     }

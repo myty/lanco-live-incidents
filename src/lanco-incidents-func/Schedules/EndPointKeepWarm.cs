@@ -17,7 +17,8 @@ namespace LancoIncidentsFunc.Schedules
         public EndPointKeepWarm(
             IHttpClientFactory httpClientFactory,
             ILogger<EndPointKeepWarm> log,
-            IEnvironmentProvider env)
+            IEnvironmentProvider env
+        )
         {
             _env = env;
             _log = log;
@@ -28,8 +29,12 @@ namespace LancoIncidentsFunc.Schedules
         [Function("EndPointKeepWarm")]
         public async Task Run([TimerTrigger("0 */4 * * * *")] MyInfo timerInfo)
         {
-            _log.LogInformation($"Function Ran. Next timer schedule = {timerInfo.ScheduleStatus.Next}");
-            _log.LogInformation($"Run(): EndPointKeepWarm function executed at: {DateTime.Now}. Past due? {timerInfo.IsPastDue}");
+            _log.LogInformation(
+                $"Function Ran. Next timer schedule = {timerInfo.ScheduleStatus.Next}"
+            );
+            _log.LogInformation(
+                $"Run(): EndPointKeepWarm function executed at: {DateTime.Now}. Past due? {timerInfo.IsPastDue}"
+            );
 
             foreach (var endpointFunc in GetEndpoints())
             {
@@ -63,9 +68,11 @@ namespace LancoIncidentsFunc.Schedules
             }
             else
             {
-                yield return () => throw new Exception(
-                    $"Run(): No URLs specified in environment variable 'EndPointUrls'. Expected a single URL or multiple URLs " +
-                    "separated with a semi-colon (;). Please add this config to use the tool.");
+                yield return () =>
+                    throw new Exception(
+                        $"Run(): No URLs specified in environment variable 'EndPointUrls'. Expected a single URL or multiple URLs "
+                            + "separated with a semi-colon (;). Please add this config to use the tool."
+                    );
             }
         }
 
@@ -78,12 +85,13 @@ namespace LancoIncidentsFunc.Schedules
             }
             else
             {
-                _log.LogError($"hitUrl(): Failed to hit URL: '{url}'. Response: {(int)response.StatusCode + " : " + response.ReasonPhrase}");
+                _log.LogError(
+                    $"hitUrl(): Failed to hit URL: '{url}'. Response: {(int)response.StatusCode + " : " + response.ReasonPhrase}"
+                );
             }
 
             return response;
         }
-
 
         public class MyInfo
         {

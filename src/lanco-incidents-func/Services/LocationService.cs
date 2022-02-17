@@ -25,7 +25,8 @@ namespace LancoIncidentsFunc.Services
             IDataCache<(string, string), LocationEntity> locationCache,
             IHttpClientFactory httpClientFactory,
             IEnvironmentProvider env,
-            ILogger<LocationService> log)
+            ILogger<LocationService> log
+        )
         {
             _locationCache = locationCache;
             _locationRepository = locationRepository;
@@ -87,7 +88,8 @@ namespace LancoIncidentsFunc.Services
         async Task<Geocode> GetGeocodeAsync(string address, string apiKey)
         {
             var encodedAddress = WebUtility.UrlEncode(address);
-            var apiFetchUrl = $"{GEOCODE_API}?address={encodedAddress}&key={apiKey}&_={DateTime.Now.Ticks}";
+            var apiFetchUrl =
+                $"{GEOCODE_API}?address={encodedAddress}&key={apiKey}&_={DateTime.Now.Ticks}";
 
             var res = await _client.GetAsync(apiFetchUrl);
             res.EnsureSuccessStatusCode();

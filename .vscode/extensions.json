@@ -1,6 +1,15 @@
 {
   "recommendations": [
     "ms-azuretools.vscode-azurefunctions",
-    "ms-dotnettools.csharp"
-  ]
+    "fudge.auto-using",
+    "kreativ-software.csharpextensions",
+    "jorgeserrano.vscode-csharp-snippets",
+    "csharpier.csharpier-vscode",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "heybourn.headwind",
+    "jevakallio.vscode-live-frame",
+    "jawandarajbir.react-vscode-extension-pack",
+    "andrewmcodes.tailwindcss-extension-pack"
+]
 }
