@@ -76,7 +76,7 @@ namespace LancoIncidentsFunc.API
             }
             catch (Exception ex)
             {
-                _log.LogError(ex, $"Execution Error: {ex}");
+                _log.LogError(ex, "Execution Error: {Exception}", ex);
                 throw;
             }
         }

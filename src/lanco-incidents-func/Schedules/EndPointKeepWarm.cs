@@ -30,10 +30,14 @@ namespace LancoIncidentsFunc.Schedules
         public async Task Run([TimerTrigger("0 */4 * * * *")] MyInfo timerInfo)
         {
             _log.LogInformation(
-                $"Function Ran. Next timer schedule = {timerInfo.ScheduleStatus.Next}"
+                "Function Ran. Next timer schedule = {TimerSchedule}",
+                timerInfo.ScheduleStatus.Next
             );
+
             _log.LogInformation(
-                $"Run(): EndPointKeepWarm function executed at: {DateTime.Now}. Past due? {timerInfo.IsPastDue}"
+                "Run(): EndPointKeepWarm function executed at: {Now}. Past due? {PastDue}",
+                DateTime.Now,
+                timerInfo.IsPastDue
             );
 
             foreach (var endpointFunc in GetEndpoints())
@@ -42,16 +46,16 @@ namespace LancoIncidentsFunc.Schedules
                 {
                     var endpoint = endpointFunc();
 
-                    _log.LogInformation($"Run(): About to hit URL: '{endpoint}'");
+                    _log.LogInformation("Run(): About to hit URL: '{Endpoint}'", endpoint);
                     _ = await HitUrl(endpoint);
                 }
                 catch (Exception ex)
                 {
-                    _log.LogError(ex, ex.Message);
+                    _log.LogError(ex, "{Message}", ex.Message);
                 }
             }
 
-            _log.LogInformation($"Run(): Completed..");
+            _log.LogInformation($"Run(): Completed.");
         }
 
         private IEnumerable<Func<string>> GetEndpoints()
@@ -81,12 +85,15 @@ namespace LancoIncidentsFunc.Schedules
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
-                _log.LogInformation($"hitUrl(): Successfully hit URL: '{url}'");
+                _log.LogInformation("hitUrl(): Successfully hit URL: '{Url}'", url);
             }
             else
             {
                 _log.LogError(
-                    $"hitUrl(): Failed to hit URL: '{url}'. Response: {(int)response.StatusCode + " : " + response.ReasonPhrase}"
+                    "hitUrl(): Failed to hit URL: '{Url}'. Response: {StatusCode}:{ReasonPhrase}",
+                    url,
+                    (int)response.StatusCode,
+                    response.ReasonPhrase
                 );
             }
 
