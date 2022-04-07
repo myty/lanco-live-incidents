@@ -1,8 +1,8 @@
 # Lancaster County Live Incidents
 
-Live Progressive Web App (PWA): https://lanco-live-incidents.netlify.app/
+Live Progressive Web App (PWA): https://lanco.mytydev.com/
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a304cedd-afca-4827-a3bd-34b272c23ad3/deploy-status)](https://app.netlify.com/sites/lanco-live-incidents/deploys)
+![Vercel](https://vercelbadge.vercel.app/api/myty/lanco-live-incidents)
 
 A jazzed-up version of [Lancaster County - Live Incident List](https://www.lcwc911.us/live-incident-list)
 
@@ -37,5 +37,5 @@ VITE_GOOGLE_MAPS_KEY=<GOOGLE MAPS API KEY>
 and then
 
 ```bash 
-yarn dev
+pnpm dev
 ```
