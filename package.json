@@ -6,8 +6,6 @@
     "scripts": {
         "app:dev": "pnpm dev --dir=src/lanco-incidents-app",
         "app:build": "pnpm build --dir=src/lanco-incidents-app",
-        "prebuild": "[[ $CI = true ]] && npx pnpm install -r --store=node_modules/.pnpm-store || echo skiping pnpm install",
-        "app:netlify-build": "pnpm build --dir=src/lanco-incidents-app",
         "app:serve": "pnpm serve --dir=src/lanco-incidents-app",
         "app:lint": "pnpm lint --dir=src/lanco-incidents-app",
         "app:test": "pnpm test --dir=src/lanco-incidents-app",
