@@ -1,6 +1,6 @@
 # Lancaster County Live Incidents
 
-Live Progressive Web App (PWA): https://lanco.mytydev.com/
+Live Progressive Web App (PWA): <https://lanco.mytydev.com/>
 
 ![Vercel](https://vercelbadge.vercel.app/api/myty/lanco-live-incidents)
 
@@ -8,15 +8,15 @@ A jazzed-up version of [Lancaster County - Live Incident List](https://www.lcwc9
 
 ## The original concept
 
-The original concept was inspired by an app that is only available on the iOS app store; and was first implemented in React Native and Azure Functions as a backend.  So far the frontend has been ported over as a full featured PWA.  The Azure Functions code will eventually find it's way to this repo.  Both the frontend and backend code are deployed automatically with any new commit to the main branch.
+The original concept was inspired by an app that is only available on the iOS app store; and was first implemented in React Native and Azure Functions as a backend. So far the frontend has been ported over as a full featured PWA. The Azure Functions code will eventually find it's way to this repo. Both the frontend and backend code are deployed automatically with any new commit to the main branch.
 
 ## How it was built
 
-- Progressive Web App
-- React
-- Vite
-- Tailwindcss
-- Azure Functions - C# (coming soon)
+-   Progressive Web App
+-   React
+-   Vite
+-   Tailwindcss
+-   Azure Functions - C# (coming soon)
 
 ## Want to run it yourself?
 
@@ -28,7 +28,7 @@ From a terminal run
 touch src/lanco-incidents-app/.env.local
 ```
 
-and inside that file 
+and inside that file
 
 ```plain
 VITE_GOOGLE_MAPS_KEY=<GOOGLE MAPS API KEY>
@@ -36,6 +36,6 @@ VITE_GOOGLE_MAPS_KEY=<GOOGLE MAPS API KEY>
 
 and then
 
-```bash 
-pnpm dev
+```bash
+pnpm app:dev
 ```
