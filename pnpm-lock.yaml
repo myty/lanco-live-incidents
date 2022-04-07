@@ -17,6 +17,7 @@ importers:
       eslint-plugin-react-hooks: ^4.4.0
       husky: ^7.0.4
       lint-staged: ^11.2.6
+      pnpm: ^6.32.4
       prettier: 2.5.1
     devDependencies:
       '@ehutch79/vite-eslint': 0.0.1
@@ -32,6 +33,7 @@ importers:
       eslint-plugin-react-hooks: 4.4.0_eslint@7.32.0
       husky: 7.0.4
       lint-staged: 11.2.6
+      pnpm: 6.32.4
       prettier: 2.5.1
 
   src/lanco-incidents-app:
@@ -5308,6 +5310,12 @@ packages:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}
     dependencies:
       semver-compare: 1.0.0
+    dev: true
+
+  /pnpm/6.32.4:
+    resolution: {integrity: sha512-rOG+VpOzs6g/MR5HWc8KTlLAx3ljdRJCMQwSg1DE/hzAaqF/Y2zIHH0u6dZw/XnRb9w1U8rOs9MJT9jMt7e+Qw==}
+    engines: {node: '>=12.17'}
+    hasBin: true
     dev: true
 
   /postcss-js/4.0.0_postcss@8.4.12:
