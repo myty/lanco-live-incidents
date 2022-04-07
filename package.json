@@ -4,11 +4,11 @@
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
-        "app:dev": "yarn --cwd src/lanco-incidents-app dev",
-        "app:build": "yarn --cwd src/lanco-incidents-app build",
-        "app:serve": "yarn --cwd src/lanco-incidents-app serve",
-        "app:lint": "yarn --cwd src/lanco-incidents-app lint",
-        "app:test": "yarn --cwd src/lanco-incidents-app test",
+        "app:dev": "pnpm dev --dir=src/lanco-incidents-app",
+        "app:build": "pnpm build --dir=src/lanco-incidents-app",
+        "app:serve": "pnpm serve --dir=src/lanco-incidents-app",
+        "app:lint": "pnpm lint --dir=src/lanco-incidents-app",
+        "app:test": "pnpm test --dir=src/lanco-incidents-app",
         "prepare": "dotnet tool restore && husky install && dotnet husky install",
         "func:restore": "dotnet tool restore && cd src/lanco-incidents-func && dotnet restore",
         "func:build": "cd src/lanco-incidents-func && dotnet clean && dotnet build",
@@ -21,12 +21,12 @@
         "@typescript-eslint/parser": "^4.33.0",
         "eslint": "^7.32.0",
         "eslint-config-airbnb": "^18.2.1",
-        "eslint-config-airbnb-typescript": "^16.1.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-import": "^2.25.4",
+        "eslint-config-airbnb-typescript": "^16.2.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-jsx-a11y": "^6.5.1",
-        "eslint-plugin-react": "^7.28.0",
-        "eslint-plugin-react-hooks": "^4.3.0",
+        "eslint-plugin-react": "^7.29.4",
+        "eslint-plugin-react-hooks": "^4.4.0",
         "husky": "^7.0.4",
         "lint-staged": "^11.2.6",
         "prettier": "2.5.1"
@@ -36,6 +36,6 @@
         "*.{ts,tsx,js,css,md}": "prettier --write"
     },
     "volta": {
-        "node": "12.18.0"
+        "node": "16.14.2"
     }
 }

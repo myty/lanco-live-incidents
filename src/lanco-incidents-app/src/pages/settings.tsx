@@ -2,10 +2,10 @@ import Layout from "containers/layout";
 import React, { useCallback, useEffect, useMemo, useReducer } from "react";
 import useSettings, { UseSettingsHook } from "hooks/use-settings";
 import _, { chain } from "lodash";
-import { useNavigate } from "react-router";
 import PageTitle from "components/page-title";
 import SettingsSectionSort from "components/settings/settings-sections/settings-section-sortby";
 import { Sort } from "models/view-models/settings-record";
+import { useNavigate } from "react-router-dom";
 
 type TypeOfKey<Type, Key extends keyof Type> = Type[Key];
 
@@ -119,7 +119,8 @@ const Settings: React.FC = () => {
     return (
         <Layout
             pageBgStyle="bg-gray-100"
-            headerLeft={<PageTitle onBack={goBack}>Settings</PageTitle>}>
+            headerLeft={<PageTitle onBack={goBack}>Settings</PageTitle>}
+        >
             <div className="flex flex-col flex-auto max-h-full">
                 <div className="flex flex-auto overflow-y-auto">
                     <div className="block w-full">
@@ -154,13 +155,15 @@ const Settings: React.FC = () => {
                     <div className="flex w-full">
                         <button
                             className="flex-grow p-2 mr-1 font-medium uppercase border border-gray-400 rounded bg-gray-50"
-                            onClick={goBack}>
+                            onClick={goBack}
+                        >
                             Cancel
                         </button>
                         <button
                             className="flex-grow p-2 ml-1 font-medium text-white uppercase bg-blue-800 border border-gray-400 rounded disabled:bg-gray-50 disabled:text-gray-300"
                             disabled={!isDirty}
-                            onClick={handleApply}>
+                            onClick={handleApply}
+                        >
                             Apply
                         </button>
                     </div>
