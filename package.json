@@ -4,16 +4,12 @@
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
-        "app:dev": "pnpm dev --dir=src/lanco-incidents-app",
-        "app:build": "pnpm build --dir=src/lanco-incidents-app",
-        "app:serve": "pnpm serve --dir=src/lanco-incidents-app",
-        "app:lint": "pnpm lint --dir=src/lanco-incidents-app",
-        "app:test": "pnpm test --dir=src/lanco-incidents-app",
-        "prepare": "dotnet tool restore && husky install && dotnet husky install",
-        "func:restore": "dotnet tool restore && cd src/lanco-incidents-func && dotnet restore",
-        "func:build": "cd src/lanco-incidents-func && dotnet clean && dotnet build",
-        "func:start": "cd src/lanco-incidents-func && func start",
-        "func:outdated": "cd src/lanco-incidents-func && dotnet outdated"
+        "prepare": "dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
+        "build": "turbo run build",
+        "test": "turbo run test",
+        "lint": "turbo run lint",
+        "dev": "turbo run dev",
+        "update-all": "pnpm up && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && dotnet tool update husky && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
         "@ehutch79/vite-eslint": "^0.0.1",
@@ -30,6 +26,7 @@
         "husky": "^7.0.4",
         "lint-staged": "^11.2.6",
         "prettier": "2.5.1",
+        "turbo": "^1.4.3",
         "typescript": "^4.7.4"
     },
     "lint-staged": {

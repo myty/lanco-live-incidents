@@ -1,23 +1,23 @@
 {
-    "liveFrame.url": "http://localhost:3000",
-    "liveFrame.title": "Local Development",
-    "liveFrame.pane": "Beside",
+    "[csharp]": {
+        "editor.defaultFormatter": "csharpier.csharpier-vscode",
+        "editor.formatOnSave": true
+    },
+    "azureFunctions.deploySubpath": "src/lanco-incidents-func/bin/Release/net6.0/publish",
+    "azureFunctions.preDeployTask": "publish (functions)",
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~4",
+    "azureFunctions.projectSubpath": "src/lanco-incidents-func",
+    "debug.internalConsoleOptions": "neverOpen",
+    "eslint.workingDirectories": [
+        {
+            "changeProcessCWD": true,
+            "directory": "src/lanco-incidents-app"
+        }
+    ],
     "files.exclude": {
         "**/dist/**": true,
         "**/node_modules/**": true,
         "**/tsconfig.tsbuildinfo": true
-    },
-    "eslint.workingDirectories": [
-        { "directory": "src/lanco-incidents-app", "changeProcessCWD": true }
-    ],
-    "azureFunctions.projectSubpath": "src/lanco-incidents-func",
-    "azureFunctions.deploySubpath": "src/lanco-incidents-func/bin/Release/net6.0/publish",
-    "azureFunctions.projectLanguage": "C#",
-    "azureFunctions.projectRuntime": "~4",
-    "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.preDeployTask": "publish (functions)",
-    "[csharp]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "csharpier.csharpier-vscode"
     }
 }

@@ -115,4 +115,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .secrets
+
+# turborepo
+.turbo
+
+# project specific
 src/lanco-incidents-func/output
