@@ -20,7 +20,7 @@ The original concept was inspired by an app that is only available on the iOS ap
 
 ## Want to run it yourself?
 
-You'll need node, yarn, and a Google maps API key.
+You'll need node, pnpm, and a Google maps API key.
 
 From a terminal run
 
