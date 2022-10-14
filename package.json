@@ -4,11 +4,11 @@
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
-        "prepare": "dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
         "build": "turbo run build",
         "test": "turbo run test",
         "lint": "turbo run lint",
         "dev": "turbo run dev",
+        "install-all": "pnpm install -r && dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
         "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && dotnet tool update husky && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
