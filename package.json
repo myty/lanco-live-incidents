@@ -4,39 +4,36 @@
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
-        "app:dev": "pnpm dev --dir=src/lanco-incidents-app",
-        "app:build": "pnpm build --dir=src/lanco-incidents-app",
-        "app:serve": "pnpm serve --dir=src/lanco-incidents-app",
-        "app:lint": "pnpm lint --dir=src/lanco-incidents-app",
-        "app:test": "pnpm test --dir=src/lanco-incidents-app",
-        "prepare": "dotnet tool restore && husky install && dotnet husky install",
-        "func:restore": "dotnet tool restore && cd src/lanco-incidents-func && dotnet restore",
-        "func:build": "cd src/lanco-incidents-func && dotnet clean && dotnet build",
-        "func:start": "cd src/lanco-incidents-func && func start",
-        "func:outdated": "cd src/lanco-incidents-func && dotnet outdated"
+        "build": "turbo run build",
+        "test": "turbo run test",
+        "lint": "turbo run lint",
+        "dev": "turbo run dev",
+        "install-all": "pnpm install -r && dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
+        "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && dotnet tool update husky && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
         "@ehutch79/vite-eslint": "^0.0.1",
-        "@typescript-eslint/eslint-plugin": "^4.33.0",
-        "@typescript-eslint/parser": "^4.33.0",
+        "@typescript-eslint/eslint-plugin": "^5.40.0",
+        "@typescript-eslint/parser": "^5.40.0",
         "eslint": "^7.32.0",
         "eslint-config-airbnb": "^18.2.1",
         "eslint-config-airbnb-typescript": "^16.2.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-jsx-a11y": "^6.5.1",
-        "eslint-plugin-react": "^7.29.4",
-        "eslint-plugin-react-hooks": "^4.4.0",
+        "eslint-plugin-jsx-a11y": "^6.6.1",
+        "eslint-plugin-react": "^7.31.10",
+        "eslint-plugin-react-hooks": "^4.6.0",
         "husky": "^7.0.4",
         "lint-staged": "^11.2.6",
-        "pnpm": "^6.32.4",
-        "prettier": "2.5.1"
+        "prettier": "2.5.1",
+        "turbo": "^1.5.6",
+        "typescript": "^4.8.4"
     },
     "lint-staged": {
         "*.js": "eslint --cache --fix",
         "*.{ts,tsx,js,css,md}": "prettier --write"
     },
     "volta": {
-        "node": "14.19.1"
+        "node": "16.18.0"
     }
 }

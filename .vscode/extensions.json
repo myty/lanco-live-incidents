@@ -7,9 +7,7 @@
     "csharpier.csharpier-vscode",
     "editorconfig.editorconfig",
     "dbaeumer.vscode-eslint",
-    "heybourn.headwind",
-    "jevakallio.vscode-live-frame",
     "jawandarajbir.react-vscode-extension-pack",
     "andrewmcodes.tailwindcss-extension-pack"
-]
+  ]
 }
