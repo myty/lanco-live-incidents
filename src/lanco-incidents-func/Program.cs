@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LancoIncidentsFunc.IncidentProviders;
 using LancoIncidentsFunc.Interfaces;
 using LancoIncidentsFunc.Models;
 using LancoIncidentsFunc.Providers;
@@ -33,6 +34,9 @@ namespace LancoIncidentsFunc
                             IDataCache<(string, string), LocationEntity>,
                             LocationCache
                         >();
+
+                        // Incident Providers
+                        services.AddScoped<IIncidentProvider, LancasterIncidentProvider>();
 
                         services.AddAutoMapper(typeof(Program));
                     }
