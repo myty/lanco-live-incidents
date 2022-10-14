@@ -12,7 +12,7 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: lanco-incidents-func
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "src/lanco-incidents-func"
-  DOTNET_6_VERSION: "6.0.x"
+  DOTNET_VERSION: "7.0.x"
 
 jobs:
   build-and-deploy:
@@ -21,10 +21,10 @@ jobs:
       - name: "Checkout GitHub Action"
         uses: actions/checkout@v2
 
-      - name: Setup DotNet ${{ env.DOTNET_6_VERSION }} Environment
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_6_VERSION }}
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: "Resolve Project Dependencies Using Dotnet"
         shell: pwsh
