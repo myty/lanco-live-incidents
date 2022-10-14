@@ -27,17 +27,14 @@ namespace LancoIncidentsFunc.Repositories
         {
             try
             {
-                var insertOperation = TableOperation.InsertOrReplace(locationEntity);
-
                 await _incidentTable.CreateIfNotExistsAsync();
+
+                var insertOperation = TableOperation.InsertOrReplace(locationEntity);
                 await _incidentTable.ExecuteAsync(insertOperation);
             }
             catch (Exception ex)
             {
-                throw new Exception(
-                    $"Method: LocationService.SaveAsync, RowKey: {locationEntity.RowKey}",
-                    ex
-                );
+                throw new SaveException(locationEntity.RowKey, ex);
             }
         }
 
@@ -66,11 +63,20 @@ namespace LancoIncidentsFunc.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(
-                    $"Method: LocationService.FindByAddressAsync, RowKey: {address}",
-                    ex
-                );
+                throw new FindByAddressException(address, ex);
             }
+        }
+
+        public class FindByAddressException : Exception
+        {
+            public FindByAddressException(string key, Exception ex)
+                : base($"Method: LocationRepository.FindByAddressAsync, RowKey: {key}", ex) { }
+        }
+
+        public class SaveException : Exception
+        {
+            public SaveException(string key, Exception ex)
+                : base($"Method: LocationRepository.SaveAsync, RowKey: {key}", ex) { }
         }
     }
 }
