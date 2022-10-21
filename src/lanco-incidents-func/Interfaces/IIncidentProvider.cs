@@ -8,7 +8,7 @@ namespace LancoIncidentsFunc.Interfaces
     public interface IIncidentProvider
     {
         string Key { get; }
-        Task<Incident> GetIncidentAsync(Guid id);
+        Task<Incident> GetIncidentAsync(string id);
         Task<IEnumerable<Incident>> GetIncidentsAsync();
     }
 }

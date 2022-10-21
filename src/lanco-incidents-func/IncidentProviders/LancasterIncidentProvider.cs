@@ -25,16 +25,16 @@ namespace LancoIncidentsFunc.IncidentProviders
             _client = httpClientFactory.CreateClient();
         }
 
-        public override string Key => "LancasterCountyLiveIncidents";
+        public override string Key => "Lancaster";
 
         public override async Task<IEnumerable<Incident>> GetIncidentsAsync()
         {
-            if (_feedCache.TryGetValue(RssFeed, out var feed))
+            if (_feedCache.TryGetValue(Source, out var feed))
             {
                 return feed;
             }
 
-            var res = await _client.GetAsync($"{RssFeed}?_={DateTime.Now.Ticks}");
+            var res = await _client.GetAsync($"{Source}?_={DateTime.Now.Ticks}");
             var xmlStream = await res.Content.ReadAsStreamAsync();
 
             var cts = new CancellationTokenSource();
@@ -57,9 +57,8 @@ namespace LancoIncidentsFunc.IncidentProviders
                                 .Select(s => s.Trim().ToUpper())
                             : Enumerable.Empty<string>();
 
-                    var incident = new Incident
+                    var incident = new Incident(Key, itm.Element("guid").Value)
                     {
-                        Id = Guid.Parse(itm.Element("guid").Value),
                         IncidentDate = DateTime.Parse(itm.Element("pubDate").Value),
                         Type = typeSplit[0].Trim(),
                         SubType = typeSplit.Length > 1 ? typeSplit[1].Trim() : string.Empty,
@@ -82,7 +81,7 @@ namespace LancoIncidentsFunc.IncidentProviders
                     return incident;
                 });
 
-            _feedCache.SaveValue(RssFeed, incidentsTallied);
+            _feedCache.SaveValue(Source, incidentsTallied);
 
             return incidentsTallied;
         }
