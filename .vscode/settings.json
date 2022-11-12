@@ -19,5 +19,7 @@
         "**/dist/**": true,
         "**/node_modules/**": true,
         "**/tsconfig.tsbuildinfo": true
-    }
+    },
+    "dotnet-test-explorer.autoWatch": true,
+    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)"
 }

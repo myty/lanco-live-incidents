@@ -4,28 +4,27 @@ using System.Threading.Tasks;
 using LancoIncidentsFunc.Interfaces;
 using LancoIncidentsFunc.Models;
 
-namespace LancoIncidentsFunc.Services
+namespace LancoIncidentsFunc.Services;
+
+public class FeedService : IFeedService
 {
-    public class FeedService : IFeedService
+    private readonly IEnumerable<IIncidentProvider> _incidentProviders;
+
+    public FeedService(IEnumerable<IIncidentProvider> incidentProviders)
     {
-        private readonly IEnumerable<IIncidentProvider> _incidentProviders;
+        _incidentProviders = incidentProviders;
+    }
 
-        public FeedService(IEnumerable<IIncidentProvider> incidentProviders)
-        {
-            _incidentProviders = incidentProviders;
-        }
+    public async Task<Incident> GetIncidentAsync(GlobalId globalId)
+    {
+        var incidents = await GetIncidentsAsync();
 
-        public async Task<Incident> GetIncidentAsync(GlobalId globalId)
-        {
-            var incidents = await GetIncidentsAsync();
+        return incidents?.FirstOrDefault(i => i.GlobalId.Uid == globalId.Uid);
+    }
 
-            return incidents?.FirstOrDefault(i => i.GlobalId.Uid == globalId.Uid);
-        }
-
-        public Task<IEnumerable<Incident>> GetIncidentsAsync()
-        {
-            return Task.WhenAll(_incidentProviders.Select((i) => i.GetIncidentsAsync()))
-                .ContinueWith(t => t.Result.SelectMany(i => i));
-        }
+    public Task<IEnumerable<Incident>> GetIncidentsAsync()
+    {
+        return Task.WhenAll(_incidentProviders.Select((i) => i.GetIncidentsAsync()))
+            .ContinueWith(t => t.Result.SelectMany(i => i));
     }
 }

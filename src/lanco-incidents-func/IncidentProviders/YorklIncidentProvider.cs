@@ -8,95 +8,83 @@ using LancoIncidentsFunc.Interfaces;
 using LancoIncidentsFunc.Models;
 using Microsoft.OData.Edm;
 
-namespace LancoIncidentsFunc.IncidentProviders
+namespace LancoIncidentsFunc.IncidentProviders;
+
+public class YorklIncidentProvider : BaseIncidentProvider
 {
-    public class YorklIncidentProvider : BaseIncidentProvider
+    private readonly IDataCache<string, IEnumerable<Incident>> _feedCache;
+    private readonly HttpClient _client;
+
+    public YorklIncidentProvider(
+        IEnvironmentProvider env,
+        IDataCache<string, IEnumerable<Incident>> feedCache,
+        IHttpClientFactory httpClientFactory
+    ) : base(env)
     {
-        private readonly IDataCache<string, IEnumerable<Incident>> _feedCache;
-        private readonly HttpClient _client;
+        _feedCache = feedCache;
+        _client = httpClientFactory.CreateClient();
+    }
 
-        public YorklIncidentProvider(
-            IEnvironmentProvider env,
-            IDataCache<string, IEnumerable<Incident>> feedCache,
-            IHttpClientFactory httpClientFactory
-        ) : base(env)
+    public override string Key => "York";
+
+    public override async Task<IEnumerable<Incident>> GetIncidentsAsync()
+    {
+        if (_feedCache.TryGetValue(Source, out var feed))
         {
-            _feedCache = feedCache;
-            _client = httpClientFactory.CreateClient();
+            return feed;
         }
 
-        public override string Key => "York";
+        var res = await _client.GetAsync($"{Source}?_={DateTime.Now.Ticks}");
+        var htmlSource = await res.Content.ReadAsStringAsync();
 
-        public override async Task<Incident> GetIncidentAsync(string id)
-        {
-            var globalId = new GlobalId(id);
-            return await GetIncidentAsync(globalId);
-        }
+        var doc = new HtmlDocument();
+        doc.LoadHtml(htmlSource);
 
-        public override async Task<IEnumerable<Incident>> GetIncidentsAsync()
-        {
-            if (_feedCache.TryGetValue(Source, out var feed))
-            {
-                return feed;
-            }
+        var incidents = doc.DocumentNode
+            .Descendants("table")
+            .Where(x => x.Attributes["class"]?.Value == "incidentList")
+            .SelectMany(
+                y =>
+                    y.ChildNodes
+                        .Skip(3)
+                        .Select(
+                            tr =>
+                                tr.ChildNodes
+                                    .Where(node => node.NodeType == HtmlNodeType.Element)
+                                    .ToList()
+                        )
+                        .Where(cells => cells.Count > 0)
+                        .Select(cells =>
+                        {
+                            var type = cells.FirstOrDefault()?.InnerText;
+                            var subType = cells.Skip(3).FirstOrDefault()?.InnerText;
+                            var location = cells.Skip(6).FirstOrDefault()?.InnerText;
+                            var area = cells.Skip(7).FirstOrDefault()?.InnerText;
+                            var date = cells.Skip(1)?.FirstOrDefault()?.InnerText;
+                            var id =
+                                cells
+                                    .Skip(8)
+                                    ?.FirstOrDefault()
+                                    ?.InnerHtml.Split('?')
+                                    .Skip(1)
+                                    .FirstOrDefault()
+                                    ?.Split('"')
+                                    .FirstOrDefault() ?? $"{Guid.NewGuid()}";
 
-            var res = await _client.GetAsync($"{Source}?_={DateTime.Now.Ticks}");
-            var htmlSource = await res.Content.ReadAsStringAsync();
-
-            var doc = new HtmlDocument();
-            doc.LoadHtml(htmlSource);
-
-            var incidents = doc.DocumentNode
-                .Descendants("table")
-                .Where(x => x.Attributes["class"]?.Value == "incidentList")
-                .SelectMany(
-                    y =>
-                        y.ChildNodes
-                            .Skip(3)
-                            .Select(
-                                tr =>
-                                    tr.ChildNodes
-                                        .Where(node => node.NodeType == HtmlNodeType.Element)
-                                        .ToList()
-                            )
-                            .Where(cells => cells.Count > 0)
-                            .Select(cells =>
+                            return new Incident(Key, id)
                             {
-                                var type = cells.FirstOrDefault()?.InnerText;
-                                var subType = cells.Skip(3).FirstOrDefault()?.InnerText;
-                                var location = cells.Skip(6).FirstOrDefault()?.InnerText;
-                                var area = cells.Skip(7).FirstOrDefault()?.InnerText;
-                                var date = cells.Skip(1)?.FirstOrDefault()?.InnerText;
-                                var id =
-                                    cells
-                                        .Skip(8)
-                                        ?.FirstOrDefault()
-                                        ?.InnerHtml.Split('?')
-                                        .Skip(1)
-                                        .FirstOrDefault()
-                                        ?.Split('"')
-                                        .FirstOrDefault() ?? $"{Guid.NewGuid()}";
+                                Type = type,
+                                SubType = subType,
+                                Area = area,
+                                Location = location,
+                                IncidentDate = Date.Parse(date)
+                            };
+                        })
+            )
+            .ToList();
 
-                                return new Incident(Key, id)
-                                {
-                                    Type = type,
-                                    SubType = subType,
-                                    Area = area,
-                                    Location = location,
-                                    IncidentDate = Date.Parse(date)
-                                };
-                            })
-                )
-                .ToList();
+        _feedCache.SaveValue(Source, incidents);
 
-            _feedCache.SaveValue(Source, incidents);
-
-            return incidents;
-        }
-
-        private async Task<Incident> GetIncidentAsync(GlobalId globalId)
-        {
-            throw new NotImplementedException();
-        }
+        return incidents;
     }
 }
