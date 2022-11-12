@@ -6,6 +6,7 @@ import PageTitle from "components/page-title";
 import { IncidentRecord } from "models/view-models/incident-record";
 import useIncident from "hooks/use-incident";
 import { useWebShare } from "hooks/use-web-share";
+import { SITE_TITLE } from "constants/app-constants";
 
 export default function IncidentDetail() {
     const { id } = useParams<"id">();
@@ -17,6 +18,8 @@ export default function IncidentDetail() {
 
     const handleShare = () =>
         webShare.share({
+            title: SITE_TITLE,
+            text: `${incident?.type} (${incident?.subType}) - ${incident?.location}, ${incident?.area}`,
             url: window.location.href,
         });
 
