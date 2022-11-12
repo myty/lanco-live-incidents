@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="refresh" content="240" />
+    <title>
+        York County 911 - Live Incident Status
+    </title>
+    <link href="Styles.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <table border="0" align="center">
+        <tr>
+            <td><img src="Images/logo.jpg" /></td>
+            <td><img src="Images/banner.jpg" /></td>
+        </tr>
+    </table>
+    <form method="post" action="./Default.aspx" id="form1">
+        <div class="aspNetHidden">
+            <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
+                value="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" />
+        </div>
+
+        <div class="aspNetHidden">
+
+            <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="83F63DDE" />
+        </div>
+        <div>
+            <h1>York County 911 - Live Incident Status</h1>
+
+            <p>&nbsp;Data as of:&nbsp;10/19/2022 5:17:05 PM
+                <br />&nbsp;&nbsp;&nbsp;<font size=2><i>(site will refresh every four minutes)</font></i>
+            </p>
+            <h2 align="center">Active Incidents</h2>
+            <table class="incidentList" align="center" width="90%">
+
+                <tr>
+                    <th>Incident Type</th>
+                    <th>Dispatch Time</th>
+                    <th>Box No.</th>
+                    <th>Incident Type</th>
+                    <th>Street</th>
+                    <th>Cross Street</th>
+                    <th>Nearest Intersection</th>
+                    <th>Location</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>TRAFFIC</td>
+                    <td>10/19/2022 5:15 PM</td>
+                    <td>89-104</td>
+                    <td>MVA NO INJURY</td>
+                    <td>E MARKET ST</td>
+                    <td> </td>
+                    <td>S MILLS ST / S NORTHERN WAY, N NORTHERN WAY</td>
+                    <td>SPRINGETTSBURY TWP</td>
+                    <td><a href=Details.aspx?W4UlwZI0/G8YdcCK7J8J2Q==>Details</a></td>
+                </tr>
+                <tr>
+                    <td>TRAFFIC</td>
+                    <td>10/19/2022 4:39 PM</td>
+                    <td>89-502</td>
+                    <td>MVA NO INJURY</td>
+                    <td>MORGAN LN</td>
+                    <td> </td>
+                    <td>N GEORGE ST / MIA BRAE DR</td>
+                    <td>MANCHESTER TWP</td>
+                    <td><a href=Details.aspx?iIDyRDr2brJrcsh9tWijVw==>Details</a></td>
+                </tr>
+                <tr>
+                    <td>TRAFFIC</td>
+                    <td>10/19/2022 3:38 PM</td>
+                    <td>89-205</td>
+                    <td>MVA W/INJURIES CL 2</td>
+                    <td>S GEORGE ST</td>
+                    <td>COUNTRY CLUB RD</td>
+                    <td></td>
+                    <td>SPRING GARDEN TWP</td>
+                    <td><a href=Details.aspx?iIDyRDr2brIiKGMDgDn+KQ==>Details</a></td>
+                </tr>
+                <tr>
+                    <td>TRAFFIC</td>
+                    <td>10/19/2022 3:24 PM</td>
+                    <td>21-50</td>
+                    <td>FIRE POLICE</td>
+                    <td>LIBHART MILL RD</td>
+                    <td> </td>
+                    <td>YORKANA RD / PLANTATION LN</td>
+                    <td>HELLAM TWP</td>
+                    <td><a href=Details.aspx?Ox6ligZ4G7F4x3BP0DrCqQ==>Details</a></td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <h2 align="center">Road Closures</h2>
+            <table class="incidentList" align="center" width="90%">
+                <tr>
+                    <td>There are currently no active road closures.</td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <h2 align="center">Out of Service Hydrants</h2>
+            <table class="incidentList" align="center" width="90%">
+                <tr>
+                    <td>There are currently no out of service hydrants.</td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+        </div>
+    </form>
+
+    <p class="footerText">© 2019 <a href="http://www.ycdes.org/">York County Department of Emergency Services</a></p>
+
+</body>
+
+</html>

@@ -1,14 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LancoIncidentsFunc.Models;
 
-namespace LancoIncidentsFunc.Interfaces
+namespace LancoIncidentsFunc.Interfaces;
+
+public interface IIncidentProvider
 {
-    public interface IIncidentProvider
-    {
-        string Key { get; }
-        Task<Incident> GetIncidentAsync(Guid id);
-        Task<IEnumerable<Incident>> GetIncidentsAsync();
-    }
+    string Key { get; }
+    Task<Incident> GetIncidentAsync(string id);
+    Task<IEnumerable<Incident>> GetIncidentsAsync();
 }

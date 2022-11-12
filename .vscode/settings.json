@@ -25,5 +25,7 @@
     },
     "[javascript]": {
         "editor.defaultFormatter": "rome.rome"
-    }
+    },
+    "dotnet-test-explorer.autoWatch": true,
+    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)"
 }
