@@ -36,6 +36,7 @@ namespace LancoIncidentsFunc
                         >();
 
                         // Incident Providers
+                        services.AddScoped<IIncidentProvider, YorklIncidentProvider>();
                         services.AddScoped<IIncidentProvider, LancasterIncidentProvider>();
 
                         services.AddAutoMapper(typeof(Program));

@@ -6,7 +6,7 @@ namespace LancoIncidentsFunc.Dtos
     public class Incident
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [JsonPropertyName("incident_dt")]
         public DateTime IncidentDate { get; set; }
