@@ -6,7 +6,7 @@
         "serve": "vite preview",
         "coverage": "vitest run --coverage",
         "coverage-report": "vitest run --coverage && codecov --disable=gcov",
-        "lint": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx --fix && rome check --apply",
+        "lint": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx --fix && rome check --apply ./src",
         "test": "vitest"
     },
     "dependencies": {
