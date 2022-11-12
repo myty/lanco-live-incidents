@@ -1,6 +1,6 @@
 {
     "name": "lanco-live-incidents",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
@@ -12,28 +12,9 @@
         "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
-        "@ehutch79/vite-eslint": "^0.0.1",
-        "@typescript-eslint/eslint-plugin": "^5.42.1",
-        "@typescript-eslint/parser": "^5.42.1",
-        "eslint": "^7.32.0",
-        "eslint-config-airbnb": "^18.2.1",
-        "eslint-config-airbnb-typescript": "^16.2.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-jsx-a11y": "^6.6.1",
-        "eslint-plugin-react": "^7.31.10",
-        "eslint-plugin-react-hooks": "^4.6.0",
         "husky": "^8.0.2",
         "lint-staged": "^13.0.3",
-        "prettier": "^2.7.1",
-        "rome": "^10.0.1",
-        "turbo": "^1.6.3",
-        "typescript": "^4.8.4"
-    },
-    "lint-staged": {
-        "*.{ts,js}": ["eslint --cache --fix", "rome check --apply", "rome format --write"],
-        "*.{tsx,css,md}": ["eslint --cache --fix", "prettier --write"],
-        "*.{cs}": ["dotnet csharpier"]
+        "turbo": "^1.6.3"
     },
     "volta": {
         "node": "16.18.1"

@@ -71,7 +71,7 @@ interface ManifestOptions {
 
 const generateManifest = (): any => {
     return {
-        name: "Lancaster Live Incidents",
+        name: "Central Penn Incidents",
         short_name: "Incidents",
         description:
             "A jazzed-up version of https://www.lcwc911.us/live-incident-list",

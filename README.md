@@ -1,10 +1,11 @@
-# Lancaster County Live Incidents
+# Central Penn Incidents
 
 Live Progressive Web App (PWA): <https://lanco.mytydev.com/>
 
 ![Vercel](https://vercelbadge.vercel.app/api/myty/lanco-live-incidents)
 
 A jazzed-up version of [Lancaster County - Live Incident List](https://www.lcwc911.us/live-incident-list)
+Now includes York incidents as well, hence the name change.
 
 ## The original concept
 
@@ -12,11 +13,11 @@ The original concept was inspired by an app that is only available on the iOS ap
 
 ## How it was built
 
--   Progressive Web App
--   React
--   Vite
--   Tailwindcss
--   Azure Functions - C# (coming soon)
+- Progressive Web App
+- React
+- Vite
+- Tailwindcss
+- Azure Functions - C# (coming soon)
 
 ## Want to run it yourself?
 
