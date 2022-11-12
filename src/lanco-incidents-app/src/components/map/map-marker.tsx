@@ -18,7 +18,8 @@ export default function MapMarker({
             <Link
                 className="relative flex items-center justify-center w-6 h-6 bg-gray-600 border-4 rounded-full -left-3 -top-3"
                 to={`/incidents/${id}`}
-                replace={true}>
+                replace={true}
+            >
                 <div className="sr-only">{text}</div>
             </Link>
         );
@@ -27,9 +28,9 @@ export default function MapMarker({
     return (
         <div>
             <div className="relative flex items-center justify-center w-8 h-8 bg-transparent border-4 border-blue-900 rounded-full -left-4 -top-4">
-                <div className="flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full opacity-30"></div>
+                <div className="flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full opacity-30" />
             </div>
-            <div className="relative flex items-center justify-center w-2 h-2 bg-blue-900 rounded-full opacity-70 -left-1 -top-9"></div>
+            <div className="relative flex items-center justify-center w-2 h-2 bg-blue-900 rounded-full opacity-70 -left-1 -top-9" />
         </div>
     );
 }

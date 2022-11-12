@@ -7,10 +7,13 @@
         "build": "dotnet build -c Release",
         "restore": "dotnet clean && dotnet restore"
     },
+    "lint-staged": {
+        "*.{cs}": ["dotnet csharpier"]
+    },
     "volta": {
         "extends": "../../package.json"
     },
-    "dependencies": {
-        "concurrently": "^7.4.0"
+    "devDependencies": {
+        "concurrently": "^7.5.0"
     }
 }

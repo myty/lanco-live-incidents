@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useIncidents from "hooks/use-incidents";
-import { Map } from "components/map/map";
+import { GoogleMap } from "components/map/map";
 import { Coords } from "google-map-react";
 import { IncidentDetailSection } from "./incident-detail-section";
 import { IncidentRecord } from "models/view-models/incident-record";
@@ -41,7 +41,7 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
     return (
         <div>
             {defaultCenter != null && (
-                <Map
+                <GoogleMap
                     currentPosition={currentPosition}
                     defaultCenter={defaultCenter}
                     incident={incident}

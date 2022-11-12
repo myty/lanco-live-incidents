@@ -40,7 +40,7 @@ export default function Layout({
                         <div className="flex-grow inline-block pr-6 text-lg font-semibold">
                             {headerLeft}
                         </div>
-                        {!isUpdating ? headerRight : null}
+                        {isUpdating ? null : headerRight}
                     </div>
                 </header>
                 <ConfirmUpdateDialog

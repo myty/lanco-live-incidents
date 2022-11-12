@@ -20,6 +20,12 @@
         "**/node_modules/**": true,
         "**/tsconfig.tsbuildinfo": true
     },
+    "[typescript]": {
+        "editor.defaultFormatter": "rome.rome"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "rome.rome"
+    },
     "dotnet-test-explorer.autoWatch": true,
     "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)"
 }

@@ -14,7 +14,7 @@ interface MapProps {
 
 const apiKey: string = (import.meta.env.VITE_GOOGLE_MAPS_KEY as string) ?? "";
 
-export const Map: React.FC<MapProps> = (props: MapProps) => {
+export const GoogleMap: React.FC<MapProps> = (props: MapProps) => {
     const {
         currentPosition,
         defaultCenter,
@@ -33,11 +33,13 @@ export const Map: React.FC<MapProps> = (props: MapProps) => {
             style={{
                 height: "calc(40vh)",
                 width: "100%",
-            }}>
+            }}
+        >
             <GoogleMapReact
                 bootstrapURLKeys={{ key: apiKey }}
                 defaultCenter={defaultCenter}
-                defaultZoom={15}>
+                defaultZoom={15}
+            >
                 {currentPosition != null && (
                     <MapCurrentLocationMarker
                         lat={currentPosition.lat}

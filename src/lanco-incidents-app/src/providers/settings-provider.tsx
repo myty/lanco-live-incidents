@@ -40,7 +40,7 @@ function settingsContextReducer(
     action: SettingsContextAction
 ): SettingsContextState {
     switch (action.type) {
-        case "UpdateSettings":
+        case "UpdateSettings": {
             const settingsWithIncidentTypeFilter = state.settings.with({
                 sort: action.sort,
                 incidentTypeFilters: {
@@ -55,7 +55,8 @@ function settingsContextReducer(
             );
 
             return { ...state, settings: settingsWithIncidentTypeFilter };
-        case "SetIncidentTypeFilters":
+        }
+        case "SetIncidentTypeFilters": {
             const { incidentTypes } = action;
             const savedIncidentTypeFilters = Object.keys(
                 state.settings.incidentTypeFilters
@@ -83,6 +84,7 @@ function settingsContextReducer(
             );
 
             return { ...state, settings: settingsWithIncidentTypes };
+        }
     }
 }
 

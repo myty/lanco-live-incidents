@@ -34,7 +34,7 @@ const ConfirmUpdateDialog: React.FC<ConfirmUpdateDialogProps> = ({
                 New functionality is available. Would you like to update now?
             </div>
             <div className="flex w-full">
-                <div className="grow"></div>
+                <div className="grow" />
                 <div className="flex-none">
                     <button
                         className="flex-shrink-0 px-2 py-1 mr-2 font-semibold text-gray-800 bg-gray-200 border border-gray-500 rounded"

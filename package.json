@@ -9,12 +9,12 @@
         "lint": "turbo run lint",
         "dev": "turbo run dev",
         "install-all": "pnpm install -r && dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
-        "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && dotnet tool update husky && cd ./src/lanco-incidents-func && dotnet outdated -u"
+        "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
         "@ehutch79/vite-eslint": "^0.0.1",
-        "@typescript-eslint/eslint-plugin": "^5.40.0",
-        "@typescript-eslint/parser": "^5.40.0",
+        "@typescript-eslint/eslint-plugin": "^5.42.1",
+        "@typescript-eslint/parser": "^5.42.1",
         "eslint": "^7.32.0",
         "eslint-config-airbnb": "^18.2.1",
         "eslint-config-airbnb-typescript": "^16.2.0",
@@ -23,17 +23,19 @@
         "eslint-plugin-jsx-a11y": "^6.6.1",
         "eslint-plugin-react": "^7.31.10",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "husky": "^7.0.4",
-        "lint-staged": "^11.2.6",
-        "prettier": "2.5.1",
-        "turbo": "^1.5.6",
+        "husky": "^8.0.2",
+        "lint-staged": "^13.0.3",
+        "prettier": "^2.7.1",
+        "rome": "^10.0.1",
+        "turbo": "^1.6.3",
         "typescript": "^4.8.4"
     },
     "lint-staged": {
-        "*.js": "eslint --cache --fix",
-        "*.{ts,tsx,js,css,md}": "prettier --write"
+        "*.{ts,js}": ["eslint --cache --fix", "rome check --apply", "rome format --write"],
+        "*.{tsx,css,md}": ["eslint --cache --fix", "prettier --write"],
+        "*.{cs}": ["dotnet csharpier"]
     },
     "volta": {
-        "node": "16.18.0"
+        "node": "16.18.1"
     }
 }
