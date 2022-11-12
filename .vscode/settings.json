@@ -19,5 +19,11 @@
         "**/dist/**": true,
         "**/node_modules/**": true,
         "**/tsconfig.tsbuildinfo": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "rome.rome"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "rome.rome"
     }
 }

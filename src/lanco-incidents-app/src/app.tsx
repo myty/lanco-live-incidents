@@ -9,10 +9,11 @@ import Settings from "pages/settings";
 function App() {
     return (
         <GeolocationProvider
-            enableHighAccuracy
+            enableHighAccuracy={true}
             maximumAge={1000}
             timeout={20000}
-            watch>
+            watch={true}
+        >
             <SettingsProvider>
                 <Router>
                     <Routes>

@@ -6,7 +6,7 @@
         "serve": "vite preview",
         "coverage": "vitest run --coverage",
         "coverage-report": "vitest run --coverage && codecov --disable=gcov",
-        "lint": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx --fix",
+        "lint": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx --fix && rome check --apply",
         "test": "vitest"
     },
     "dependencies": {
@@ -55,6 +55,7 @@
         "jsdom": "latest",
         "postcss": "^8.4.18",
         "prettier": "^2.7.1",
+        "rome": "^10.0.1",
         "tailwindcss": "^3.1.8",
         "ts-node": "^10.9.1",
         "typescript": "^4.8.4",
@@ -77,8 +78,8 @@
         ]
     },
     "lint-staged": {
-        "*.js": "eslint --cache --fix",
-        "*.{ts,tsx,js,css,md}": "prettier --write"
+        "*.{ts,js}": ["eslint --cache --fix", "rome check --apply", "rome format --write"],
+        "*.{tsx,css,md}": ["eslint --cache --fix", "prettier --write"]
     },
     "volta": {
         "extends": "../../package.json"
