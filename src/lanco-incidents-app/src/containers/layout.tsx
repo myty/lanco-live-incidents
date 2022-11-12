@@ -37,7 +37,7 @@ export default function Layout({
                     className={`z-40 bg-blue-900 text-gray-50 ${headerShadowClass}`}
                 >
                     <div className="flex items-center h-full px-6 py-4 mx-auto">
-                        <div className="flex-grow inline-block pr-6 text-lg font-semibold">
+                        <div className="flex-grow inline-block text-lg font-semibold">
                             {headerLeft}
                         </div>
                         {isUpdating ? null : headerRight}
