@@ -15,13 +15,7 @@ export default function IncidentDetail() {
     const webShare = useWebShare();
 
     const handleGoBack = () => navigate(-1);
-
-    const handleShare = () =>
-        webShare.share({
-            title: SITE_TITLE,
-            text: `${incident?.type} (${incident?.subType}) - ${incident?.location}, ${incident?.area}`,
-            url: window.location.href,
-        });
+    const handleShare = () => webShare.share(getShareData(incident));
 
     return (
         <Layout
@@ -49,4 +43,18 @@ function getTitle(incident?: IncidentRecord | null): string {
     }
 
     return "Incident";
+}
+
+function getShareData(incident?: IncidentRecord | null) {
+    const incidentTypeText = incident?.subType
+        ? `${incident?.type} (${incident?.subType})`
+        : incident?.type;
+
+    const locationText = [incident?.location, incident?.area].join(", ");
+
+    return {
+        title: SITE_TITLE,
+        text: [incidentTypeText, locationText].join(" - "),
+        url: window.location.href,
+    };
 }
