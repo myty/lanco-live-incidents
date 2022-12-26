@@ -8,7 +8,7 @@ import useIncident from "hooks/use-incident";
 import { useWebShare } from "hooks/use-web-share";
 import { SITE_TITLE } from "constants/app-constants";
 
-export default function IncidentDetail() {
+export function IncidentDetail() {
     const { id } = useParams<"id">();
     const navigate = useNavigate();
     const { incident } = useIncident({ id });

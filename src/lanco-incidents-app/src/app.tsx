@@ -1,32 +1,48 @@
 import React from "react";
-import Home from "pages/home";
-import IncidentDetail from "pages/incident-detail/incident-detail";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GeolocationProvider from "providers/geolocation-provider";
 import SettingsProvider from "providers/settings-provider";
 import Settings from "pages/settings";
+import {
+    Outlet,
+    RouterProvider,
+    createReactRouter,
+    createRouteConfig,
+} from "@tanstack/react-router";
+import { createIndexRoute } from "routes";
+import { IncidentDetail } from "pages/incident-detail/incident-detail";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "query-client";
+
+const routeConfig = createRouteConfig().createChildren((createRoute) => [
+    createIndexRoute,
+    createRoute({
+        path: "/settings",
+        component: Settings,
+    }),
+    createRoute({
+        path: "/incidents/:id",
+        component: IncidentDetail,
+    }),
+]);
+
+const Router = createReactRouter({ routeConfig });
 
 function App() {
     return (
-        <GeolocationProvider
-            enableHighAccuracy={true}
-            maximumAge={1000}
-            timeout={20000}
-            watch={true}
-        >
-            <SettingsProvider>
-                <Router>
-                    <Routes>
-                        <Route
-                            path="/incidents/:id"
-                            element={<IncidentDetail />}
-                        />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/" element={<Home />} />
-                    </Routes>
-                </Router>
-            </SettingsProvider>
-        </GeolocationProvider>
+        <QueryClientProvider client={queryClient}>
+            <GeolocationProvider
+                enableHighAccuracy={true}
+                maximumAge={1000}
+                timeout={20000}
+                watch={true}
+            >
+                <SettingsProvider>
+                    <RouterProvider router={Router}>
+                        <Outlet />
+                    </RouterProvider>
+                </SettingsProvider>
+            </GeolocationProvider>
+        </QueryClientProvider>
     );
 }
 
