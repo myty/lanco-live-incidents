@@ -16,7 +16,7 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
     const [defaultCenter, setDefaultCenter] = useState<Coords>();
     const { incidents } = useIncidents();
 
-    const { currentPosition: position } = useGeolocation();
+    const { position } = useGeolocation();
     const currentPosition =
         position != null
             ? { lat: position.coords.latitude, lng: position.coords.longitude }

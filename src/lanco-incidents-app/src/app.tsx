@@ -12,6 +12,7 @@ import { createIndexRoute } from "routes";
 import { IncidentDetail } from "pages/incident-detail/incident-detail";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "query-client";
+import { GeolocationStore } from "stores/geolocation-store";
 
 const routeConfig = createRouteConfig().createChildren((createRoute) => [
     createIndexRoute,
@@ -27,21 +28,21 @@ const routeConfig = createRouteConfig().createChildren((createRoute) => [
 
 const Router = createReactRouter({ routeConfig });
 
+GeolocationStore.Default.setConfig({
+    enableHighAccuracy: true,
+    maximumAge: 1000,
+    timeout: 20000,
+    watch: true,
+});
+
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <GeolocationProvider
-                enableHighAccuracy={true}
-                maximumAge={1000}
-                timeout={20000}
-                watch={true}
-            >
-                <SettingsProvider>
-                    <RouterProvider router={Router}>
-                        <Outlet />
-                    </RouterProvider>
-                </SettingsProvider>
-            </GeolocationProvider>
+            <SettingsProvider>
+                <RouterProvider router={Router}>
+                    <Outlet />
+                </RouterProvider>
+            </SettingsProvider>
         </QueryClientProvider>
     );
 }

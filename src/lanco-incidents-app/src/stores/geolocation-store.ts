@@ -1,3 +1,5 @@
+import { TypedEventTarget } from "utils/typed-event-target";
+import { TypedEvent } from "utils/typed-event";
 import {
     GeolocationStoreConifguration,
     GeolocationStoreConifgurationRecord,
@@ -13,24 +15,36 @@ interface GeolocationStoreOptions {
     geolocation?: Geolocation;
 }
 
-enum GeoplocationEvent {
+export enum GeoplocationEvent {
     StatusChange = "statusChange",
+    PositionChange = "positionChange",
+    PositionError = "positionError",
 }
 
-class GeoplocationStatusChangeEvent extends Event {
-    constructor() {
-        super(GeoplocationEvent.StatusChange, {
-            detail: "",
-        });
-    }
-}
+class GeoplocationStatusChangeEvent extends TypedEvent<GeolocationStatus>(
+    GeoplocationEvent.StatusChange,
+) {}
 
-export class GeolocationStore extends EventTarget {
+class GeoplocationPositionChangeEvent extends TypedEvent<GeolocationPosition>(
+    GeoplocationEvent.PositionChange,
+) {}
+
+class GeoplocationPositionErrorEvent extends TypedEvent<GeolocationPositionError>(
+    GeoplocationEvent.PositionError,
+) {}
+
+export class GeolocationStore extends TypedEventTarget<{
+    [GeoplocationEvent.StatusChange]: GeoplocationStatusChangeEvent;
+    [GeoplocationEvent.PositionChange]: GeoplocationPositionChangeEvent;
+    [GeoplocationEvent.PositionError]: GeoplocationPositionErrorEvent;
+}>() {
     static readonly Default = new GeolocationStore();
 
     private config = new GeolocationStoreConifgurationRecord();
-    private currentStatus = GeolocationStatus.Initialized;
+    private status = GeolocationStatus.Initialized;
+    private error?: GeolocationPositionError;
     private geolocation?: Geolocation;
+    private position?: GeolocationPosition;
     private watchId?: number;
 
     constructor(options: GeolocationStoreOptions = {}) {
@@ -44,8 +58,12 @@ export class GeolocationStore extends EventTarget {
         this.setupPermissionCheck();
     }
 
-    get status() {
-        return this.currentStatus;
+    get currentState() {
+        return {
+            error: this.error,
+            position: this.position,
+            status: this.status,
+        };
     }
 
     setConfig(config: Partial<GeolocationStoreConifguration> = {}) {
@@ -68,7 +86,7 @@ export class GeolocationStore extends EventTarget {
     ): number | undefined {
         if (
             this.geolocation == null ||
-            this.currentStatus !== GeolocationStatus.PermissionGranted
+            this.status !== GeolocationStatus.PermissionGranted
         ) {
             return;
         }
@@ -95,7 +113,7 @@ export class GeolocationStore extends EventTarget {
     ): void {
         if (
             this.geolocation == null ||
-            this.currentStatus !== GeolocationStatus.PermissionGranted
+            this.status !== GeolocationStatus.PermissionGranted
         ) {
             return;
         }
@@ -126,19 +144,19 @@ export class GeolocationStore extends EventTarget {
                 ? GeolocationStatus.PermissionGranted
                 : GeolocationStatus.PermissionDenied;
 
-        if (this.currentStatus !== nextStatus) {
-            this.currentStatus = nextStatus;
-            this.dispatchEvent(
-                new Event("statusChange", { status: nextStatus }),
-            );
+        if (this.status !== nextStatus) {
+            this.status = nextStatus;
+            super.dispatchEvent(new GeoplocationStatusChangeEvent(nextStatus));
         }
     }
 
     private handlePostionChange(position: GeolocationPosition) {
-        this.emit("positionChange", position);
+        this.position = position;
+        super.dispatchEvent(new GeoplocationPositionChangeEvent(position));
     }
 
     private handlePositionError(error: GeolocationPositionError) {
-        this.emit("positionError", error);
+        this.error = error;
+        super.dispatchEvent(new GeoplocationPositionErrorEvent(error));
     }
 }
