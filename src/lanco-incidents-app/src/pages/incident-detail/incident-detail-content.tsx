@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useIncidents from "hooks/use-incidents";
-import { GoogleMap } from "components/map/map";
-import { Coords } from "google-map-react";
 import { IncidentDetailSection } from "./incident-detail-section";
 import { IncidentRecord } from "models/view-models/incident-record";
 import useGeolocation from "hooks/use-gps-location";
+import { IncidentMap } from "components/map/incident-map";
 
 export interface IncidentDetailContentProps {
     incident?: IncidentRecord | null;
@@ -13,7 +12,8 @@ export interface IncidentDetailContentProps {
 export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
     incident,
 }) => {
-    const [defaultCenter, setDefaultCenter] = useState<Coords>();
+    const [defaultCenter, setDefaultCenter] =
+        useState<google.maps.LatLngLiteral>();
     const { incidents } = useIncidents();
 
     const { position } = useGeolocation();
@@ -41,7 +41,7 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
     return (
         <div>
             {defaultCenter != null && (
-                <GoogleMap
+                <IncidentMap
                     currentPosition={currentPosition}
                     defaultCenter={defaultCenter}
                     incident={incident}

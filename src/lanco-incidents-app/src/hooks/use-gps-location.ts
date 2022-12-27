@@ -19,7 +19,7 @@ function subscribe(onStoreChange: () => void) {
     );
 
     const subscription = concat(positionChanges, positionErrors, statusChanges)
-        .pipe(throttle(() => interval(1000)))
+        .pipe(throttle(() => interval(250)))
         .subscribe(() => onStoreChange());
 
     return () => {

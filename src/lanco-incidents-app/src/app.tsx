@@ -1,8 +1,9 @@
 import React from "react";
 import SettingsProvider from "providers/settings-provider";
-import { routes } from "routes";
+import { router } from "router";
 import { GeolocationStore } from "stores/geolocation-store";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import ServiceWorkerProvider from "providers/service-worker-provider";
 
 GeolocationStore.Default.setConfig({
     enableHighAccuracy: true,
@@ -11,13 +12,13 @@ GeolocationStore.Default.setConfig({
     watch: true,
 });
 
-const router = createBrowserRouter(routes);
-
 function App() {
     return (
-        <SettingsProvider>
-            <RouterProvider router={router} />
-        </SettingsProvider>
+        <ServiceWorkerProvider serviceWorkerPath="/sw.js">
+            <SettingsProvider>
+                <RouterProvider router={router} />
+            </SettingsProvider>
+        </ServiceWorkerProvider>
     );
 }
 

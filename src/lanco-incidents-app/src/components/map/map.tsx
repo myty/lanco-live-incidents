@@ -1,77 +1,61 @@
-import React from "react";
-import GoogleMapReact, { Coords } from "google-map-react";
-import { IncidentRecord } from "models/view-models/incident-record";
-import MapMarker from "components/map/map-marker";
-import MapCurrentLocationMarker from "components/map/map-current-location-marker";
-import { Geocode } from "types/geocode";
+import React, {
+    Children,
+    cloneElement,
+    FC,
+    isValidElement,
+    PropsWithChildren,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
+import { Wrapper } from "@googlemaps/react-wrapper";
 
-interface MapProps {
-    currentPosition?: Geocode;
-    defaultCenter?: Coords;
-    incident: IncidentRecord;
-    otherIncidents?: IncidentRecord[];
+interface MapProps extends Exclude<google.maps.MapOptions, "center"> {
+    center?: google.maps.LatLngLiteral;
 }
 
 const apiKey: string = (import.meta.env.VITE_GOOGLE_MAPS_KEY as string) ?? "";
 
-export const GoogleMap: React.FC<MapProps> = (props: MapProps) => {
-    const {
-        currentPosition,
-        defaultCenter,
-        incident,
-        otherIncidents = [],
-    } = props;
-    const { geoLocation } = incident;
-    const { lat, lng } = geoLocation ?? {};
+const MapComponent: FC<PropsWithChildren<MapProps>> = ({
+    children,
+    center,
+    zoom = 12,
+    ...options
+}) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [map, setMap] = useState<google.maps.Map>();
 
-    if (lat == null || lng == null) {
-        return null;
-    }
+    useEffect(() => {
+        if (map) {
+            map.setOptions({ ...options, zoom, center });
+        }
+    }, [map]);
+
+    useEffect(() => {
+        if (ref.current && !map) {
+            setMap(new window.google.maps.Map(ref.current, {}));
+        }
+    }, [ref, map]);
 
     return (
-        <div
-            style={{
-                height: "calc(40vh)",
-                width: "100%",
-            }}
-        >
-            <GoogleMapReact
-                bootstrapURLKeys={{ key: apiKey }}
-                defaultCenter={defaultCenter}
-                defaultZoom={15}
-            >
-                {currentPosition != null && (
-                    <MapCurrentLocationMarker
-                        lat={currentPosition.lat}
-                        lng={currentPosition.lng}
-                    />
-                )}
-                {otherIncidents.map(({ geoLocation, id, location }) => {
-                    const { lat, lng } = geoLocation ?? {};
-
-                    if (lat == null || lng == null) {
-                        return null;
-                    }
-
-                    return (
-                        <MapMarker
-                            id={id}
-                            key={id}
-                            lat={lat}
-                            lng={lng}
-                            text={location}
-                        />
-                    );
-                })}
-                <MapMarker
-                    id={incident.id}
-                    key={incident.id}
-                    lat={lat}
-                    lng={lng}
-                    primary={true}
-                    text={incident.location}
-                />
-            </GoogleMapReact>
-        </div>
+        <>
+            <div ref={ref} style={{ flexGrow: "1", height: "100%" }} />
+            {Children.map(children, (child) => {
+                if (isValidElement(child)) {
+                    // rome-ignore lint/suspicious/noExplicitAny: <explanation>
+                    return cloneElement<any>(child, { map });
+                }
+            })}
+        </>
     );
 };
+
+const MapWrapper: FC<PropsWithChildren<MapProps>> = (props) => {
+    return (
+        <Wrapper apiKey={apiKey}>
+            <MapComponent {...props} />
+        </Wrapper>
+    );
+};
+
+export default MapWrapper;

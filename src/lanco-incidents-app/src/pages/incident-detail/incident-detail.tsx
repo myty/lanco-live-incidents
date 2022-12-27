@@ -1,4 +1,3 @@
-import Layout from "containers/layout";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IncidentDetailContent } from "./incident-detail-content";
@@ -7,6 +6,7 @@ import { IncidentRecord } from "models/view-models/incident-record";
 import useIncident from "hooks/use-incident";
 import { useWebShare } from "hooks/use-web-share";
 import { SITE_TITLE } from "constants/app-constants";
+import { useAppLayout } from "containers/app-layout";
 
 export function IncidentDetail() {
     const { id } = useParams<"id">();
@@ -14,13 +14,13 @@ export function IncidentDetail() {
     const { incident } = useIncident({ id });
     const webShare = useWebShare();
 
-    const handleGoBack = () => navigate(-1);
+    const handleGoBack = () => navigate("/", { replace: true });
     const handleShare = () => webShare.share(getShareData(incident));
 
-    return (
-        <Layout
-            pageBgStyle="bg-white"
-            headerLeft={
+    useAppLayout(
+        () => ({
+            pageBgStyle: "bg-white",
+            headerLeft: (
                 <PageTitle
                     onBack={handleGoBack}
                     showShareButton={webShare.enabled}
@@ -28,11 +28,12 @@ export function IncidentDetail() {
                 >
                     {getTitle(incident)}
                 </PageTitle>
-            }
-        >
-            <IncidentDetailContent incident={incident} />
-        </Layout>
+            ),
+        }),
+        [incident]
     );
+
+    return <IncidentDetailContent incident={incident} />;
 }
 
 function getTitle(incident?: IncidentRecord | null): string {
