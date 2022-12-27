@@ -1,5 +1,5 @@
 import { TypedEventTarget } from "utils/typed-event-target";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 
 describe("TypedEventTarget", () => {
     it("is an EventTarget", () => {
@@ -22,6 +22,7 @@ describe("TypedEventTarget", () => {
                 class TestEvent extends Event {}
                 class TestClass extends TypedEventTarget<{
                     "event-one": TestEvent;
+                    "event-two": TestEvent;
                 }>() {}
                 const testClass = new TestClass();
 
@@ -32,6 +33,49 @@ describe("TypedEventTarget", () => {
 
                 // Assert
                 expect(result).toBeTruthy();
+            });
+        });
+    });
+
+    describe("addEventListener()", () => {
+        describe("when dispatchEvent", () => {
+            it("it calls eventListener", () => {
+                // Arrange
+                const eventOne = "event-one" as const;
+                class TestClass extends TypedEventTarget<{
+                    [eventOne]: Event;
+                }>() {}
+                const eventListener = vi.fn();
+
+                const testClass = new TestClass();
+                testClass.addEventListener(eventOne, eventListener);
+
+                // Act
+                testClass.dispatchEvent(new Event(eventOne));
+
+                // Assert
+                expect(eventListener).toBeCalled();
+            });
+        });
+
+        describe("when dispatchEvent of unknown event", () => {
+            it("it does not call eventListener", () => {
+                // Arrange
+                const eventOne = "event-one" as const;
+                const eventTwo = "event-two" as const;
+                class TestClass extends TypedEventTarget<{
+                    [eventOne]: Event;
+                }>() {}
+                const eventListener = vi.fn();
+
+                const testClass = new TestClass();
+                testClass.addEventListener(eventOne, eventListener);
+
+                // Act
+                testClass.dispatchEvent(new Event(eventTwo));
+
+                // Assert
+                expect(eventListener).not.toBeCalled();
             });
         });
     });

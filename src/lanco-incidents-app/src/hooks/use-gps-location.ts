@@ -1,50 +1,36 @@
 import { useSyncExternalStore } from "react";
+import { fromEvent, throttle, interval, concat } from "rxjs";
 import { GeolocationStore, GeoplocationEvent } from "stores/geolocation-store";
 
 function subscribe(onStoreChange: () => void) {
-    GeolocationStore.Default.addEventListener(
+    const positionChanges = fromEvent(
+        GeolocationStore.Default,
         GeoplocationEvent.PositionChange,
-        onStoreChange,
     );
 
-    GeolocationStore.Default.addEventListener(
+    const positionErrors = fromEvent(
+        GeolocationStore.Default,
         GeoplocationEvent.PositionError,
-        onStoreChange,
     );
 
-    GeolocationStore.Default.addEventListener(
+    const statusChanges = fromEvent(
+        GeolocationStore.Default,
         GeoplocationEvent.StatusChange,
-        onStoreChange,
     );
+
+    const subscription = concat(positionChanges, positionErrors, statusChanges)
+        .pipe(throttle(() => interval(1000)))
+        .subscribe(() => onStoreChange());
 
     return () => {
-        GeolocationStore.Default.removeEventListener(
-            GeoplocationEvent.PositionChange,
-            onStoreChange,
-        );
-
-        GeolocationStore.Default.removeEventListener(
-            GeoplocationEvent.PositionError,
-            onStoreChange,
-        );
-
-        GeolocationStore.Default.removeEventListener(
-            GeoplocationEvent.StatusChange,
-            onStoreChange,
-        );
+        subscription.unsubscribe();
     };
 }
 
 export default function useGeolocation() {
     return useSyncExternalStore(
         subscribe,
-        () => ({
-            ...GeolocationStore.Default.currentState,
-            refresh: GeolocationStore.Default.refresh,
-        }),
-        () => ({
-            ...GeolocationStore.Default.currentState,
-            refresh() {},
-        }),
+        () => GeolocationStore.Default.getSnapshot(),
+        () => GeolocationStore.Default.getSnapshot(),
     );
 }

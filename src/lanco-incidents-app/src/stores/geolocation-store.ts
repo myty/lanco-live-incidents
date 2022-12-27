@@ -4,6 +4,7 @@ import {
     GeolocationStoreConifguration,
     GeolocationStoreConifgurationRecord,
 } from "../models/view-models/geolocation-store-conifguration-record";
+import { GeolocationStateRecord } from "models/view-models/geolocation-state-record";
 
 enum GeolocationStatus {
     Initialized,
@@ -41,14 +42,18 @@ export class GeolocationStore extends TypedEventTarget<{
     static readonly Default = new GeolocationStore();
 
     private config = new GeolocationStoreConifgurationRecord();
-    private status = GeolocationStatus.Initialized;
-    private error?: GeolocationPositionError;
+    private state = new GeolocationStateRecord();
+
     private geolocation?: Geolocation;
-    private position?: GeolocationPosition;
     private watchId?: number;
 
     constructor(options: GeolocationStoreOptions = {}) {
         super();
+
+        this.handlePermissionStateChange =
+            this.handlePermissionStateChange.bind(this);
+        this.handlePositionError = this.handlePositionError.bind(this);
+        this.handlePostionChange = this.handlePostionChange.bind(this);
 
         this.geolocation =
             options.geolocation == null && "geolocation" in navigator
@@ -58,12 +63,8 @@ export class GeolocationStore extends TypedEventTarget<{
         this.setupPermissionCheck();
     }
 
-    get currentState() {
-        return {
-            error: this.error,
-            position: this.position,
-            status: this.status,
-        };
+    getSnapshot() {
+        return this.state;
     }
 
     setConfig(config: Partial<GeolocationStoreConifguration> = {}) {
@@ -71,54 +72,51 @@ export class GeolocationStore extends TypedEventTarget<{
 
         if (!this.config.equalTo(nextConfig)) {
             this.checkLocation(nextConfig);
-            this.watchId = this.setupWatchPosition(this.config, nextConfig);
+            this.watchId = this.setupWatchPosition(nextConfig);
             this.config = nextConfig;
         }
     }
 
-    refresh(): void {
-        this.checkLocation(this.config);
-    }
-
     private setupWatchPosition(
-        currentConfig: GeolocationStoreConifgurationRecord,
-        nextConfig: GeolocationStoreConifgurationRecord,
+        nextConfig?: GeolocationStoreConifgurationRecord,
     ): number | undefined {
         if (
             this.geolocation == null ||
-            this.status !== GeolocationStatus.PermissionGranted
+            this.state.status !== GeolocationStatus.PermissionGranted
         ) {
             return;
         }
 
-        if (nextConfig.watch !== currentConfig.watch) {
-            const { enableHighAccuracy, maximumAge, timeout } = currentConfig;
+        if (this.watchId != null) {
+            this.geolocation.clearWatch(this.watchId);
+        }
 
-            if (nextConfig.watch) {
+        if (nextConfig == null || nextConfig.watch !== this.config.watch) {
+            const { enableHighAccuracy, maximumAge, timeout } = this.config;
+
+            if (
+                (nextConfig == null && this.config.watch) ||
+                nextConfig?.watch
+            ) {
                 return this.geolocation.watchPosition(
                     this.handlePostionChange,
                     this.handlePositionError,
                     { enableHighAccuracy, maximumAge, timeout },
                 );
             }
-
-            if (this.watchId != null) {
-                this.geolocation.clearWatch(this.watchId);
-            }
         }
     }
 
-    private checkLocation(
-        nextConfig: GeolocationStoreConifgurationRecord,
-    ): void {
+    private checkLocation(config?: GeolocationStoreConifgurationRecord): void {
         if (
             this.geolocation == null ||
-            this.status !== GeolocationStatus.PermissionGranted
+            this.state.status !== GeolocationStatus.PermissionGranted
         ) {
             return;
         }
 
-        const { enableHighAccuracy, maximumAge, timeout } = nextConfig;
+        const { enableHighAccuracy, maximumAge, timeout } =
+            config ?? this.config;
 
         this.geolocation.getCurrentPosition(
             this.handlePostionChange,
@@ -144,19 +142,34 @@ export class GeolocationStore extends TypedEventTarget<{
                 ? GeolocationStatus.PermissionGranted
                 : GeolocationStatus.PermissionDenied;
 
-        if (this.status !== nextStatus) {
-            this.status = nextStatus;
+        const nextState = this.state.withStatus(nextStatus);
+
+        if (this.state !== nextState) {
+            this.state = nextState;
             super.dispatchEvent(new GeoplocationStatusChangeEvent(nextStatus));
+
+            if (nextStatus === GeolocationStatus.PermissionGranted) {
+                this.checkLocation();
+                this.watchId = this.setupWatchPosition();
+            }
         }
     }
 
     private handlePostionChange(position: GeolocationPosition) {
-        this.position = position;
-        super.dispatchEvent(new GeoplocationPositionChangeEvent(position));
+        const nextState = this.state.withPosition(position);
+
+        if (this.state !== nextState) {
+            this.state = nextState;
+            super.dispatchEvent(new GeoplocationPositionChangeEvent(position));
+        }
     }
 
     private handlePositionError(error: GeolocationPositionError) {
-        this.error = error;
-        super.dispatchEvent(new GeoplocationPositionErrorEvent(error));
+        const nextState = this.state.withError(error);
+
+        if (this.state !== nextState) {
+            this.state = nextState;
+            super.dispatchEvent(new GeoplocationPositionErrorEvent(error));
+        }
     }
 }
