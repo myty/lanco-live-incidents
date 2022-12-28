@@ -19,11 +19,11 @@ export function IncidentDetail() {
 
     useAppLayout(
         () => ({
-            pageBgStyle: "bg-white",
+            pageBgStyle: "bg-gray-100",
             headerLeft: (
                 <PageTitle
                     onBack={handleGoBack}
-                    showShareButton={webShare.enabled}
+                    showShareButton={webShare.enabled && incident != null}
                     onShare={handleShare}
                 >
                     {getTitle(incident)}
@@ -33,17 +33,23 @@ export function IncidentDetail() {
         [incident]
     );
 
+    if (incident == null) {
+        return (
+            <>
+                <div className="grid h-full grid-cols-1 place-content-center">
+                    <p className="px-10 text-center">
+                        This incident cannot be found or is no longer active.
+                    </p>
+                </div>
+            </>
+        );
+    }
+
     return <IncidentDetailContent incident={incident} />;
 }
 
 function getTitle(incident?: IncidentRecord | null): string {
-    const { type } = incident ?? {};
-
-    if (type) {
-        return type;
-    }
-
-    return "Incident";
+    return incident?.type ?? "Not Found";
 }
 
 function getShareData(incident?: IncidentRecord | null) {
