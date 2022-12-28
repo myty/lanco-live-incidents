@@ -3,7 +3,7 @@
         "editor.defaultFormatter": "csharpier.csharpier-vscode",
         "editor.formatOnSave": true
     },
-    "azureFunctions.deploySubpath": "src/lanco-incidents-func/bin/Release/net6.0/publish",
+    "azureFunctions.deploySubpath": "src/lanco-incidents-func/bin/Release/net7.0/publish",
     "azureFunctions.preDeployTask": "publish (functions)",
     "azureFunctions.projectLanguage": "C#",
     "azureFunctions.projectRuntime": "~4",
@@ -27,5 +27,6 @@
         "editor.defaultFormatter": "rome.rome"
     },
     "dotnet-test-explorer.autoWatch": true,
-    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)"
+    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)",
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -15,10 +15,9 @@ interface Incident {
     unitsAssigned: string[];
 }
 
-const convertToGeocode = ({
-    lat,
-    lng,
-}: Partial<{ lat: number; lng: number }>): Geocode | undefined => {
+const convertToGeocode = ({ lat, lng }: Partial<{ lat: number; lng: number }>):
+    | Geocode
+    | undefined => {
     if (lat == null || lng == null) {
         return undefined;
     }
@@ -26,15 +25,26 @@ const convertToGeocode = ({
     return { lat, lng };
 };
 
-export class IncidentRecord extends ImmutableRecord<Incident>({
-    id: "",
-    incidentDate: DateTime.now(),
-    type: "",
-    subType: "",
-    location: "",
-    area: "",
-    unitsAssigned: [],
-}) {
+function incidentProcessor(values: Record<string, unknown>) {
+    if (typeof values.incidentDate === "string") {
+        values.incidentDate = DateTime.fromISO(values.incidentDate, {});
+    }
+
+    return values;
+}
+
+export class IncidentRecord extends ImmutableRecord<Incident>(
+    {
+        id: "",
+        incidentDate: DateTime.now(),
+        type: "",
+        subType: "",
+        location: "",
+        area: "",
+        unitsAssigned: [],
+    },
+    incidentProcessor,
+) {
     static fromFeedIncident(feedIncident: FeedIncident): IncidentRecord {
         const {
             incident_dt,

@@ -9,6 +9,14 @@
                 "dist/**"
             ]
         },
+        "serve": {
+            "dependsOn": [
+                "^build", "build"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        },
         "test": {
             "dependsOn": [
                 "build"
