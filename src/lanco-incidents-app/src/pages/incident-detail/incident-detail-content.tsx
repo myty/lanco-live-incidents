@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useIncidents from "hooks/use-incidents";
 import { IncidentDetailSection } from "./incident-detail-section";
 import { IncidentRecord } from "models/view-models/incident-record";
@@ -12,8 +12,6 @@ export interface IncidentDetailContentProps {
 export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
     incident,
 }) => {
-    const [defaultCenter, setDefaultCenter] =
-        useState<google.maps.LatLngLiteral>();
     const { incidents } = useIncidents();
 
     const { position } = useGeolocation();
@@ -26,12 +24,6 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
         (other) => other.id !== incident?.id
     );
 
-    useEffect(() => {
-        if (defaultCenter == null && incident?.geoLocation != null) {
-            setDefaultCenter(incident.geoLocation);
-        }
-    }, [defaultCenter, incident]);
-
     if (incident == null) {
         return (
             <div className="px-6 py-2 text-sm font-semibold">Loading...</div>
@@ -40,10 +32,10 @@ export const IncidentDetailContent: React.FC<IncidentDetailContentProps> = ({
 
     return (
         <div>
-            {defaultCenter != null && (
+            {incident?.geoLocation != null && (
                 <IncidentMap
                     currentPosition={currentPosition}
-                    defaultCenter={defaultCenter}
+                    defaultCenter={incident.geoLocation}
                     incident={incident}
                     otherIncidents={otherIncidents}
                 />
