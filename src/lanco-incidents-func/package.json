@@ -9,12 +9,14 @@
         "restore": "dotnet clean && dotnet restore"
     },
     "lint-staged": {
-        "*.{cs}": ["dotnet csharpier"]
+        "*.{cs}": [
+            "dotnet csharpier"
+        ]
     },
     "volta": {
         "extends": "../../package.json"
     },
     "devDependencies": {
-        "concurrently": "^7.5.0"
+        "concurrently": "^7.6.0"
     }
 }
