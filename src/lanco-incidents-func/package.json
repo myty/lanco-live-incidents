@@ -1,5 +1,5 @@
 {
-    "name": "lanco-incidents-func",
+    "name": "@lanco-incidents/func",
     "scripts": {
         "azurite": "docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --rm mcr.microsoft.com/azure-storage/azurite",
         "func": "func start --csharp",

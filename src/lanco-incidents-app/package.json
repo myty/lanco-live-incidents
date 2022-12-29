@@ -1,5 +1,5 @@
 {
-    "name": "lanco-incidents-app",
+    "name": "@lanco-incidents/app",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",

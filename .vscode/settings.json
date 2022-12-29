@@ -28,5 +28,7 @@
     },
     "dotnet-test-explorer.autoWatch": true,
     "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)",
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "deno.enable": true,
+    "deno.unstable": true,
 }

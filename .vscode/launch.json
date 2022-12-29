@@ -16,6 +16,14 @@
             "type": "coreclr",
             "request": "attach",
             "processId": "${command:azureFunctions.pickProcess}"
+        },
+        {
+            "name": "Attach to Deno Functions",
+            "type": "node",
+            "request": "attach",
+            "cwd": "${workspaceFolder}",
+            "port": 9229,
+            // "preLaunchTask": "func: host start"
         }
     ]
 }

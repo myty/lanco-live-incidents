@@ -1,0 +1,6 @@
+{
+  "name": "@lanco-incidents/og-images",
+  "scripts": {
+    "dev": "func host start"
+  }
+}
