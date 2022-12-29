@@ -9,18 +9,20 @@ export function mapHandler(functionsMap: FunctionHandler): Handler {
         const requestUrl = new URL(req.url);
         const { pathname } = requestUrl;
 
-        const foundFunctions = Object.keys(functionsMap)
-            .filter((key) => pathname.startsWith(`/api/${key}`))
-            .map((key) => functionsMap[key]);
+        const handler = findFunctionHandler(functionsMap, pathname);
 
-        const foundFunction = foundFunctions.length < 1
-            ? undefined
-            : foundFunctions[0];
-
-        if (foundFunction != null) {
-            return foundFunction(req);
+        if (handler != null) {
+            return handler(req);
         }
 
         return new Response(null, { status: 404 });
     };
+}
+
+function findFunctionHandler(functionsMap: FunctionHandler, pathname: string) {
+    const foundFunctions = Object.keys(functionsMap)
+        .filter((key) => pathname.startsWith(`/api/${key}`))
+        .map((key) => functionsMap[key]);
+
+    return foundFunctions.length < 1 ? undefined : foundFunctions[0];
 }
