@@ -6,8 +6,7 @@ export interface FunctionHandler {
 
 export function mapHandler(functionsMap: FunctionHandler): Handler {
     return (req: Request) => {
-        const requestUrl = new URL(req.url);
-        const { pathname } = requestUrl;
+        const { pathname } = new URL(req.url);
 
         const handler = findFunctionHandler(functionsMap, pathname);
 
