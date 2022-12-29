@@ -2,6 +2,8 @@ import React from "https://esm.sh/react@18.2.0";
 import { ImageResponse } from "https://deno.land/x/og_edge@0.0.4/mod.ts";
 import { BlobServiceClient, BlockBlobClient } from "npm:@azure/storage-blob";
 
+const BLOB_CACHE_ENABLED = false;
+
 const azureBlobConnectionInfo = getAzureBlobConnectionInfo();
 const blobServiceClient = BlobServiceClient.fromConnectionString(
     azureBlobConnectionInfo["ConnectionString"],
@@ -18,7 +20,7 @@ export default async function handler(req: Request): Promise<Response> {
     await containerClient.createIfNotExists();
     const blobClient = containerClient.getBlockBlobClient(`${id}.png`);
 
-    if (await blobClient.exists()) {
+    if (BLOB_CACHE_ENABLED && (await blobClient.exists())) {
         return await getCachedBlob(blobClient);
     }
 
@@ -30,12 +32,19 @@ export default async function handler(req: Request): Promise<Response> {
                 width: "100%",
                 height: "100%",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 40,
+                color: "white",
+                backgroundColor: "rgb(30 58 138)",
+                fontFamily: "Vera",
             }}
         >
-            {incident?.location}
+            <div style={{ fontSize: 40, fontWeight: "700" }}>
+                {incident?.type}
+            </div>
+            <div style={{ fontSize: 64 }}>{incident?.subType}</div>
+            <div style={{ fontSize: 36 }}>{incident?.location}</div>
         </div>,
         {
             width: 1200,
@@ -43,7 +52,9 @@ export default async function handler(req: Request): Promise<Response> {
         },
     );
 
-    await cacheImageResponse(blobClient, imageResponse);
+    if (BLOB_CACHE_ENABLED && incident != null) {
+        await cacheImageResponse(blobClient, imageResponse);
+    }
 
     return imageResponse;
 }
