@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "lib": ["deno.window"],
+        "strict": true
+    },
+    "lint": {
+        "rules": {
+            "tags": ["recommended"],
+            "include": ["ban-untagged-todo"],
+            "exclude": ["no-unused-vars"]
+        }
+    },
+    "fmt": {
+        "options": {
+            "useTabs": false,
+            "indentWidth": 4,
+            "singleQuote": false,
+            "proseWrap": "preserve"
+        }
+    }
+}

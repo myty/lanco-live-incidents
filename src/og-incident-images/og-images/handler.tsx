@@ -4,7 +4,7 @@ import { BlobServiceClient, BlockBlobClient } from "npm:@azure/storage-blob";
 
 const azureBlobConnectionInfo = getAzureBlobConnectionInfo();
 const blobServiceClient = BlobServiceClient.fromConnectionString(
-    azureBlobConnectionInfo["ConnectionString"]
+    azureBlobConnectionInfo["ConnectionString"],
 );
 const containerClient = blobServiceClient.getContainerClient("og-images");
 
@@ -25,23 +25,22 @@ export default async function handler(req: Request): Promise<Response> {
     const incident = await getIncident(id);
 
     const imageResponse = new ImageResponse(
-        (
-            <div
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 40,
-                }}>
-                {incident?.location}
-            </div>
-        ),
+        <div
+            style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 40,
+            }}
+        >
+            {incident?.location}
+        </div>,
         {
             width: 1200,
             height: 630,
-        }
+        },
     );
 
     await cacheImageResponse(blobClient, imageResponse);
@@ -69,7 +68,7 @@ async function getIncident(id: string) {
 
 async function cacheImageResponse(
     blobClient: BlockBlobClient,
-    imageResponse: ImageResponse
+    imageResponse: ImageResponse,
 ) {
     await blobClient.uploadData(await imageResponse.clone().arrayBuffer(), {
         blobHTTPHeaders: {
@@ -84,7 +83,7 @@ async function getCachedBlob(blobClient: BlockBlobClient) {
     const cachedResponse = new Response(await blobClient.downloadToBuffer());
     cachedResponse.headers.append(
         "Cache-Control",
-        "no-transform, public, max-age=31536000, immutable"
+        "no-transform, public, max-age=31536000, immutable",
     );
     cachedResponse.headers.append("Content-Type", "image/png");
     return cachedResponse;
@@ -112,6 +111,6 @@ function getAzureBlobConnectionInfo() {
         { ConnectionString: azureBlobConnectionString } as Record<
             string,
             string
-        >
+        >,
     );
 }

@@ -1,22 +1,29 @@
 {
-  "version": "2.0",
-  "logging": {
-    "applicationInsights": {
-      "samplingSettings": {
-        "isEnabled": true,
-        "excludedTypes": "Request"
-      }
-    }
-  },
-  "extensionBundle": {
-    "id": "Microsoft.Azure.Functions.ExtensionBundle",
-    "version": "[3.*, 4.0.0)"
-  },
-  "customHandler": {
-    "description": {
-      "defaultExecutablePath": "deno",
-      "arguments": ["run","--allow-env","--allow-net","--allow-sys","--watch","main.ts"]
+    "version": "2.0",
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": {
+                "isEnabled": true,
+                "excludedTypes": "Request"
+            }
+        }
     },
-    "enableForwardingHttpRequest": true
-  }
+    "extensionBundle": {
+        "id": "Microsoft.Azure.Functions.ExtensionBundle",
+        "version": "[3.*, 4.0.0)"
+    },
+    "customHandler": {
+        "description": {
+            "defaultExecutablePath": "deno",
+            "arguments": [
+                "run",
+                "--allow-env",
+                "--allow-net",
+                "--allow-sys",
+                "--watch",
+                "main.ts"
+            ]
+        },
+        "enableForwardingHttpRequest": true
+    }
 }

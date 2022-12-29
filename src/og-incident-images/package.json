@@ -1,6 +1,12 @@
 {
-  "name": "@lanco-incidents/og-images",
-  "scripts": {
-    "dev": "func host start"
-  }
+    "name": "@lanco-incidents/og-images",
+    "scripts": {
+        "dev": "func host start"
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js,json}": [
+            "deno lint",
+            "deno fmt"
+        ]
+    }
 }

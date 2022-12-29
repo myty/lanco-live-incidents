@@ -1,9 +1,11 @@
 {
     "formatter": {
+        "ignore": ["src/og-incident-images/**/*.*"],
         "indentStyle": "space",
         "indentSize": 4
     },
     "linter": {
+        "ignore": ["src/og-incident-images/**/*.*"],
         "enabled": true,
         "rules": {
             "recommended": true
