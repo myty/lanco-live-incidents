@@ -29,7 +29,8 @@
     "dotnet-test-explorer.autoWatch": true,
     "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)",
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    "deno.enable": true,
+    "deno.config": "./src/og-incident-images/deno.jsonc",
+    "deno.enablePaths": ["./src/og-incident-images"],
     "deno.unstable": true,
     "deno.inlayHints.enumMemberValues.enabled": false,
     "deno.inlayHints.functionLikeReturnTypes.enabled": false,
@@ -38,5 +39,5 @@
     "deno.inlayHints.parameterTypes.enabled": false,
     "deno.inlayHints.propertyDeclarationTypes.enabled": false,
     "deno.inlayHints.variableTypes.enabled": false,
-    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false
+    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
 }

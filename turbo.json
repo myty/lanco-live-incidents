@@ -43,12 +43,12 @@
         "dev": {
             "cache": false
         },
-        "lanco-incidents-func#dev": {
+        "@lanco-incidents/func#dev": {
             "outputs": [
                 "Debug/**"
             ]
         },
-        "lanco-incidents-func#build": {
+        "@lanco-incidents/func#build": {
             "outputs": [
                 "Release/**"
             ]

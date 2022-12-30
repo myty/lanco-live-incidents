@@ -2,7 +2,7 @@ import React from "https://esm.sh/react@18.2.0";
 import { ImageResponse } from "https://deno.land/x/og_edge@0.0.4/mod.ts";
 import { BlobServiceClient, BlockBlobClient } from "npm:@azure/storage-blob";
 
-const BLOB_CACHE_ENABLED = false;
+const BLOB_CACHE_ENABLED = true;
 
 const azureBlobConnectionInfo = getAzureBlobConnectionInfo();
 const blobServiceClient = BlobServiceClient.fromConnectionString(
@@ -11,7 +11,7 @@ const blobServiceClient = BlobServiceClient.fromConnectionString(
 const containerClient = blobServiceClient.getContainerClient("og-images");
 
 export default async function handler(req: Request): Promise<Response> {
-    const id = new URL(req.url).searchParams.get("id");
+    const id = extractIdFromRequest(req);
 
     if (id == null) {
         return new Response(null, { status: 500 });
@@ -57,6 +57,15 @@ export default async function handler(req: Request): Promise<Response> {
     }
 
     return imageResponse;
+}
+
+function extractIdFromRequest(req: Request) {
+    const { pathname } = new URL(req.url);
+
+    const filename = pathname.split("/").reverse()[0];
+    const id = filename.slice(0, filename.length - 4);
+
+    return id;
 }
 
 async function getIncident(id: string) {

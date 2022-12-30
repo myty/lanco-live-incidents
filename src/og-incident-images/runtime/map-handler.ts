@@ -20,7 +20,7 @@ export function mapHandler(functionsMap: FunctionHandler): Handler {
 
 function findFunctionHandler(functionsMap: FunctionHandler, pathname: string) {
     const foundFunctions = Object.keys(functionsMap)
-        .filter((key) => pathname.startsWith(`/api/${key}`))
+        .filter((key) => pathname.startsWith(key))
         .map((key) => functionsMap[key]);
 
     return foundFunctions.length < 1 ? undefined : foundFunctions[0];
