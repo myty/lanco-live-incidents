@@ -2,74 +2,11 @@
 /// <reference types="vite/client" />
 
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
+import { defineConfig, ServerOptions } from "vite";
+import { ManifestOptions, VitePWA } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-interface ManifestOptions {
-    /**
-     * @default _npm_package_name_
-     */
-    name: string;
-    /**
-     * @default _npm_package_name_
-     */
-    short_name: string;
-    /**
-     * @default _npm_package_description_
-     */
-    description: string;
-    /**
-     *
-     */
-    icons: Record<string, any>[];
-    /**
-     * @default `routerBase + '?standalone=true'`
-     */
-    start_url: string;
-    /**
-     * Restricts what web pages can be viewed while the manifest is applied
-     */
-    scope: string;
-    /**
-     * Defines the default orientation for all the website's top-level
-     */
-    orientation:
-        | "any"
-        | "natural"
-        | "landscape"
-        | "landscape-primary"
-        | "landscape-secondary"
-        | "portrait"
-        | "portrait-primary"
-        | "portrait-secondary";
-    /**
-     * @default `standalone`
-     */
-    display: string;
-    /**
-     * @default `#ffffff`
-     */
-    background_color: string;
-    /**
-     * @default '#42b883
-     */
-    theme_color: string;
-    /**
-     * @default `ltr`
-     */
-    dir: "ltr" | "rtl";
-    /**
-     * @default `en`
-     */
-    lang: string;
-    /**
-     * @default A combination of `routerBase` and `options.build.publicPath`
-     */
-    publicPath: string;
-}
-
-const generateManifest = (): any => {
+const generateManifest = (): Partial<ManifestOptions> => {
     return {
         name: "Central Penn Incidents",
         short_name: "Incidents",
@@ -114,8 +51,19 @@ const generateManifest = (): any => {
     };
 };
 
+function getPortConfig(): Partial<Pick<ServerOptions, "port" | "strictPort">> {
+    if (process.env.PORT == null) {
+        return {};
+    }
+
+    return { strictPort: true, port: Number.parseInt(process.env.PORT) };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
+    server: {
+        ...getPortConfig(),
+    },
     plugins: [
         react(),
         tsconfigPaths(),

@@ -1,8 +1,18 @@
 {
+    "importMap": "import_map.json",
+    "tasks": {
+        "esm:add": "deno run -A https://esm.sh/v104 add",
+        "esm:update": "deno run -A https://esm.sh/v104 update",
+        "esm:remove": "deno run -A https://esm.sh/v104 remove"
+    },
     "compilerOptions": {
-        "allowJs": true,
-        "lib": ["deno.window"],
-        "strict": true
+        "target": "esnext",
+        "lib": [
+          "dom",
+          "dom.iterable",
+          "dom.asynciterable",
+          "deno.ns"
+        ]
     },
     "lint": {
         "rules": {
@@ -18,5 +28,11 @@
             "singleQuote": false,
             "proseWrap": "preserve"
         }
+    },
+    "test": {
+        "files": {
+            "include": ["./**/*.test.ts"]
+        }
     }
 }
+

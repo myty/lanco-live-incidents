@@ -20,11 +20,15 @@ export const router = createBrowserRouter([
                 element: <Settings />,
             },
             {
+                path: "share/:id",
+                element: <IncidentDetail />,
+            },
+            {
                 path: "incidents/:id",
                 element: <IncidentDetail />,
             },
             { path: "/not-found", element: <NotFound /> },
-            { path: "*", element: <Navigate to="not-found" /> },
+            { path: "*", element: <Navigate to="not-found" replace /> },
         ],
     },
 ]);

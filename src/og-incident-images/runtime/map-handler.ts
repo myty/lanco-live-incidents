@@ -1,4 +1,4 @@
-import { Handler } from "https://deno.land/std@0.170.0/http/server.ts";
+import { Handler } from "https://deno.land/std@0.173.0/http/server.ts";
 
 export interface FunctionHandler {
     [folder: string]: (request: Request) => Response | Promise<Response>;
@@ -10,11 +10,9 @@ export function mapHandler(functionsMap: FunctionHandler): Handler {
 
         const handler = findFunctionHandler(functionsMap, pathname);
 
-        if (handler != null) {
-            return handler(req);
-        }
-
-        return new Response(null, { status: 404 });
+        return handler != null
+            ? handler(req)
+            : new Response(null, { status: 404 });
     };
 }
 

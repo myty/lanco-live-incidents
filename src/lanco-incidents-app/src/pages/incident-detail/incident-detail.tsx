@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import { IncidentDetailContent } from "./incident-detail-content";
 import PageTitle from "components/page-title";
 import { IncidentRecord } from "models/view-models/incident-record";
@@ -10,9 +10,14 @@ import { useAppLayout } from "containers/app-layout";
 
 export function IncidentDetail() {
     const { id } = useParams<"id">();
+    const pathMatch = useMatch("share/:id");
     const navigate = useNavigate();
     const { incident } = useIncident({ id });
     const webShare = useWebShare();
+
+    if (pathMatch?.params.id === id) {
+        navigate(`/incidents/${id}`, { replace: true });
+    }
 
     const handleGoBack = () => navigate("/", { replace: true });
     const handleShare = () => webShare.share(getShareData(incident));

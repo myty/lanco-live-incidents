@@ -43,6 +43,9 @@
         "dev": {
             "cache": false
         },
+        "dev:vercel": {
+            "cache": false
+        },
         "@lanco-incidents/func#dev": {
             "outputs": [
                 "Debug/**"
