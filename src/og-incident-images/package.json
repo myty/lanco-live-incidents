@@ -2,7 +2,8 @@
     "name": "@lanco-incidents/og-images",
     "scripts": {
         "azurite": "docker compose up -d",
-        "test:integration": "pnpm azurite && deno test --watch --allow-env --allow-sys --allow-net ./ -- DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;",
+        "debug:test:integration": "pnpm azurite && deno test --inspect-wait --allow-env --allow-sys --allow-net --allow-read=./local.settings.json -- UseDevelopmentStorage=true;",
+        "test:integration": "pnpm azurite && deno test --watch --allow-env --allow-sys --allow-net --allow-read=./local.settings.json -- UseDevelopmentStorage=true;",
         "dev": "func host start",
         "dev:vercel": "pnpm dev"
     },

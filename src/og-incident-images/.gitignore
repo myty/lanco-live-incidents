@@ -22,8 +22,8 @@ project.lock.json
 appsettings.json
 local.settings.json
 
-node_modules
-dist
+/node_modules
+/dist
 
 # Local python packages
 .python_packages/
@@ -43,6 +43,7 @@ __pycache__/
 *$py.class
 
 # Azurite artifacts
+/azurite
 __blobstorage__
 __queuestorage__
 __azurite_db*__.json

@@ -1,10 +1,10 @@
-import { default as React } from "https://esm.sh/react@18.2.0";
+import React from "react";
 import { ImageResponse } from "https://deno.land/x/og_edge@0.0.5/mod.ts";
-import { BlobContainerProvider } from "../azure-blob-storage/container-provider.ts";
+import { BlobContainerRestProvider } from "../azure-blob-storage/blob-container-rest-provider.ts";
 
 const BLOB_CACHE_ENABLED = true;
 
-const blobContainerProvider = new BlobContainerProvider({
+const blobContainerProvider = BlobContainerRestProvider.create({
     container: "og-images",
 });
 
@@ -55,7 +55,10 @@ export default async function handler(req: Request): Promise<Response> {
     );
 
     if (BLOB_CACHE_ENABLED && incident != null) {
-        await blobContainerProvider.saveBlockBlob(blockBlobName, imageResponse);
+        await blobContainerProvider.saveBlockBlob(
+            blockBlobName,
+            await imageResponse.arrayBuffer(),
+        );
     }
 
     return imageResponse;

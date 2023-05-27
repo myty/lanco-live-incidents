@@ -18,12 +18,11 @@
             "processId": "${command:azureFunctions.pickProcess}"
         },
         {
-            "name": "Attach to Deno Functions",
+            "name": "Deno Integration Test",
             "type": "node",
             "request": "attach",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/src/og-incident-images",
             "port": 9229,
-            // "preLaunchTask": "func: host start"
         }
     ]
 }

@@ -1,14 +1,6 @@
 {
     "imports": {
-        "@azure/abort-controller": "https://esm.sh/v104/@azure/abort-controller@1.1.0",
-        "@azure/core-http": "https://esm.sh/v104/@azure/core-http@2.3.1",
-        "@azure/core-lro": "https://esm.sh/v104/@azure/core-lro@2.4.0",
-        "@azure/core-paging": "https://esm.sh/v104/@azure/core-paging@1.4.0",
-        "@azure/core-tracing": "https://esm.sh/v104/@azure/core-tracing@1.0.0-preview.13",
-        "@azure/logger": "https://esm.sh/v104/@azure/logger@1.0.3",
-        "events": "https://esm.sh/v104/events@3.3.0",
-        "tslib": "https://esm.sh/v104/tslib@2.4.1",
-        "@azure/storage-blob": "https://esm.sh/v104/*@azure/storage-blob@12.12.0"
-    },
-    "scopes": {}
+        "react": "npm:react@18.2.0",
+        "@azure/storage-blob": "npm:@azure/storage-blob@12.14.0"
+    }
 }
