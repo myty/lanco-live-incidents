@@ -1,4 +1,4 @@
-import { HeaderConstants } from "https://raw.githubusercontent.com/Azure/azure-sdk-for-js/%40azure/storage-blob_12.14.0/sdk/storage/storage-blob/src/utils/constants.ts";
+import { HeaderConstants } from "../deps.ts";
 import { computeHMACSHA256 } from "../crypto/crypto.ts";
 
 export class BlobContainerAuthentication {

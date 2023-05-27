@@ -124,3 +124,4 @@ dist
 src/lanco-incidents-func/output
 tests/LancoIncidentsFunc.Tests/bin
 tests/LancoIncidentsFunc.Tests/obj
+/src/azurite

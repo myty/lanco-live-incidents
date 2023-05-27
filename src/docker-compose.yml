@@ -5,6 +5,8 @@ services:
     hostname: azurite
     volumes:
       - ./azurite/data:/data
-    command: "azurite-blob --blobHost 0.0.0.0 -d /data/debug.log -l /data"
+    command: "azurite --blobHost 0.0.0.0 --tableHost 0.0.0.0 --queueHost 0.0.0.0 -d /data/debug.log -l /data"
     ports:
       - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"

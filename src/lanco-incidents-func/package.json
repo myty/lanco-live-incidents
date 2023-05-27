@@ -1,8 +1,8 @@
 {
     "name": "@lanco-incidents/func",
     "scripts": {
-        "azurite": "docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --rm mcr.microsoft.com/azure-storage/azurite",
-        "func": "func start --csharp",
+        "azurite": "docker compose -f ../docker-compose.yml up -d",
+        "func": "pnpm azurite &&func start --csharp",
         "dev": "concurrently --names \"Azurite,Functions\" -c \"bgBlue.bold,bgMagenta.bold\" \"pnpm run azurite\" \"pnpm run func\"",
         "dev:vercel": "pnpm dev",
         "serve": "pnpm dev",

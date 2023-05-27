@@ -1,5 +1,6 @@
 {
     "version": "2.0",
+    "watchFiles": ["main.ts"],
     "logging": {
         "applicationInsights": {
             "samplingSettings": {
@@ -19,15 +20,7 @@
     },
     "customHandler": {
         "description": {
-            "defaultExecutablePath": "deno",
-            "arguments": [
-                "run",
-                "--allow-env",
-                "--allow-net",
-                "--allow-sys",
-                "--watch",
-                "main.ts"
-            ]
+            "defaultExecutablePath": "dist/handler"
         },
         "enableForwardingHttpRequest": true
     }

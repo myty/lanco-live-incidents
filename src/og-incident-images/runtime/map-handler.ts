@@ -1,4 +1,4 @@
-import { Handler } from "https://deno.land/std@0.173.0/http/server.ts";
+import { Handler } from "../deps.ts";
 
 export interface FunctionHandler {
     [folder: string]: (request: Request) => Response | Promise<Response>;

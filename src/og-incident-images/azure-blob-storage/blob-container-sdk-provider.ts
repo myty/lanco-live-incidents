@@ -2,7 +2,7 @@ import {
     BlobServiceClient,
     ContainerClient,
     StorageSharedKeyCredential,
-} from "@azure/storage-blob";
+} from "../deps.ts";
 import {
     BlobContainerProvider,
     BlobContainerProviderOptions,

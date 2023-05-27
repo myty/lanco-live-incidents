@@ -1,12 +1,8 @@
-import { Status } from "https://deno.land/std@0.173.0/http/http_status.ts";
 import {
     BlobContainerProvider,
     BlobContainerProviderOptions,
 } from "./container-provider.ts";
-import {
-    HeaderConstants,
-    SERVICE_VERSION,
-} from "https://raw.githubusercontent.com/Azure/azure-sdk-for-js/%40azure/storage-blob_12.14.0/sdk/storage/storage-blob/src/utils/constants.ts";
+import { HeaderConstants, HttpStatus, SERVICE_VERSION } from "../deps.ts";
 import { BlobContainerAuthentication } from "./blob-container-authentication.ts";
 
 interface RequestOption<TBody extends BodyInit = BodyInit> {
@@ -43,10 +39,12 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
             return await this.request({ method, url });
         } catch (error) {
             if (`${error}`.includes("The specified blob does not exist.")) {
-                return new Response(`${error}`, { status: Status.NotFound });
+                return new Response(`${error}`, {
+                    status: HttpStatus.NotFound,
+                });
             }
 
-            return new Response(`${error}`, { status: Status.BadRequest });
+            return new Response(`${error}`, { status: HttpStatus.BadRequest });
         }
     }
 
@@ -69,7 +67,7 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
 
             return response;
         } catch (error) {
-            return new Response(`${error}`, { status: Status.BadRequest });
+            return new Response(`${error}`, { status: HttpStatus.BadRequest });
         }
     }
 
@@ -83,7 +81,7 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
 
             return response;
         } catch (error) {
-            return new Response(`${error}`, { status: Status.BadRequest });
+            return new Response(`${error}`, { status: HttpStatus.BadRequest });
         }
     }
 
@@ -95,7 +93,7 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
 
             return await this.request({ method, url, restype });
         } catch (error) {
-            return new Response(`${error}`, { status: Status.BadRequest });
+            return new Response(`${error}`, { status: HttpStatus.BadRequest });
         }
     }
 

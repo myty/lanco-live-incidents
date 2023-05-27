@@ -1,5 +1,4 @@
-import React from "react";
-import { ImageResponse } from "https://deno.land/x/og_edge@0.0.5/mod.ts";
+import { HeaderConstants, ImageResponse, React } from "../deps.ts";
 import { BlobContainerRestProvider } from "../azure-blob-storage/blob-container-rest-provider.ts";
 
 const BLOB_CACHE_ENABLED = true;
@@ -55,9 +54,11 @@ export default async function handler(req: Request): Promise<Response> {
     );
 
     if (BLOB_CACHE_ENABLED && incident != null) {
+        const clonedResponse = imageResponse.clone();
         await blobContainerProvider.saveBlockBlob(
             blockBlobName,
-            await imageResponse.arrayBuffer(),
+            await clonedResponse.arrayBuffer(),
+            { [HeaderConstants.CONTENT_TYPE]: "image/png" },
         );
     }
 

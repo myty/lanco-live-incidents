@@ -1,10 +1,10 @@
 {
     "name": "@lanco-incidents/og-images",
     "scripts": {
-        "azurite": "docker compose up -d",
-        "debug:test:integration": "pnpm azurite && deno test --inspect-wait --allow-env --allow-sys --allow-net --allow-read=./local.settings.json -- UseDevelopmentStorage=true;",
-        "test:integration": "pnpm azurite && deno test --watch --allow-env --allow-sys --allow-net --allow-read=./local.settings.json -- UseDevelopmentStorage=true;",
-        "dev": "func host start",
+        "azurite": "docker compose -f ../docker-compose.yml up -d",
+        "debug:test:integration": "pnpm azurite && deno test --inspect-wait --allow-env --allow-sys --allow-net --allow-read=./local.settings.json",
+        "test:integration": "pnpm azurite && deno test --watch --allow-env --allow-sys --allow-net --allow-read=./local.settings.json",
+        "dev": "pnpm azurite && func host start",
         "dev:vercel": "pnpm dev"
     },
     "lint-staged": {
