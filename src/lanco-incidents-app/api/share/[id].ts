@@ -3,7 +3,12 @@ import fs from "fs/promises";
 import { load } from "cheerio";
 
 export default async function (req: VercelRequest, res: VercelResponse) {
-    const id = req.url!.split("/").reverse()[0].split("?")[0];
+    if (!req.url) {
+        res.status(400).send("No URL provided");
+        return;
+    }
+
+    const id = req.url.split("/").reverse()[0].split("?")[0];
     const [host, proto] = [
         req.headers["x-forwarded-host"] as string,
         req.headers["x-forwarded-proto"] as string,

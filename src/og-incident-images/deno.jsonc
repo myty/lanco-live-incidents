@@ -1,13 +1,7 @@
 {
     "importMap": "import_map.json",
     "compilerOptions": {
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "dom.asynciterable",
-            "deno.ns",
-            "deno.unstable"
-        ]
+        "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
     },
     "lint": {
         "rules": {
@@ -17,12 +11,10 @@
         }
     },
     "fmt": {
-        "options": {
-            "useTabs": false,
-            "indentWidth": 4,
-            "singleQuote": false,
-            "proseWrap": "preserve"
-        }
+        "useTabs": false,
+        "indentWidth": 4,
+        "singleQuote": false,
+        "proseWrap": "preserve"
     },
     "test": {
         "include": ["./**/*.test.ts"]

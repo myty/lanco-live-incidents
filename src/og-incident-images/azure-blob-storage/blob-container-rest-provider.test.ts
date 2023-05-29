@@ -16,9 +16,10 @@ import { loadFromLocalSettings } from "../testing-utils.ts";
 
 loadFromLocalSettings();
 
-describe(
-    "BlobContainerRestProvider",
-    () => {
+describe({
+    name: "BlobContainerRestProvider",
+    sanitizeOps: false,
+    fn: () => {
         const blobContainerProvider = new BlobContainerRestProvider({
             container: `test-og-images-${crypto.randomUUID()}`,
         });
@@ -135,4 +136,4 @@ describe(
             });
         });
     },
-);
+});

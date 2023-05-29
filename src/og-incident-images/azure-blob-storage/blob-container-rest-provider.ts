@@ -136,8 +136,12 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
             );
 
             const signedRequest = await this.signRequest(request);
+            const respose = await fetch(signedRequest);
 
-            return await fetch(signedRequest);
+            const clonedResponse = respose.clone();
+            await respose.text();
+
+            return clonedResponse;
         } catch (error) {
             throw new AggregateError([error], "request()");
         }
@@ -156,12 +160,12 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
 
         request.headers.set(HeaderConstants.X_MS_VERSION, SERVICE_VERSION);
 
-        const { signed: signature } = await this.blobContainerAuthenitcation
+        const { signed } = await this.blobContainerAuthenitcation
             .createSignatureFromRequest(request);
 
         request.headers.set(
             HeaderConstants.AUTHORIZATION,
-            `SharedKey ${this.blobConfiguration.AccountName}:${signature}`,
+            `SharedKey ${this.blobConfiguration.AccountName}:${signed}`,
         );
 
         return request;
@@ -170,7 +174,8 @@ export class BlobContainerRestProvider extends BlobContainerProvider {
 
 async function getContentLength(request: Request) {
     if (request.body) {
-        const blob = await request.clone().blob();
+        const clonedRequest = request.clone();
+        const blob = await clonedRequest.blob();
 
         return blob.size;
     }

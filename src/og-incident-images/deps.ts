@@ -10,9 +10,4 @@ export {
     decode as base64Decode,
     encode as base64Encode,
 } from "https://deno.land/std@0.170.0/encoding/base64.ts";
-export {
-    BlobServiceClient,
-    ContainerClient,
-    StorageSharedKeyCredential,
-} from "@azure/storage-blob";
-export { Status as HttpStatus } from "https://deno.land/std@0.173.0/http/http_status.ts";
+export { Status as HttpStatus } from "https://deno.land/std@0.170.0/http/http_status.ts";
