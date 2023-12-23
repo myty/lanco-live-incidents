@@ -19,7 +19,8 @@ public class YorklIncidentProvider : BaseIncidentProvider
         IEnvironmentProvider env,
         IDataCache<string, IEnumerable<Incident>> feedCache,
         IHttpClientFactory httpClientFactory
-    ) : base(env)
+    )
+        : base(env)
     {
         _feedCache = feedCache;
         _client = httpClientFactory.CreateClient();
@@ -40,17 +41,14 @@ public class YorklIncidentProvider : BaseIncidentProvider
         var doc = new HtmlDocument();
         doc.LoadHtml(htmlSource);
 
-        var incidents = doc.DocumentNode
-            .Descendants("table")
+        var incidents = doc.DocumentNode.Descendants("table")
             .Where(x => x.Attributes["class"]?.Value == "incidentList")
             .SelectMany(
                 y =>
-                    y.ChildNodes
-                        .Skip(3)
+                    y.ChildNodes.Skip(3)
                         .Select(
                             tr =>
-                                tr.ChildNodes
-                                    .Where(node => node.NodeType == HtmlNodeType.Element)
+                                tr.ChildNodes.Where(node => node.NodeType == HtmlNodeType.Element)
                                     .ToList()
                         )
                         .Where(cells => cells.Count > 0)
@@ -65,7 +63,8 @@ public class YorklIncidentProvider : BaseIncidentProvider
                                 cells
                                     .Skip(8)
                                     ?.FirstOrDefault()
-                                    ?.InnerHtml.Split('?')
+                                    ?.InnerHtml
+                                    .Split('?')
                                     .Skip(1)
                                     .FirstOrDefault()
                                     ?.Split('"')

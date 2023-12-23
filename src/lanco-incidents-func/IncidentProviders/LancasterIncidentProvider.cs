@@ -19,7 +19,8 @@ public class LancasterIncidentProvider : BaseIncidentProvider
         IEnvironmentProvider env,
         IDataCache<string, IEnumerable<Incident>> feedCache,
         IHttpClientFactory httpClientFactory
-    ) : base(env)
+    )
+        : base(env)
     {
         _feedCache = feedCache;
         _client = httpClientFactory.CreateClient();
@@ -40,8 +41,7 @@ public class LancasterIncidentProvider : BaseIncidentProvider
         var cts = new CancellationTokenSource();
         var rss = await XDocument.LoadAsync(xmlStream, LoadOptions.None, cts.Token);
 
-        var incidents = rss.Root
-            .Descendants("item")
+        var incidents = rss.Root.Descendants("item")
             .Select(itm =>
             {
                 var descSplit = itm.Element("description").Value.Split(';');
