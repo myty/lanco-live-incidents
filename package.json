@@ -1,6 +1,6 @@
 {
     "name": "lanco-live-incidents",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
@@ -21,6 +21,9 @@
     },
     "overrides": {
         "typescript": "$typescript"
+    },
+    "engines": {
+        "node": "^20.10.0"
     },
     "volta": {
         "node": "20.10.0",
