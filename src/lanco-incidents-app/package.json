@@ -69,6 +69,11 @@
             "@babel/preset-typescript"
         ]
     },
+    "lint-staged": {
+        "*.{ts,js,tsx,css,md}": [
+            "pnpm biome check --apply"
+        ]
+    },
     "volta": {
         "extends": "../../package.json"
     }

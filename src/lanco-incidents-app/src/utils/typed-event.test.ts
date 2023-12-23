@@ -1,15 +1,15 @@
 import { TypedEvent } from "utils/typed-event";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("TypedEvent", () => {
-    it("is an Event", () => {
-        // Arrange
-        class TestEvent extends TypedEvent<string>("event") {}
+  it("is an Event", () => {
+    // Arrange
+    class TestEvent extends TypedEvent<string>("event") {}
 
-        // Act
-        const event = new TestEvent("test");
+    // Act
+    const event = new TestEvent("test");
 
-        // Assert
-        expect(event instanceof Event).toBeTruthy();
-    });
+    // Assert
+    expect(event instanceof Event).toBeTruthy();
+  });
 });

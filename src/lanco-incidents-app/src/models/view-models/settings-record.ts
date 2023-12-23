@@ -1,16 +1,16 @@
 import { ImmutableRecord } from "simple-immutable-record";
 
 export enum Sort {
-    Distance,
-    Latest,
+  Distance = 0,
+  Latest = 1,
 }
 
 export interface Settings {
-    sort: Sort;
-    incidentTypeFilters: Record<string, boolean>;
+  sort: Sort;
+  incidentTypeFilters: Record<string, boolean>;
 }
 
 export class SettingsRecord extends ImmutableRecord<Settings>({
-    sort: Sort.Latest,
-    incidentTypeFilters: {},
+  sort: Sort.Latest,
+  incidentTypeFilters: {},
 }) {}
