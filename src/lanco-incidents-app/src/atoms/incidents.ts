@@ -73,12 +73,13 @@ const baseAtom = atom<Omit<IncidentsState, "incidents">>({
   state: "LOADING",
 });
 
-export const IncidentsAtom = atom<IncidentsState, IncidentsAction>(
-  get => ({
-    ...get(baseAtom),
-    incidents: convertIncidents(get),
-  }),
-  (get, set, action) => {
+export const IncidentsAtom = atom(
+  get =>
+    ({
+      ...get(baseAtom),
+      incidents: convertIncidents(get),
+    }) as IncidentsState,
+  (get, set, action: IncidentsAction) => {
     const currentState = {
       ...get(baseAtom),
       incidents: convertIncidents(get),
@@ -90,6 +91,7 @@ export const IncidentsAtom = atom<IncidentsState, IncidentsAction>(
     set(baseAtom, rest);
   }
 );
+
 function convertIncidents(get: Getter): IncidentRecord[] {
   const incidents = get(persistedIncidentsAtom);
 

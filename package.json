@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "build": "turbo run build",
-        "serve": "turbo run serve",
+        "serve": "turbo run serve azurite",
         "test": "turbo run test",
         "lint": "turbo run lint",
         "dev": "turbo run dev azurite",

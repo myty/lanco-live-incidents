@@ -3,73 +3,10 @@
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
+import { ManifestOptions, VitePWA } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-interface ManifestOptions {
-  /**
-   * @default _npm_package_name_
-   */
-  name: string;
-  /**
-   * @default _npm_package_name_
-   */
-  short_name: string;
-  /**
-   * @default _npm_package_description_
-   */
-  description: string;
-  /**
-   *
-   */
-  icons: Record<string, unknown>[];
-  /**
-   * @default `routerBase + '?standalone=true'`
-   */
-  start_url: string;
-  /**
-   * Restricts what web pages can be viewed while the manifest is applied
-   */
-  scope: string;
-  /**
-   * Defines the default orientation for all the website's top-level
-   */
-  orientation:
-    | "any"
-    | "natural"
-    | "landscape"
-    | "landscape-primary"
-    | "landscape-secondary"
-    | "portrait"
-    | "portrait-primary"
-    | "portrait-secondary";
-  /**
-   * @default `standalone`
-   */
-  display: string;
-  /**
-   * @default `#ffffff`
-   */
-  background_color: string;
-  /**
-   * @default '#42b883
-   */
-  theme_color: string;
-  /**
-   * @default `ltr`
-   */
-  dir: "ltr" | "rtl";
-  /**
-   * @default `en`
-   */
-  lang: string;
-  /**
-   * @default A combination of `routerBase` and `options.build.publicPath`
-   */
-  publicPath: string;
-}
-
-const generateManifest = (): Record<string, unknown> => {
+const generateManifest = (): Partial<ManifestOptions> => {
   return {
     name: "Central Penn Incidents",
     short_name: "Incidents",
