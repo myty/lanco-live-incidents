@@ -3,18 +3,12 @@
         "editor.defaultFormatter": "csharpier.csharpier-vscode",
         "editor.formatOnSave": true
     },
-    "azureFunctions.deploySubpath": "src/lanco-incidents-func/bin/Release/net7.0/publish",
+    "azureFunctions.deploySubpath": "src/lanco-incidents-func/bin/Release/net8.0/publish",
     "azureFunctions.preDeployTask": "publish (functions)",
     "azureFunctions.projectLanguage": "C#",
     "azureFunctions.projectRuntime": "~4",
     "azureFunctions.projectSubpath": "src/lanco-incidents-func",
     "debug.internalConsoleOptions": "neverOpen",
-    "eslint.workingDirectories": [
-        {
-            "changeProcessCWD": true,
-            "directory": "src/lanco-incidents-app"
-        }
-    ],
     "files.exclude": {
         "**/dist/**": true,
         "**/node_modules/**": true,
@@ -51,4 +45,10 @@
     "dotnet-test-explorer.autoWatch": true,
     "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)",
     "typescript.tsdk": "node_modules\\typescript\\lib",
+    "[javascript][javascriptreact][typescript][typescriptreact]": {
+      "editor.codeActionsOnSave": {
+        "quickfix.biome": "explicit",
+        "source.organizeImports.biome": "explicit"
+      }
+    },
 }

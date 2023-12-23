@@ -3,9 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using LancoIncidentsFunc.Interfaces;
 using LancoIncidentsFunc.Models;
+using Microsoft.Extensions.Logging;
 using QuickType;
 
 namespace LancoIncidentsFunc.Services

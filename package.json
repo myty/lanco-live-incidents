@@ -8,7 +8,7 @@
         "serve": "turbo run serve",
         "test": "turbo run test",
         "lint": "turbo run lint",
-        "dev": "turbo run dev",
+        "dev": "turbo run dev azurite",
         "install-all": "pnpm install -r && dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
         "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },

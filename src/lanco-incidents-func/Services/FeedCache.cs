@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Caching.Memory;
 using LancoIncidentsFunc.Interfaces;
 using LancoIncidentsFunc.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace LancoIncidentsFunc.Services
 {

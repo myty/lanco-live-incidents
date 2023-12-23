@@ -36,36 +36,37 @@ namespace LancoIncidentsFunc.API
             [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req
         )
         {
-            _log.LogInformation("api/incidents - HTTP trigger function processed a request.", req);
+            _log.LogInformation(
+                "api/incidents - HTTP trigger function processed a request. {Request}",
+                req
+            );
 
             try
             {
                 var incidents = await _feedService.GetIncidentsAsync();
 
                 var incidentDtos = await Task.WhenAll(
-                    incidents.Select(
-                        async i =>
+                    incidents.Select(async i =>
+                    {
+                        var dto = _mapper.Map<Dtos.Incident>(i);
+
+                        if (string.IsNullOrWhiteSpace(i.Location))
                         {
-                            var dto = _mapper.Map<Dtos.Incident>(i);
-
-                            if (string.IsNullOrWhiteSpace(i.Location))
-                            {
-                                return dto;
-                            }
-
-                            var locationEntity = await _locationService.GetLocationAsync(
-                                i.Location,
-                                i.Area
-                            );
-
-                            dto.GeocodeLocation =
-                                (locationEntity?.Lat_VC.HasValue ?? false)
-                                    ? _mapper.Map<Dtos.Location>(locationEntity)
-                                    : null;
-
                             return dto;
                         }
-                    )
+
+                        var locationEntity = await _locationService.GetLocationAsync(
+                            i.Location,
+                            i.Area
+                        );
+
+                        dto.GeocodeLocation =
+                            (locationEntity?.Lat_VC.HasValue ?? false)
+                                ? _mapper.Map<Dtos.Location>(locationEntity)
+                                : null;
+
+                        return dto;
+                    })
                 );
 
                 var response = req.CreateResponse(HttpStatusCode.OK);

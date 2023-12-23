@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using LancoIncidentsFunc.IncidentProviders;
 using LancoIncidentsFunc.Interfaces;
 using LancoIncidentsFunc.Models;
@@ -12,7 +13,7 @@ namespace LancoIncidentsFunc
 {
     public class Program
     {
-        public static void Main()
+        static async Task Main(string[] args)
         {
             var host = new HostBuilder()
                 .ConfigureFunctionsWorkerDefaults()
@@ -44,7 +45,7 @@ namespace LancoIncidentsFunc
                 )
                 .Build();
 
-            host.Run();
+            await host.RunAsync();
         }
     }
 }
