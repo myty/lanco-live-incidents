@@ -13,11 +13,11 @@
         "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
-        "@biomejs/biome": "1.4.1",
-        "husky": "^8.0.3",
-        "lint-staged": "^15.2.0",
-        "turbo": "^1.11.2",
-        "typescript": "~5.3.3"
+        "@biomejs/biome": "^1.8.1",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.5",
+        "turbo": "^2.0.3",
+        "typescript": "~5.4.5"
     },
     "overrides": {
         "typescript": "$typescript"
@@ -25,8 +25,5 @@
     "engines": {
         "node": "20.x"
     },
-    "volta": {
-        "node": "20.10.0",
-        "pnpm": "8.12.1"
-    }
+    "packageManager": "pnpm@9.3.0"
 }

@@ -12,7 +12,7 @@
             "dotnet csharpier"
         ]
     },
-    "volta": {
-        "extends": "../../package.json"
+    "dependencies": {
+        "azure-functions-core-tools": "^4.0.5801"
     }
 }

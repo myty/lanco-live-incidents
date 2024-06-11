@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "ms-azuretools.vscode-azurefunctions",
-    "fudge.auto-using",
     "kreativ-software.csharpextensions",
     "jorgeserrano.vscode-csharp-snippets",
     "csharpier.csharpier-vscode",
