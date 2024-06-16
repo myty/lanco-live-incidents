@@ -1,5 +1,5 @@
-import { TypedEventTarget } from "utils/typed-event-target";
 import { describe, expect, it, vi } from "vitest";
+import { TypedEventTarget } from "../utils/typed-event-target";
 
 describe("TypedEventTarget", () => {
   it("is an EventTarget", () => {

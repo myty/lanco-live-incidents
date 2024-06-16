@@ -1,10 +1,10 @@
-import { GeolocationStateRecord } from "models/view-models/geolocation-state-record";
-import { TypedEvent } from "utils/typed-event";
-import { TypedEventTarget } from "utils/typed-event-target";
+import { GeolocationStateRecord } from "../models/view-models/geolocation-state-record";
 import {
-  GeolocationStoreConifguration,
+  type GeolocationStoreConifguration,
   GeolocationStoreConifgurationRecord,
 } from "../models/view-models/geolocation-store-conifguration-record";
+import { TypedEvent } from "../utils/typed-event";
+import { TypedEventTarget } from "../utils/typed-event-target";
 
 enum GeolocationStatus {
   Initialized = 0,

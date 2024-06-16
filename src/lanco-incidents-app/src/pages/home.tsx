@@ -1,9 +1,8 @@
-import IncidentsList from "components/incidents-list";
-import RefreshButton from "components/refresh-button";
-import SettingsButton from "components/settings-button";
-import { useAppLayout } from "containers/app-layout";
-import useIncidents from "hooks/use-incidents";
-import React from "react";
+import IncidentsList from "../components/incidents-list";
+import RefreshButton from "../components/refresh-button";
+import SettingsButton from "../components/settings-button";
+import { useAppLayout } from "../containers/app-layout";
+import useIncidents from "../hooks/use-incidents";
 
 const Home: React.FC = () => {
   const { loading, incidents, refresh } = useIncidents();

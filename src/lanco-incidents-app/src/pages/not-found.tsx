@@ -1,7 +1,6 @@
-import PageTitle from "components/page-title";
-import { useAppLayout } from "containers/app-layout";
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import PageTitle from "../components/page-title";
+import { useAppLayout } from "../containers/app-layout";
 
 export function NotFound() {
   const navigate = useNavigate();

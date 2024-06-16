@@ -1,5 +1,5 @@
-import useIncidents from "hooks/use-incidents";
 import { chain } from "lodash";
+import useIncidents from "../hooks/use-incidents";
 
 interface UseIncidentsHookOptions {
   id?: string | null;

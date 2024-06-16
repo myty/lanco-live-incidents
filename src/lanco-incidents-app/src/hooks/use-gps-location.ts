@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { concat, fromEvent, interval, throttle } from "rxjs";
-import { GeolocationStore, GeoplocationEvent } from "stores/geolocation-store";
+import { GeolocationStore, GeoplocationEvent } from "../stores/geolocation-store";
 
 function subscribe(onStoreChange: () => void) {
   const positionChanges = fromEvent(GeolocationStore.Default, GeoplocationEvent.PositionChange);

@@ -1,11 +1,12 @@
-import { IsAppUpdatingAtom } from "atoms/app-update";
-import ConfirmUpdateDialog from "components/confirm-update-dialog";
-import ScreenLoader from "components/screen-loader/screen-loader";
-import { SITE_TITLE } from "constants/app-constants";
-import useServiceWorker from "hooks/use-service-worker";
 import { useAtomValue } from "jotai";
-import React, { ReactNode, useEffect, useState } from "react";
+import type React from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
+import { IsAppUpdatingAtom } from "../atoms/app-update";
+import ConfirmUpdateDialog from "../components/confirm-update-dialog";
+import ScreenLoader from "../components/screen-loader/screen-loader";
+import { SITE_TITLE } from "../constants/app-constants";
+import useServiceWorker from "../hooks/use-service-worker";
 
 interface AppLayoutContext {
   headerLeft: ReactNode;

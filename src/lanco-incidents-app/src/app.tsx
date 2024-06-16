@@ -1,9 +1,8 @@
-import ServiceWorkerProvider from "providers/service-worker-provider";
-import SettingsProvider from "providers/settings-provider";
-import React from "react";
 import { RouterProvider } from "react-router-dom";
-import { router } from "router";
-import { GeolocationStore } from "stores/geolocation-store";
+import ServiceWorkerProvider from "./providers/service-worker-provider";
+import SettingsProvider from "./providers/settings-provider";
+import { router } from "./router";
+import { GeolocationStore } from "./stores/geolocation-store";
 
 GeolocationStore.Default.setConfig({
   enableHighAccuracy: true,

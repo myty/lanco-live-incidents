@@ -1,8 +1,8 @@
-import { IncidentsAtom } from "atoms/incidents";
 import { useAtom } from "jotai";
-import { Sort } from "models/view-models/settings-record";
-import { SettingsContext } from "providers/settings-provider";
 import { useCallback, useContext, useEffect } from "react";
+import { IncidentsAtom } from "../atoms/incidents";
+import type { Sort } from "../models/view-models/settings-record";
+import { SettingsContext } from "../providers/settings-provider";
 
 export interface UseSettingsHook {
   incidentTypeFilters: Record<string, boolean>;

@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
-import { FeedIncident } from "models/dtos/feed-incident";
 import { ImmutableRecord } from "simple-immutable-record";
-import { Geocode } from "types/geocode";
+import type { FeedIncident } from "../../models/dtos/feed-incident";
+import type { Geocode } from "../../types/geocode";
 
 interface Incident {
   area: string;

@@ -3,9 +3,8 @@
  */
 
 import { act, renderHook, waitFor } from "@testing-library/react";
-import { Mock, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-import { useWebShare } from "hooks/use-web-share";
+import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { useWebShare } from "../hooks/use-web-share";
 
 describe("useWebShare", () => {
   it("initializes", async () => {

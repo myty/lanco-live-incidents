@@ -1,8 +1,7 @@
-import { DivMarker, DivMarkerProps } from "components/map/div-marker";
-import { LeafletEventHandlerFnMap } from "leaflet";
-import React from "react";
+import type { LeafletEventHandlerFnMap } from "leaflet";
 import { useMap } from "react-leaflet";
-import { To, useLinkClickHandler } from "react-router-dom";
+import { type To, useLinkClickHandler } from "react-router-dom";
+import { DivMarker, type DivMarkerProps } from "./div-marker";
 
 interface IncidentMarkerProps extends Pick<DivMarkerProps, "html" | "position"> {
   to?: To;

@@ -1,11 +1,11 @@
-import PageTitle from "components/page-title";
-import SettingsSectionSort from "components/settings/settings-sections/settings-section-sortby";
-import { useAppLayout } from "containers/app-layout";
-import useSettings, { UseSettingsHook } from "hooks/use-settings";
 import _, { chain } from "lodash";
-import { Sort } from "models/view-models/settings-record";
-import React, { useCallback, useEffect, useMemo, useReducer } from "react";
+import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import PageTitle from "../components/page-title";
+import SettingsSectionSort from "../components/settings/settings-sections/settings-section-sortby";
+import { useAppLayout } from "../containers/app-layout";
+import useSettings, { type UseSettingsHook } from "../hooks/use-settings";
+import { Sort } from "../models/view-models/settings-record";
 
 type TypeOfKey<Type, Key extends keyof Type> = Type[Key];
 

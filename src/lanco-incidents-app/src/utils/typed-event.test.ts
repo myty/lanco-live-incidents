@@ -1,5 +1,5 @@
-import { TypedEvent } from "utils/typed-event";
 import { describe, expect, it } from "vitest";
+import { TypedEvent } from "../utils/typed-event";
 
 describe("TypedEvent", () => {
   it("is an Event", () => {

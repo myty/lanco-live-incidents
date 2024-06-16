@@ -1,6 +1,6 @@
-import { Getter, atom } from "jotai";
+import { type Getter, atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { IncidentRecord } from "models/view-models/incident-record";
+import { IncidentRecord } from "../models/view-models/incident-record";
 
 interface IncidentsState {
   error?: unknown;

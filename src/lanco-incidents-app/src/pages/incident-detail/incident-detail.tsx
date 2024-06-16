@@ -1,11 +1,10 @@
-import PageTitle from "components/page-title";
-import { SITE_TITLE } from "constants/app-constants";
-import { useAppLayout } from "containers/app-layout";
-import useIncident from "hooks/use-incident";
-import { useWebShare } from "hooks/use-web-share";
-import { IncidentRecord } from "models/view-models/incident-record";
-import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import PageTitle from "../../components/page-title";
+import { SITE_TITLE } from "../../constants/app-constants";
+import { useAppLayout } from "../../containers/app-layout";
+import useIncident from "../../hooks/use-incident";
+import { useWebShare } from "../../hooks/use-web-share";
+import type { IncidentRecord } from "../../models/view-models/incident-record";
 import { IncidentDetailContent } from "./incident-detail-content";
 
 export function IncidentDetail() {

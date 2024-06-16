@@ -1,5 +1,4 @@
-import IconLoader from "components/icons/icon-refresh";
-import React from "react";
+import IconLoader from "../../components/icons/icon-refresh";
 
 interface ScreenLoaderProps {
   text: string;

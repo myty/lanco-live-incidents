@@ -1,6 +1,4 @@
-interface TypedEventListener<TEvent extends Event> {
-  (evt: TEvent): void;
-}
+type TypedEventListener<TEvent extends Event> = (evt: TEvent) => void;
 
 interface TypedEventListenerObject<TEvent extends Event> {
   handleEvent(object: TEvent): void;

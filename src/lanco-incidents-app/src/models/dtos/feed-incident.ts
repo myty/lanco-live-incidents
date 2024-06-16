@@ -1,4 +1,4 @@
-import { Geocode } from "types/geocode";
+import type { Geocode } from "../../types/geocode";
 
 export interface FeedIncident {
   id: string;

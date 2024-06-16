@@ -1,6 +1,5 @@
-import { IsAppUpdatingAtom } from "atoms/app-update";
 import { useAtom } from "jotai";
-import React from "react";
+import { IsAppUpdatingAtom } from "../atoms/app-update";
 
 interface ConfirmUpdateDialogProps {
   onDismiss: () => void;

@@ -1,5 +1,6 @@
-import { SettingsRecord, Sort } from "models/view-models/settings-record";
-import React, { Dispatch, PropsWithChildren, createContext, useReducer } from "react";
+import type React from "react";
+import { type Dispatch, type PropsWithChildren, createContext, useReducer } from "react";
+import { SettingsRecord, type Sort } from "../models/view-models/settings-record";
 
 interface SettingsContextState {
   error?: Error;

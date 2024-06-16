@@ -1,10 +1,9 @@
-import { IncidentMarker } from "components/map/incident-marker";
-import { LatLngLiteral } from "leaflet";
-import "leaflet/dist/leaflet.css";
-import { IncidentRecord } from "models/view-models/incident-record";
-import React from "react";
+import type { LatLngLiteral } from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { Geocode } from "types/geocode";
+import { IncidentMarker } from "../../components/map/incident-marker";
+import type { IncidentRecord } from "../../models/view-models/incident-record";
+import type { Geocode } from "../../types/geocode";
+import "leaflet/dist/leaflet.css";
 
 interface MapProps {
   currentPosition?: Geocode;

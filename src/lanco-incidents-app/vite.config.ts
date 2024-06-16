@@ -3,7 +3,7 @@
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { ManifestOptions, VitePWA } from "vite-plugin-pwa";
+import { type ManifestOptions, VitePWA } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 const generateManifest = (): Partial<ManifestOptions> => {

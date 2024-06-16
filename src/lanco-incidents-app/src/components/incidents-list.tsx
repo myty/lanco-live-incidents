@@ -1,7 +1,6 @@
-import { IncidentListItem } from "components/incident-list-item";
-import ScreenLoader from "components/screen-loader/screen-loader";
-import { IncidentRecord } from "models/view-models/incident-record";
-import React from "react";
+import { IncidentListItem } from "../components/incident-list-item";
+import ScreenLoader from "../components/screen-loader/screen-loader";
+import type { IncidentRecord } from "../models/view-models/incident-record";
 
 export interface IncidentsListProps {
   incidents: IncidentRecord[];

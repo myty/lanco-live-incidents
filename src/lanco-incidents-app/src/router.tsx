@@ -1,10 +1,9 @@
-import AppLayout from "containers/app-layout";
-import Home from "pages/home";
-import { IncidentDetail } from "pages/incident-detail/incident-detail";
-import { NotFound } from "pages/not-found";
-import Settings from "pages/settings";
-import React from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
+import AppLayout from "./containers/app-layout";
+import Home from "./pages/home";
+import { IncidentDetail } from "./pages/incident-detail/incident-detail";
+import { NotFound } from "./pages/not-found";
+import Settings from "./pages/settings";
 
 export const router = createBrowserRouter([
   {

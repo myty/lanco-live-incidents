@@ -1,8 +1,7 @@
-import { IncidentMap } from "components/map/incident-map";
-import useGeolocation from "hooks/use-gps-location";
-import useIncidents from "hooks/use-incidents";
-import { IncidentRecord } from "models/view-models/incident-record";
-import React from "react";
+import { IncidentMap } from "../../components/map/incident-map";
+import useGeolocation from "../../hooks/use-gps-location";
+import useIncidents from "../../hooks/use-incidents";
+import type { IncidentRecord } from "../../models/view-models/incident-record";
 import { IncidentDetailSection } from "./incident-detail-section";
 
 export interface IncidentDetailContentProps {

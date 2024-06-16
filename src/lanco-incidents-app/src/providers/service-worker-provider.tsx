@@ -1,5 +1,5 @@
-import useWorkbox from "hooks/use-workbox";
-import React, { PropsWithChildren, createContext, useState } from "react";
+import { type PropsWithChildren, createContext, useState } from "react";
+import useWorkbox from "../hooks/use-workbox";
 
 export const ServiceWorkerContext = createContext({
   appNeedsRefresh: false,

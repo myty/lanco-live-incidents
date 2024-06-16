@@ -1,10 +1,10 @@
-import { IsAppUpdatingAtom } from "atoms/app-update";
-import ConfirmUpdateDialog from "components/confirm-update-dialog";
-import ScreenLoader from "components/screen-loader/screen-loader";
-import useServiceWorker from "hooks/use-service-worker";
 import { useAtomValue } from "jotai";
-import React, { ReactNode } from "react";
-import { PropsWithChildren } from "react";
+import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
+import { IsAppUpdatingAtom } from "../atoms/app-update";
+import ConfirmUpdateDialog from "../components/confirm-update-dialog";
+import ScreenLoader from "../components/screen-loader/screen-loader";
+import useServiceWorker from "../hooks/use-service-worker";
 
 interface LayoutProps {
   headerLeft: ReactNode;
