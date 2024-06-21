@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: lanco-incidents-func
+  AZURE_FUNCTIONAPP_NAME: lanco-live-incidents
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "apps/func/src/CentralPennIncidentsFunc"
   DOTNET_VERSION: "8.0.x"
 
