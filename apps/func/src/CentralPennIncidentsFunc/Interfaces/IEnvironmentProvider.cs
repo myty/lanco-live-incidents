@@ -1,6 +1,6 @@
 using System;
 
-namespace LancoIncidentsFunc.Interfaces
+namespace CentralPennIncidentsFunc.Interfaces
 {
     public interface IEnvironmentProvider
     {

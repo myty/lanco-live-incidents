@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Models;
 using Microsoft.Azure.Cosmos.Table;
 
-namespace LancoIncidentsFunc.Interfaces
+namespace CentralPennIncidentsFunc.Interfaces
 {
     public interface ILocationRepository
     {

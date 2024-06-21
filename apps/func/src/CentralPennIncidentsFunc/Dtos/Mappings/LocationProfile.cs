@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace LancoIncidentsFunc.Dtos.Mappings
+namespace CentralPennIncidentsFunc.Dtos.Mappings
 {
     public class LocationProfile : Profile
     {

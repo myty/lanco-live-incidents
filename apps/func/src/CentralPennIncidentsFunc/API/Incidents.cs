@@ -4,12 +4,12 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
-using LancoIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Interfaces;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
-namespace LancoIncidentsFunc.API
+namespace CentralPennIncidentsFunc.API
 {
     public class Incidents
     {

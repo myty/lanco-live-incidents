@@ -3,12 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
 using Microsoft.Extensions.Logging;
 using QuickType;
 
-namespace LancoIncidentsFunc.Services
+namespace CentralPennIncidentsFunc.Services
 {
     public class LocationService : ILocationService
     {

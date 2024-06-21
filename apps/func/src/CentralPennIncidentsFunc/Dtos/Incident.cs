@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace LancoIncidentsFunc.Dtos
+namespace CentralPennIncidentsFunc.Dtos
 {
     public class Incident
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Models;
 
-namespace LancoIncidentsFunc.Interfaces;
+namespace CentralPennIncidentsFunc.Interfaces;
 
 public interface IIncidentProvider
 {

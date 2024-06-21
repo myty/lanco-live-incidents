@@ -1,7 +1,7 @@
 using System.Net;
 using Microsoft.Azure.Cosmos.Table;
 
-namespace LancoIncidentsFunc.Models
+namespace CentralPennIncidentsFunc.Models
 {
     public class LocationEntity : TableEntity
     {

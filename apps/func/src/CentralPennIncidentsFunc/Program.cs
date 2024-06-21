@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LancoIncidentsFunc.IncidentProviders;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
-using LancoIncidentsFunc.Providers;
-using LancoIncidentsFunc.Repositories;
-using LancoIncidentsFunc.Services;
+using CentralPennIncidentsFunc.IncidentProviders;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Providers;
+using CentralPennIncidentsFunc.Repositories;
+using CentralPennIncidentsFunc.Services;
+using CentralPennIncidentsFunc.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace LancoIncidentsFunc
+namespace CentralPennIncidentsFunc
 {
     public class Program
     {

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
 using Microsoft.Azure.Cosmos.Table;
 
-namespace LancoIncidentsFunc.Repositories
+namespace CentralPennIncidentsFunc.Repositories
 {
     public class LocationRepository : ILocationRepository
     {

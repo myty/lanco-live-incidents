@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
 using Microsoft.Extensions.Logging;
 
-namespace LancoIncidentsFunc.Services;
+namespace CentralPennIncidentsFunc.Services;
 
 public class FeedService : IFeedService
 {

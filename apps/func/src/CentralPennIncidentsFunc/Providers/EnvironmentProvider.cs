@@ -1,7 +1,7 @@
 using System;
-using LancoIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Interfaces;
 
-namespace LancoIncidentsFunc.Providers
+namespace CentralPennIncidentsFunc.Providers
 {
     public class EnvironmentProvider : IEnvironmentProvider
     {

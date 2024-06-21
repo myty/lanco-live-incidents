@@ -1,9 +1,9 @@
 using System;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace LancoIncidentsFunc.Services
+namespace CentralPennIncidentsFunc.Services
 {
     public class LocationCache : IDataCache<(string, string), LocationEntity>
     {

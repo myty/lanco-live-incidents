@@ -5,10 +5,10 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
 
-namespace LancoIncidentsFunc.IncidentProviders;
+namespace CentralPennIncidentsFunc.IncidentProviders;
 
 public class LancasterIncidentProvider : BaseIncidentProvider
 {
@@ -41,7 +41,8 @@ public class LancasterIncidentProvider : BaseIncidentProvider
         var cts = new CancellationTokenSource();
         var rss = await XDocument.LoadAsync(xmlStream, LoadOptions.None, cts.Token);
 
-        var incidents = rss.Root.Descendants("item")
+        var incidents = rss
+            .Root.Descendants("item")
             .Select(itm =>
             {
                 var descSplit = itm.Element("description").Value.Split(';');

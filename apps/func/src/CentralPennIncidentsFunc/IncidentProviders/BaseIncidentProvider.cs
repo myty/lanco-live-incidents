@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
 
-namespace LancoIncidentsFunc.IncidentProviders;
+namespace CentralPennIncidentsFunc.IncidentProviders;
 
 public abstract class BaseIncidentProvider : IIncidentProvider
 {

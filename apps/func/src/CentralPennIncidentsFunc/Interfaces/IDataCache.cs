@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using LancoIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Models;
 
-namespace LancoIncidentsFunc.Interfaces
+namespace CentralPennIncidentsFunc.Interfaces
 {
     public interface IDataCache<TKey, TValue>
     {

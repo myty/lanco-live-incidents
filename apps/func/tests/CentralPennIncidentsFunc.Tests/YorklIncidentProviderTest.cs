@@ -1,10 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CentralPennIncidentsFunc.IncidentProviders;
+using CentralPennIncidentsFunc.Interfaces;
+using CentralPennIncidentsFunc.Models;
+using CentralPennIncidentsFunc.Tests.Utils;
 using FakeItEasy;
-using LancoIncidentsFunc.IncidentProviders;
-using LancoIncidentsFunc.Interfaces;
-using LancoIncidentsFunc.Models;
-using LancoIncidentsFunc.Tests.Utils;
 
-namespace LancoIncidentsFunc.Tests;
+namespace CentralPennIncidentsFunc.Tests;
 
 public class YorklIncidentProviderTest
 {
@@ -39,6 +43,6 @@ public class YorklIncidentProviderTest
 
         // Assert
         Assert.NotEmpty(incidents);
-        Assert.True(incidents.Count() == 4);
+        Assert.Equal(7, incidents.Count());
     }
 }
