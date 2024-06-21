@@ -1,5 +1,5 @@
 import { type EventedProps, createElementObject, createLayerComponent, extendContext } from "@react-leaflet/core";
-import { DivIcon as LeafletDivIcon, type LatLngExpression, Marker as LeafletMarker, type MarkerOptions } from "leaflet";
+import { type LatLngExpression, DivIcon as LeafletDivIcon, Marker as LeafletMarker, type MarkerOptions } from "leaflet";
 
 export interface DivMarkerProps extends Omit<MarkerOptions, "icon" | "children">, EventedProps {
   html: string;

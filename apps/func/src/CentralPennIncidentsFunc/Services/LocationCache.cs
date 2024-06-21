@@ -16,8 +16,6 @@ public class LocationCache(IMemoryCache memoryCache) : IDataCache<(string, strin
         entry.AbsoluteExpiration = DateTime.UtcNow.AddHours(24);
     }
 
-    public bool TryGetValue((string, string) key, out LocationEntity value)
-    {
-        return _memoryCache.TryGetValue(key, out value);
-    }
+    public bool TryGetValue((string, string) key, out LocationEntity value) =>
+        _memoryCache.TryGetValue(key, out value);
 }

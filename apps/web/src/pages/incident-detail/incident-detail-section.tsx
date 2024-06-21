@@ -1,4 +1,5 @@
-import React, { Fragment, PropsWithChildren } from "react";
+import type React from "react";
+import { Fragment, type PropsWithChildren } from "react";
 
 export interface IncidentDetailSectionProps {
   title: string;

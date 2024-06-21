@@ -1,6 +1,6 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.4.1/schema.json",
   "vcs": {
+    "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
@@ -21,7 +21,7 @@
   "javascript": {
     "formatter": {
       "semicolons": "always",
-      "trailingComma": "es5",
+      "trailingCommas":"all",
       "arrowParentheses": "asNeeded",
       "bracketSameLine": true
     }

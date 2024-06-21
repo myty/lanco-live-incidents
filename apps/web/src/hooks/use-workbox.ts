@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Workbox, WorkboxLifecycleEvent, WorkboxLifecycleWaitingEvent, messageSW } from "workbox-window";
+import { Workbox, type WorkboxLifecycleEvent, type WorkboxLifecycleWaitingEvent, messageSW } from "workbox-window";
 
 interface UseWorkboxOptions {
   immediate?: boolean;
