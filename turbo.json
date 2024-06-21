@@ -36,6 +36,13 @@
         "build"
       ]
     },
+    "test:watch": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": [
+        "build"
+      ]
+    },
     "lint": {
       "outputs": []
     },

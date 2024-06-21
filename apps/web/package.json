@@ -9,7 +9,8 @@
     "coverage": "vitest run --coverage",
     "coverage-report": "vitest run --coverage && codecov --disable=gcov",
     "lint": "tsc --noEmit && biome check --apply ./src",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@react-leaflet/core": "^2.1.0",

@@ -5,7 +5,9 @@
         "dev": "cd ./src/CentralPennIncidentsFunc && func start --csharp",
         "serve": "pnpm dev",
         "build": "dotnet build ./src/CentralPennIncidentsFunc -c Release",
-        "restore": "cd ../../ && dotnet clean && dotnet restore"
+        "restore": "cd ../../ && dotnet clean && dotnet restore",
+        "test": "dotnet test ./tests/CentralPennIncidentsFunc.Tests",
+        "test:watch": "dotnet watch test --project ./tests/CentralPennIncidentsFunc.Tests"
     },
     "dependencies": {
         "azure-functions-core-tools": "^4.0.5801"
