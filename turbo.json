@@ -51,6 +51,10 @@
       "cache": false,
       "persistent": true
     },
+    "dev:frontend": {
+      "cache": false,
+      "persistent": true
+    },
     "azurite": {
       "cache": false,
       "persistent": true

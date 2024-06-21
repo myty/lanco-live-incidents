@@ -9,15 +9,16 @@
         "test": "turbo run test",
         "lint": "turbo run lint",
         "dev": "turbo run dev azurite",
+        "dev:frontend": "turbo run dev:frontend azurite",
         "install-all": "pnpm install -r && dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
         "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && cd ./src/lanco-incidents-func && dotnet outdated -u"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.8.1",
+        "@biomejs/biome": "^1.8.2",
         "husky": "^9.0.11",
         "lint-staged": "^15.2.7",
         "turbo": "^2.0.4",
-        "typescript": "~5.4.5"
+        "typescript": "~5.5.2"
     },
     "overrides": {
         "typescript": "$typescript"
@@ -25,5 +26,5 @@
     "engines": {
         "node": "20.x"
     },
-    "packageManager": "pnpm@9.3.0"
+    "packageManager": "pnpm@9.4.0"
 }
