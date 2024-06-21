@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,14 +6,9 @@ using CentralPennIncidentsFunc.Models;
 
 namespace CentralPennIncidentsFunc.IncidentProviders;
 
-public abstract class BaseIncidentProvider : IIncidentProvider
+public abstract class BaseIncidentProvider(IEnvironmentProvider env) : IIncidentProvider
 {
-    private readonly IEnvironmentProvider _env;
-
-    public BaseIncidentProvider(IEnvironmentProvider env)
-    {
-        _env = env;
-    }
+    private readonly IEnvironmentProvider _env = env;
 
     public string Source => _env.GetEnvironmentVariable($"IncidentSources__{Key}");
 

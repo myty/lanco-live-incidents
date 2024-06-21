@@ -10,21 +10,14 @@ using CentralPennIncidentsFunc.Models;
 
 namespace CentralPennIncidentsFunc.IncidentProviders;
 
-public class LancasterIncidentProvider : BaseIncidentProvider
+public class LancasterIncidentProvider(
+    IEnvironmentProvider env,
+    IDataCache<string, IEnumerable<Incident>> feedCache,
+    IHttpClientFactory httpClientFactory
+) : BaseIncidentProvider(env)
 {
-    private readonly IDataCache<string, IEnumerable<Incident>> _feedCache;
-    private readonly HttpClient _client;
-
-    public LancasterIncidentProvider(
-        IEnvironmentProvider env,
-        IDataCache<string, IEnumerable<Incident>> feedCache,
-        IHttpClientFactory httpClientFactory
-    )
-        : base(env)
-    {
-        _feedCache = feedCache;
-        _client = httpClientFactory.CreateClient();
-    }
+    private readonly IDataCache<string, IEnumerable<Incident>> _feedCache = feedCache;
+    private readonly HttpClient _client = httpClientFactory.CreateClient();
 
     public override string Key => "Lancaster";
 

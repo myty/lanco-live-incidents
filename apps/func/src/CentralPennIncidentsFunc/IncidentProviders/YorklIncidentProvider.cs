@@ -10,21 +10,14 @@ using Microsoft.OData.Edm;
 
 namespace CentralPennIncidentsFunc.IncidentProviders;
 
-public class YorklIncidentProvider : BaseIncidentProvider
+public class YorklIncidentProvider(
+    IEnvironmentProvider env,
+    IDataCache<string, IEnumerable<Incident>> feedCache,
+    IHttpClientFactory httpClientFactory
+) : BaseIncidentProvider(env)
 {
-    private readonly IDataCache<string, IEnumerable<Incident>> _feedCache;
-    private readonly HttpClient _client;
-
-    public YorklIncidentProvider(
-        IEnvironmentProvider env,
-        IDataCache<string, IEnumerable<Incident>> feedCache,
-        IHttpClientFactory httpClientFactory
-    )
-        : base(env)
-    {
-        _feedCache = feedCache;
-        _client = httpClientFactory.CreateClient();
-    }
+    private readonly IDataCache<string, IEnumerable<Incident>> _feedCache = feedCache;
+    private readonly HttpClient _client = httpClientFactory.CreateClient();
 
     public override string Key => "York";
 

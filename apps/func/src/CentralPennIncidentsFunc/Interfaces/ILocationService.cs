@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 using CentralPennIncidentsFunc.Models;
 
-namespace CentralPennIncidentsFunc.Interfaces
+namespace CentralPennIncidentsFunc.Interfaces;
+
+public interface ILocationService
 {
-    public interface ILocationService
-    {
-        Task<LocationEntity> GetLocationAsync(string location, string area);
-    }
+    Task<LocationEntity> GetLocationAsync(string location, string area);
 }

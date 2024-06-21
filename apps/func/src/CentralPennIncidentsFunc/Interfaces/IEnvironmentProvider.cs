@@ -1,12 +1,11 @@
 using System;
 
-namespace CentralPennIncidentsFunc.Interfaces
+namespace CentralPennIncidentsFunc.Interfaces;
+
+public interface IEnvironmentProvider
 {
-    public interface IEnvironmentProvider
-    {
-        string GetEnvironmentVariable(
-            string variable,
-            EnvironmentVariableTarget target = EnvironmentVariableTarget.Process
-        );
-    }
+    string GetEnvironmentVariable(
+        string variable,
+        EnvironmentVariableTarget target = EnvironmentVariableTarget.Process
+    );
 }

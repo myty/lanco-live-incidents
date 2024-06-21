@@ -1,13 +1,12 @@
 using AutoMapper;
 
-namespace CentralPennIncidentsFunc.Dtos.Mappings
+namespace CentralPennIncidentsFunc.Dtos.Mappings;
+
+public class IncidentProfile : Profile
 {
-    public class IncidentProfile : Profile
+    public IncidentProfile()
     {
-        public IncidentProfile()
-        {
-            CreateMap<Models.Incident, Incident>()
-                .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src.GlobalId.Uid));
-        }
+        CreateMap<Models.Incident, Incident>()
+            .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src.GlobalId.Uid));
     }
 }

@@ -7,19 +7,13 @@ using Microsoft.Extensions.Logging;
 
 namespace CentralPennIncidentsFunc.Services;
 
-public class FeedService : IFeedService
+public class FeedService(
+    IEnumerable<IIncidentProvider> incidentProviders,
+    ILogger<FeedService> logger
+) : IFeedService
 {
-    private readonly IEnumerable<IIncidentProvider> _incidentProviders;
-    private readonly ILogger<FeedService> _logger;
-
-    public FeedService(
-        IEnumerable<IIncidentProvider> incidentProviders,
-        ILogger<FeedService> logger
-    )
-    {
-        _incidentProviders = incidentProviders;
-        _logger = logger;
-    }
+    private readonly IEnumerable<IIncidentProvider> _incidentProviders = incidentProviders;
+    private readonly ILogger<FeedService> _logger = logger;
 
     public async Task<Incident> GetIncidentAsync(GlobalId globalId)
     {
