@@ -118,9 +118,3 @@ dist
 
 # turborepo
 .turbo
-
-# project specific
-.vs
-src/lanco-incidents-func/output
-tests/LancoIncidentsFunc.Tests/bin
-tests/LancoIncidentsFunc.Tests/obj

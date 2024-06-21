@@ -1,6 +1,6 @@
 {
-    "name": "lanco-live-incidents",
-    "version": "0.3.0",
+    "name": "@centralpenn-incidents/incidents",
+    "version": "1.0.0",
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
@@ -10,13 +10,11 @@
         "lint": "turbo run lint",
         "dev": "turbo run dev azurite",
         "dev:frontend": "turbo run dev:frontend azurite",
-        "install-all": "pnpm install -r && dotnet tool restore && husky install && dotnet husky install && pnpm --filter=lanco-incidents-func restore",
-        "update-all": "pnpm up -r && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && cd ./src/lanco-incidents-func && dotnet outdated -u"
+        "install-all": "pnpm install -r && dotnet tool restore && dotnet husky install && dotnet restore",
+        "update-all": "pnpm up -r && dotnet tool update Husky && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && dotnet outdated -u"
     },
     "devDependencies": {
         "@biomejs/biome": "^1.8.2",
-        "husky": "^9.0.11",
-        "lint-staged": "^15.2.7",
         "turbo": "^2.0.4",
         "typescript": "~5.5.2"
     },

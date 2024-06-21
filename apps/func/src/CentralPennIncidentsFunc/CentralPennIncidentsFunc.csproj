@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <LangVersion>preview</LangVersion>
     <IsPackable>false</IsPackable>
     <TargetFramework>net8.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
     <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
-    <RootNamespace>LancoIncidentsFunc</RootNamespace>
+    <RootNamespace>CentralPennIncidentsFunc</RootNamespace>
+    <AssemblyName>CentralPennIncidentsFunc</AssemblyName>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
   <ItemGroup>

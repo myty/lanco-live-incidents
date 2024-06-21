@@ -1,5 +1,5 @@
 {
-  "name": "lanco-incidents-app",
+  "name": "@centralpenn-incidents/web",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -67,11 +67,6 @@
         }
       ],
       "@babel/preset-typescript"
-    ]
-  },
-  "lint-staged": {
-    "*.{ts,js,tsx,css,md}": [
-      "pnpm biome check --apply"
     ]
   }
 }

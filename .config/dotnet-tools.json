@@ -13,6 +13,12 @@
       "commands": [
         "dotnet-outdated"
       ]
+    },
+    "husky": {
+      "version": "0.7.0",
+      "commands": [
+        "husky"
+      ]
     }
   }
 }
