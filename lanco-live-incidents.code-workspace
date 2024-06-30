@@ -1,0 +1,19 @@
+{
+	"folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "root/apps/og-incident-images",
+      "path": "apps/og-incident-images"
+    }
+  ],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen",
+		"typescript.tsdk": "node_modules\\typescript\\lib",
+    "files.exclude": {
+        "apps/og-incident-images": true
+    }
+	}
+}

@@ -9,6 +9,9 @@
   },
   "linter": {
     "enabled": true,
+    "ignore": [
+      "apps/og-incident-images/**"
+    ],
     "rules": {
       "recommended": true
     }

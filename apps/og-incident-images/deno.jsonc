@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "dev": "deno run -A main.ts"
+  },
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"],
+      "exclude": ["no-unused-vars"]
+    }
+  },
+  "fmt": {
+    "useTabs": false,
+    "indentWidth": 4,
+    "singleQuote": false,
+    "proseWrap": "preserve"
+  },
+  "test": {
+    "include": ["./**/*.test.ts"]
+  },
+  "imports": {
+    "@std/encoding": "jsr:@std/encoding@^0.224.3",
+    "@std/http": "jsr:@std/http@^0.224.5",
+    "@azure/storage-blob": "npm:@azure/storage-blob@^12.23.0",
+    "@azure/storage-blob/constants": "https://raw.githubusercontent.com/Azure/azure-sdk-for-js/%40azure/storage-blob_12.23.0/sdk/storage/storage-blob/src/utils/constants.ts",
+    "@vercel/og": "npm:@vercel/og@^0.6.2",
+    "react": "https://esm.sh/react@18.3.1"
+  }
+}

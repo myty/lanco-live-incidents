@@ -8,24 +8,11 @@
     "azureFunctions.projectLanguage": "C#",
     "azureFunctions.projectRuntime": "~4",
     "azureFunctions.projectSubpath": "apps/func/src/CentralPennIncidentsFunc",
-    "debug.internalConsoleOptions": "neverOpen",
-    "typescript.tsdk": "node_modules\\typescript\\lib",
     "[javascript][javascriptreact][typescript][typescriptreact]": {
       "editor.defaultFormatter": "biomejs.biome",
       "editor.codeActionsOnSave": {
         "quickfix.biome": "explicit",
         "source.organizeImports.biome": "explicit"
       }
-    },
-    "deno.config": "./src/og-incident-images/deno.jsonc",
-    "deno.enablePaths": ["./src/og-incident-images"],
-    "deno.unstable": true,
-    "deno.inlayHints.enumMemberValues.enabled": false,
-    "deno.inlayHints.functionLikeReturnTypes.enabled": false,
-    "deno.inlayHints.parameterNames.enabled": "none",
-    "deno.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
-    "deno.inlayHints.parameterTypes.enabled": false,
-    "deno.inlayHints.propertyDeclarationTypes.enabled": false,
-    "deno.inlayHints.variableTypes.enabled": false,
-    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
+    }
 }
