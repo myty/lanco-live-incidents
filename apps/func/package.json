@@ -10,6 +10,6 @@
         "test:watch": "dotnet watch test --project ./tests/CentralPennIncidentsFunc.Tests"
     },
     "dependencies": {
-        "azure-functions-core-tools": "^4.0.5801"
+        "azure-functions-core-tools": "^4.0.5907"
     }
 }

@@ -15,8 +15,8 @@
         "update-all": "pnpm up -r && dotnet tool update Husky && dotnet tool update dotnet-outdated-tool && dotnet tool update csharpier && dotnet outdated -u"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.8.2",
-        "turbo": "^2.0.4",
+        "@biomejs/biome": "^1.8.3",
+        "turbo": "^2.0.6",
         "typescript": "~5.5.2"
     },
     "overrides": {

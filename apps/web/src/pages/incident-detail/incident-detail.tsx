@@ -1,4 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  type LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import PageTitle from "../../components/page-title";
 import { SITE_TITLE } from "../../constants/app-constants";
 import { useAppLayout } from "../../containers/app-layout";
@@ -7,7 +12,17 @@ import { useWebShare } from "../../hooks/use-web-share";
 import type { IncidentRecord } from "../../models/view-models/incident-record";
 import { IncidentDetailContent } from "./incident-detail-content";
 
+export function IncidentDetailLoader(
+  { params }: LoaderFunctionArgs,
+) {
+  const { id } = params;
+
+  return null;
+}
+
 export function IncidentDetail() {
+  const incidentDetails = useLoaderData() as { id: string };
+
   const { id } = useParams<"id">();
   const navigate = useNavigate();
   const { incident } = useIncident({ id });
@@ -20,21 +35,25 @@ export function IncidentDetail() {
     () => ({
       pageBgStyle: "bg-gray-100",
       headerLeft: (
-        <PageTitle onBack={handleGoBack} showShareButton={webShare.enabled && incident != null} onShare={handleShare}>
+        <PageTitle
+          onBack={handleGoBack}
+          showShareButton={webShare.enabled && incident != null}
+          onShare={handleShare}
+        >
           {getTitle(incident)}
         </PageTitle>
       ),
     }),
-    [incident]
+    [incident],
   );
 
   if (incident == null) {
     return (
-      <>
-        <div className="grid h-full grid-cols-1 place-content-center">
-          <p className="px-10 text-center">This incident cannot be found or is no longer active.</p>
-        </div>
-      </>
+      <div className="grid h-full grid-cols-1 place-content-center">
+        <p className="px-10 text-center">
+          This incident cannot be found or is no longer active.
+        </p>
+      </div>
     );
   }
 
@@ -46,7 +65,9 @@ function getTitle(incident?: IncidentRecord | null): string {
 }
 
 function getShareData(incident?: IncidentRecord | null) {
-  const incidentTypeText = incident?.subType ? `${incident?.type} (${incident?.subType})` : incident?.type;
+  const incidentTypeText = incident?.subType
+    ? `${incident?.type} (${incident?.subType})`
+    : incident?.type;
 
   const locationText = [incident?.location, incident?.area].join(", ");
 
