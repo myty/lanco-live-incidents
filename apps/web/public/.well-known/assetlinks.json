@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.lanco_live_incidents_mobile_app",
+      "sha256_cert_fingerprints": [
+        "D4:D9:43:74:B5:DE:02:4F:66:86:8B:FF:10:07:F8:CF:3E:23:14:52:C4:82:A9:30:4C:D6:12:BD:14:90:49:D7"
+      ]
+    }
+  }
+]

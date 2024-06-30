@@ -1,0 +1,15 @@
+{
+    "name": "@centralpenn-incidents/func",
+    "scripts": {
+        "azurite": "docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --rm mcr.microsoft.com/azure-storage/azurite",
+        "dev": "cd ./src/CentralPennIncidentsFunc && func start --csharp",
+        "serve": "pnpm dev",
+        "build": "dotnet build ./src/CentralPennIncidentsFunc -c Release",
+        "restore": "cd ../../ && dotnet clean && dotnet restore",
+        "test": "dotnet test ./tests/CentralPennIncidentsFunc.Tests",
+        "test:watch": "dotnet watch test --project ./tests/CentralPennIncidentsFunc.Tests"
+    },
+    "dependencies": {
+        "azure-functions-core-tools": "^4.0.5801"
+    }
+}

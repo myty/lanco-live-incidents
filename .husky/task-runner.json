@@ -1,0 +1,20 @@
+{
+   "$schema": "https://alirezanet.github.io/Husky.Net/schema.json",
+   "tasks": [
+      {
+        "name": "csharpier",
+        "group": "pre-commit",
+        "command": "dotnet",
+        "args": [ "csharpier", "${staged}" ],
+        "include": [ "**/*.cs" ]
+      },
+      {
+        "name": "biome",
+        "group": "pre-commit",
+        "cwd": "apps/web",
+        "command": "pnpm",
+        "args": [ "biome", "check", "--write", "--no-errors-on-unmatched", "--files-ignore-unknown=true", "${staged}" ],
+        "include": [ "**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}" ]
+      }
+   ]
+}
