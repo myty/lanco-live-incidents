@@ -1,10 +1,8 @@
-import { Handler } from "@std/http";
-
 export interface FunctionHandler {
   [folder: string]: (request: Request) => Response | Promise<Response>;
 }
 
-export function mapHandler(functionsMap: FunctionHandler): Handler {
+export function mapHandler(functionsMap: FunctionHandler): Deno.ServeHandler {
   return (req: Request) => {
     const { pathname } = new URL(req.url);
 

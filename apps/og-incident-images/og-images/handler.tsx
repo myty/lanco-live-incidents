@@ -2,12 +2,15 @@ import * as React from "react";
 import { ImageResponse } from "@vercel/og";
 import { BlobContainerRestProvider } from "../azure-blob-storage/blob-container-rest-provider.ts";
 import { HeaderConstants } from "@azure/storage-blob/constants";
+import { IncidentServiceFactory } from "./incident-service.ts";
 
 const BLOB_CACHE_ENABLED = false;
 
 const blobContainerProvider = BlobContainerRestProvider.create({
   container: "og-images",
 });
+
+const incidentService = IncidentServiceFactory.create();
 
 export default async function handler(req: Request): Promise<Response> {
   const id = extractIdFromRequest(req);
@@ -16,16 +19,17 @@ export default async function handler(req: Request): Promise<Response> {
     return new Response(null, { status: 500 });
   }
 
-  await blobContainerProvider.createIfNotExists();
-
   const blockBlobName = `${id}.png`;
-  const foundBlob = await blobContainerProvider.getBlockBlob(blockBlobName);
 
-  if (BLOB_CACHE_ENABLED && foundBlob.ok) {
-    return foundBlob;
+  if (BLOB_CACHE_ENABLED) {
+    await blobContainerProvider.createIfNotExists();
+    const foundBlob = await blobContainerProvider.getBlockBlob(blockBlobName);
+    if (foundBlob.ok) {
+      return foundBlob;
+    }
   }
 
-  const incident = await getIncident(id);
+  const incident = await incidentService.getIncident(id);
 
   const imageResponse = new ImageResponse(
     (
@@ -43,7 +47,7 @@ export default async function handler(req: Request): Promise<Response> {
         }}
       >
         <div style={{ fontSize: 40, fontWeight: "700" }}>
-          {incident?.type}
+          {incident?.type ?? "Central Penn Incident"}
         </div>
         <div style={{ fontSize: 64 }}>{incident?.subType}</div>
         <div style={{ fontSize: 36 }}>{incident?.location}</div>
@@ -70,26 +74,11 @@ export default async function handler(req: Request): Promise<Response> {
 function extractIdFromRequest(req: Request) {
   const { pathname } = new URL(req.url);
 
-  const filename = pathname.split("/").reverse()[0];
-  const id = filename.slice(0, filename.length - 4);
+  const [filename] = pathname.split("/").reverse();
 
-  return id;
-}
-
-async function getIncident(id: string) {
-  const apiFeed = Deno.env.get("IncidentsApi");
-
-  if (apiFeed == null) {
+  if (filename == null || !filename.endsWith(".png")) {
     return undefined;
   }
 
-  const response = await fetch(apiFeed);
-  const incidents: Array<{
-    id: string;
-    location: string;
-    type: string;
-    subType: string;
-  }> = await response.json();
-
-  return incidents.find((incident) => incident.id === id);
+  return filename.slice(0, filename.length - 4);
 }

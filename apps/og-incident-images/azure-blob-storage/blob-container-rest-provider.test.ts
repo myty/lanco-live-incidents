@@ -1,15 +1,5 @@
-import {
-  assert,
-  assertEquals,
-  assertExists,
-} from "https://deno.land/std@0.158.0/testing/asserts.ts";
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  describe,
-  it,
-} from "https://deno.land/std@0.165.0/testing/bdd.ts";
+import { assertEquals, assertExists } from "@std/assert";
+import { afterAll, afterEach, beforeAll, describe, it } from "@std/testing/bdd";
 import { Status } from "https://deno.land/std@0.170.0/http/http_status.ts";
 import { BlobContainerRestProvider } from "./blob-container-rest-provider.ts";
 import { loadFromLocalSettings } from "../testing-utils.ts";
