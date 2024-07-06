@@ -1,15 +1,14 @@
 import * as React from "react";
 import { ImageResponse } from "@vercel/og";
-import { BlobContainerRestProvider } from "../azure-blob-storage/blob-container-rest-provider.ts";
-import { HeaderConstants } from "@azure/storage-blob/constants";
 import { IncidentServiceFactory } from "./incident-service.ts";
+import { BlobServiceClient } from "@azure/storage-blob";
+import { BlobSASPermissions } from "@azure/storage-blob";
+import { BlockBlobClient } from "@azure/storage-blob";
 
-const BLOB_CACHE_ENABLED = false;
+const connStr = Deno.env.get("AZURE_STORAGE_CONNECTION_STRING")!;
+const BLOB_CACHE_ENABLED = Deno.env.get("BLOB_CACHE_ENABLED") === "true";
 
-const blobContainerProvider = BlobContainerRestProvider.create({
-  container: "og-images",
-});
-
+const blobServiceClient = BlobServiceClient.fromConnectionString(connStr);
 const incidentService = IncidentServiceFactory.create();
 
 export default async function handler(req: Request): Promise<Response> {
@@ -21,9 +20,20 @@ export default async function handler(req: Request): Promise<Response> {
 
   const blockBlobName = `${id}.png`;
 
+  let blobClient: BlockBlobClient | undefined;
+
   if (BLOB_CACHE_ENABLED) {
-    await blobContainerProvider.createIfNotExists();
-    const foundBlob = await blobContainerProvider.getBlockBlob(blockBlobName);
+    const containerClient = blobServiceClient.getContainerClient("og-images");
+    await containerClient.createIfNotExists();
+
+    blobClient = containerClient.getBlockBlobClient(blockBlobName);
+
+    const url = await blobClient.generateSasUrl({
+      permissions: BlobSASPermissions.parse("r"),
+      expiresOn: new Date(Date.now() + 60 * 60 * 1000),
+    });
+
+    const foundBlob = await fetch(url);
     if (foundBlob.ok) {
       return foundBlob;
     }
@@ -61,11 +71,17 @@ export default async function handler(req: Request): Promise<Response> {
 
   if (BLOB_CACHE_ENABLED && incident != null) {
     const clonedResponse = imageResponse.clone();
-    await blobContainerProvider.saveBlockBlob(
-      blockBlobName,
-      await clonedResponse.arrayBuffer(),
-      { [HeaderConstants.CONTENT_TYPE]: "image/png" },
+
+    const contentLength = parseInt(
+      clonedResponse.headers.get("Content-Length") ?? "0",
+      10,
     );
+
+    await blobClient?.upload(clonedResponse.body, contentLength, {
+      blobHTTPHeaders: {
+        blobContentType: "image/png",
+      },
+    });
   }
 
   return imageResponse;

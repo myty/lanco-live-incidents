@@ -1,8 +1,8 @@
 const localSettingsPath = "./local.settings.json";
 
-export function loadFromLocalSettings(): void {
+export function loadFromLocalSettings(path = localSettingsPath): void {
   try {
-    const { Values } = JSON.parse(Deno.readTextFileSync(localSettingsPath));
+    const { Values } = JSON.parse(Deno.readTextFileSync(path));
 
     for (const key in Values) {
       if (Object.prototype.hasOwnProperty.call(Values, key)) {

@@ -118,4 +118,4 @@ dist
 
 # turborepo
 .turbo
-/src/azurite
+apps/azurite

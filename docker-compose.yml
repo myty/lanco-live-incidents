@@ -1,12 +1,25 @@
-version: '3.4'
+# version: '3.4'
 services:
   azurite:
     image: mcr.microsoft.com/azure-storage/azurite
     hostname: azurite
     volumes:
-      - ./azurite/data:/data
+      - ./apps/azurite/data:/data
     command: "azurite --blobHost 0.0.0.0 --tableHost 0.0.0.0 --queueHost 0.0.0.0 -d /data/debug.log -l /data"
     ports:
       - "10000:10000"
       - "10001:10001"
       - "10002:10002"
+
+  og-images:
+    build:
+      context: ./apps/og-incident-images/
+      dockerfile: Dockerfile
+    ports:
+      - "1993:1993"
+    depends_on:
+      - azurite
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http:/azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;
+      FUNCTIONS_CUSTOMHANDLER_PORT: 1993
+      BLOB_CACHE_ENABLED: true
