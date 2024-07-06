@@ -1,6 +1,6 @@
-export function getPort(portFallback = 8080): number {
+export function getPort(portFallback = 80): number {
   const port = Number.parseInt(
-    Deno.env.get("FUNCTIONS_CUSTOMHANDLER_PORT") ?? "NaN",
+    Deno.env.get("APP_PORT") ?? "NaN",
   );
 
   return Number.isNaN(port) ? portFallback : port;

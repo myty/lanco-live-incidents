@@ -1,0 +1,16 @@
+{
+  "name": "@centralpenn-incidents/infrastructure",
+  "version": "0.1.0",
+  "scripts": {
+    "pulumi": "pulumi"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@pulumi/azure-native": "^2.48.0",
+    "@pulumi/docker": "^4.5.4",
+    "@pulumi/pulumi": "^3.122.0"
+  }
+}

@@ -1,18 +1,6 @@
-FROM mcr.microsoft.com/azure-functions/base:4-appservice
-
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh
-ENV PATH="/home/.deno/bin:$PATH"
-
-ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
-    AzureFunctionsJobHost__Logging__Console__IsEnabled=true
-
-COPY host.json /home/site/wwwroot/
-COPY og-images/function.json /home/site/wwwroot/og-images/
-
+FROM denoland/deno:1.44.4
 WORKDIR /app
-
-# These steps will be re-run upon each file change in your working directory:
+USER deno
 COPY . .
-
-# Compile the main app so that it doesn't need to be compiled each startup/entry.
 RUN deno cache main.ts
+CMD ["deno", "run", "--allow-net", "--allow-read", "--allow-env", "--allow-sys", "main.ts"]
