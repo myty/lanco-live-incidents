@@ -2,122 +2,9 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "npm:@azure/storage-blob@^12.23.0": "npm:@azure/storage-blob@12.23.0",
       "npm:@vercel/og@^0.6.2": "npm:@vercel/og@0.6.2"
     },
     "npm": {
-      "@azure/abort-controller@1.1.0": {
-        "integrity": "sha512-TrRLIoSQVzfAJX9H1JeFjzAoDGcoK1IYX1UImfceTZpsyYfWr09Ss1aHW1y5TrrR3iq6RZLBwJ3E24uwPhwahw==",
-        "dependencies": {
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/abort-controller@2.1.2": {
-        "integrity": "sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==",
-        "dependencies": {
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-auth@1.7.2": {
-        "integrity": "sha512-Igm/S3fDYmnMq1uKS38Ae1/m37B3zigdlZw+kocwEhh5GjyKjPrXKO2J6rzpC1wAxrNil/jX9BJRqBshyjnF3g==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@2.1.2",
-          "@azure/core-util": "@azure/core-util@1.9.0",
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-client@1.9.2": {
-        "integrity": "sha512-kRdry/rav3fUKHl/aDLd/pDLcB+4pOFwPPTVEExuMyaI5r+JBbMWqRbCY1pn5BniDaU3lRxO9eaQ1AmSMehl/w==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@2.1.2",
-          "@azure/core-auth": "@azure/core-auth@1.7.2",
-          "@azure/core-rest-pipeline": "@azure/core-rest-pipeline@1.16.1",
-          "@azure/core-tracing": "@azure/core-tracing@1.1.2",
-          "@azure/core-util": "@azure/core-util@1.9.0",
-          "@azure/logger": "@azure/logger@1.1.2",
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-http-compat@2.1.2": {
-        "integrity": "sha512-5MnV1yqzZwgNLLjlizsU3QqOeQChkIXw781Fwh1xdAqJR5AA32IUaq6xv1BICJvfbHoa+JYcaij2HFkhLbNTJQ==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@2.1.2",
-          "@azure/core-client": "@azure/core-client@1.9.2",
-          "@azure/core-rest-pipeline": "@azure/core-rest-pipeline@1.16.1"
-        }
-      },
-      "@azure/core-lro@2.7.2": {
-        "integrity": "sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@2.1.2",
-          "@azure/core-util": "@azure/core-util@1.9.0",
-          "@azure/logger": "@azure/logger@1.1.2",
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-paging@1.6.2": {
-        "integrity": "sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh+acWZvppw13M/LMGx0LABUVMA==",
-        "dependencies": {
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-rest-pipeline@1.16.1": {
-        "integrity": "sha512-ExPSbgjwCoht6kB7B4MeZoBAxcQSIl29r/bPeazZJx50ej4JJCByimLOrZoIsurISNyJQQHf30b3JfqC3Hb88A==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@2.1.2",
-          "@azure/core-auth": "@azure/core-auth@1.7.2",
-          "@azure/core-tracing": "@azure/core-tracing@1.1.2",
-          "@azure/core-util": "@azure/core-util@1.9.0",
-          "@azure/logger": "@azure/logger@1.1.2",
-          "http-proxy-agent": "http-proxy-agent@7.0.2",
-          "https-proxy-agent": "https-proxy-agent@7.0.5",
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-tracing@1.1.2": {
-        "integrity": "sha512-dawW9ifvWAWmUm9/h+/UQ2jrdvjCJ7VJEuCJ6XVNudzcOwm53BFZH4Q845vjfgoUAM8ZxokvVNxNxAITc502YA==",
-        "dependencies": {
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-util@1.9.0": {
-        "integrity": "sha512-AfalUQ1ZppaKuxPPMsFEUdX6GZPB3d9paR9d/TTL7Ow2De8cJaC7ibi7kWVlFAVPCYo31OcnGymc0R89DX8Oaw==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@2.1.2",
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/core-xml@1.4.2": {
-        "integrity": "sha512-CW3MZhApe/S4iikbYKE7s83fjDBPIr2kpidX+hlGRwh7N4o1nIpQ/PfJTeioqhfqdMvRtheEl+ft64fyTaLNaA==",
-        "dependencies": {
-          "fast-xml-parser": "fast-xml-parser@4.4.0",
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/logger@1.1.2": {
-        "integrity": "sha512-l170uE7bsKpIU6B/giRc9i4NI0Mj+tANMMMxf7Zi/5cKzEqPayP7+X1WPrG7e+91JgY8N+7K7nF2WOi7iVhXvg==",
-        "dependencies": {
-          "tslib": "tslib@2.6.3"
-        }
-      },
-      "@azure/storage-blob@12.23.0": {
-        "integrity": "sha512-c1KJ5R5hqR/HtvmFtTn/Y1BNMq45NUBp0LZH7yF8WFMET+wmESgEr0FVTu/Z5NonmfUjbgJZG5Nh8xHc5RdWGQ==",
-        "dependencies": {
-          "@azure/abort-controller": "@azure/abort-controller@1.1.0",
-          "@azure/core-auth": "@azure/core-auth@1.7.2",
-          "@azure/core-client": "@azure/core-client@1.9.2",
-          "@azure/core-http-compat": "@azure/core-http-compat@2.1.2",
-          "@azure/core-lro": "@azure/core-lro@2.7.2",
-          "@azure/core-paging": "@azure/core-paging@1.6.2",
-          "@azure/core-rest-pipeline": "@azure/core-rest-pipeline@1.16.1",
-          "@azure/core-tracing": "@azure/core-tracing@1.1.2",
-          "@azure/core-util": "@azure/core-util@1.9.0",
-          "@azure/core-xml": "@azure/core-xml@1.4.2",
-          "@azure/logger": "@azure/logger@1.1.2",
-          "events": "events@3.3.0",
-          "tslib": "tslib@2.6.3"
-        }
-      },
       "@resvg/resvg-wasm@2.4.0": {
         "integrity": "sha512-C7c51Nn4yTxXFKvgh2txJFNweaVcfUPQxwEUFw4aWsCmfiBDJsTSwviIF8EcwjQ6k8bPyMWCl1vw4BdxE569Cg==",
         "dependencies": {}
@@ -135,12 +22,6 @@
           "@resvg/resvg-wasm": "@resvg/resvg-wasm@2.4.0",
           "satori": "satori@0.10.9",
           "yoga-wasm-web": "yoga-wasm-web@0.3.3"
-        }
-      },
-      "agent-base@7.1.1": {
-        "integrity": "sha512-H0TSyFNDMomMNJQBn8wFV5YC/2eJ+VXECwOadZJT554xP6cODZHPX3H9QMQECxvrgiSOP1pHjy1sMWQVYJOUOA==",
-        "dependencies": {
-          "debug": "debug@4.3.5"
         }
       },
       "base64-js@0.0.8": {
@@ -175,12 +56,6 @@
           "postcss-value-parser": "postcss-value-parser@4.2.0"
         }
       },
-      "debug@4.3.5": {
-        "integrity": "sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==",
-        "dependencies": {
-          "ms": "ms@2.1.2"
-        }
-      },
       "emoji-regex@10.3.0": {
         "integrity": "sha512-QpLs9D9v9kArv4lfDEgg1X/gN5XLnf/A6l9cs8SPZLRZR3ZkY9+kwIQTxm+fsSej5UMYGE8fdoaZVIBlqG0XTw==",
         "dependencies": {}
@@ -188,16 +63,6 @@
       "escape-html@1.0.3": {
         "integrity": "sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==",
         "dependencies": {}
-      },
-      "events@3.3.0": {
-        "integrity": "sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==",
-        "dependencies": {}
-      },
-      "fast-xml-parser@4.4.0": {
-        "integrity": "sha512-kLY3jFlwIYwBNDojclKsNAC12sfD6NwW74QB2CoNGPvtVxjliYehVunB3HYyNi+n4Tt1dAcgwYvmKF/Z18flqg==",
-        "dependencies": {
-          "strnum": "strnum@1.0.5"
-        }
       },
       "fflate@0.7.4": {
         "integrity": "sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw==",
@@ -207,30 +72,12 @@
         "integrity": "sha512-Ox1pJVrDCyGHMG9CFg1tmrRUMRPRsAWYc/PinY0XzJU4K7y7vjNoLKIQ7BR5UJMCxNN8EM1MNDmHWA/B3aZUuw==",
         "dependencies": {}
       },
-      "http-proxy-agent@7.0.2": {
-        "integrity": "sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==",
-        "dependencies": {
-          "agent-base": "agent-base@7.1.1",
-          "debug": "debug@4.3.5"
-        }
-      },
-      "https-proxy-agent@7.0.5": {
-        "integrity": "sha512-1e4Wqeblerz+tMKPIq2EMGiiWW1dIjZOksyHWSUm1rmuvw/how9hBHZ38lAGj5ID4Ik6EdkOw7NmWPy6LAwalw==",
-        "dependencies": {
-          "agent-base": "agent-base@7.1.1",
-          "debug": "debug@4.3.5"
-        }
-      },
       "linebreak@1.1.0": {
         "integrity": "sha512-MHp03UImeVhB7XZtjd0E4n6+3xr5Dq/9xI/5FptGk5FrbDR3zagPa2DS6U8ks/3HjbKWG9Q1M2ufOzxV2qLYSQ==",
         "dependencies": {
           "base64-js": "base64-js@0.0.8",
           "unicode-trie": "unicode-trie@2.0.0"
         }
-      },
-      "ms@2.1.2": {
-        "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==",
-        "dependencies": {}
       },
       "pako@0.2.9": {
         "integrity": "sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==",
@@ -266,16 +113,8 @@
         "integrity": "sha512-2cBVCj6I4IOvEnjgO/hWqXjqBGsY+zwPmHl12Srk9IXSZ56Jwwmy+66XO5Iut/oQVR7t5ihYdLB0GMa4alEUcg==",
         "dependencies": {}
       },
-      "strnum@1.0.5": {
-        "integrity": "sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==",
-        "dependencies": {}
-      },
       "tiny-inflate@1.0.3": {
         "integrity": "sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==",
-        "dependencies": {}
-      },
-      "tslib@2.6.3": {
-        "integrity": "sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==",
         "dependencies": {}
       },
       "unicode-trie@2.0.0": {
@@ -304,7 +143,6 @@
       "jsr:@std/encoding@^0.224.3",
       "jsr:@std/http@^0.224.5",
       "jsr:@std/testing@^0.225.3",
-      "npm:@azure/storage-blob@^12.23.0",
       "npm:@vercel/og@^0.6.2"
     ]
   }

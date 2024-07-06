@@ -13,7 +13,11 @@
 		"debug.internalConsoleOptions": "neverOpen",
 		"typescript.tsdk": "node_modules\\typescript\\lib",
     "files.exclude": {
+        "apps/azurite": true,
         "apps/og-incident-images": true
+    },
+    "yaml.schemas": {
+      "https://json.schemastore.org/prettierrc.json": "file:///Users/myty/dev/github/myty/lanco-live-incidents/apps/og-incident-images/.prettierrc"
     }
 	}
 }

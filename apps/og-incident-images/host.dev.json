@@ -25,12 +25,8 @@
       "defaultExecutablePath": "deno",
       "workingDirectory": "/app",
       "arguments": [
-        "run",
-        "--allow-net",
-        "--allow-read",
-        "--allow-env",
-        "--allow-sys",
-        "main.ts"
+        "task",
+        "dev"
       ]
     },
     "enableForwardingHttpRequest": true

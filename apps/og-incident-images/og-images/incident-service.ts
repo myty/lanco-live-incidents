@@ -11,6 +11,7 @@ interface IncidentService {
 
 class NoopIncidentService implements IncidentService {
   getIncident() {
+    console.warn("No incident service configured. Returning undefined.");
     return Promise.resolve(undefined);
   }
 }
@@ -37,7 +38,7 @@ class CentralPennIncidentService implements IncidentService {
 
 export const IncidentServiceFactory = {
   create(): IncidentService {
-    const incidentUrl = Deno.env.get("IncidentsApi");
+    const incidentUrl = Deno.env.get("INCIDENTS_API");
 
     return incidentUrl
       ? new CentralPennIncidentService(incidentUrl)
