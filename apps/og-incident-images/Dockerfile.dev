@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/azure-functions/dotnet:4-appservice
+FROM mcr.microsoft.com/azure-functions/base:4-appservice
 
 RUN curl -fsSL https://deno.land/x/install/install.sh | sh
 ENV PATH="/home/.deno/bin:$PATH"
