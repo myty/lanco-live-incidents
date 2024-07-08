@@ -2,7 +2,13 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "jsr:@hono/hono@^4.4.12": "jsr:@hono/hono@4.4.12",
       "npm:@vercel/og@^0.6.2": "npm:@vercel/og@0.6.2"
+    },
+    "jsr": {
+      "@hono/hono@4.4.12": {
+        "integrity": "75658e5402dc95df483a1961b8fb4ef73391a2c70109f97ad8e12d3b7b6f03c5"
+      }
     },
     "npm": {
       "@resvg/resvg-wasm@2.4.0": {
@@ -139,6 +145,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@hono/hono@^4.4.12",
       "jsr:@std/assert@^0.226",
       "jsr:@std/encoding@^0.224.3",
       "jsr:@std/http@^0.224.5",

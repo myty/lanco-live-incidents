@@ -1,4 +1,8 @@
 import ogImageHandler from "./og-images/handler.tsx";
-import { serveFunctions } from "./runtime/serve-functions.ts";
+import { Hono } from "@hono/hono";
+import { getPort } from "./runtime/get-port.ts";
 
-serveFunctions({ ["/og-images"]: ogImageHandler });
+const app = new Hono();
+app.get("/*.png", (c) => ogImageHandler(c.req.raw));
+
+Deno.serve({ port: getPort() }, app.fetch);
