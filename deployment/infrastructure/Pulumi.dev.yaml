@@ -1,2 +1,2 @@
-environment:
-  - centralpenn-incidents-dev
+config:
+  azure-native:location: eastus2

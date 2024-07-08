@@ -4,6 +4,8 @@
     "author": "Michael Tyson <michaeltyson@outlook.com>",
     "license": "MIT",
     "scripts": {
+        "infrastructure:dev": " pnpm --filter @centralpenn-incidents/infrastructure run infrastructure:dev",
+        "pulumi": " pnpm --filter @centralpenn-incidents/infrastructure run pulumi",
         "build": "turbo run build",
         "serve": "turbo run serve azurite",
         "test": "turbo run test",

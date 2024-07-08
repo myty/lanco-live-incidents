@@ -2,6 +2,7 @@
   "name": "@centralpenn-incidents/infrastructure",
   "version": "0.1.0",
   "scripts": {
+    "infrastructure:dev": "pulumi --stack myty/dev",
     "pulumi": "pulumi"
   },
   "devDependencies": {
@@ -11,6 +12,7 @@
   "dependencies": {
     "@pulumi/azure-native": "^2.48.0",
     "@pulumi/docker": "^4.5.4",
+    "@pulumi/docker-build": "^0.0.3",
     "@pulumi/pulumi": "^3.122.0"
   }
 }

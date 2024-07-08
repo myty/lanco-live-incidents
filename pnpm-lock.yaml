@@ -159,6 +159,9 @@ importers:
       '@pulumi/docker':
         specifier: ^4.5.4
         version: 4.5.4(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@pulumi/docker-build':
+        specifier: ^0.0.3
+        version: 0.0.3(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
       '@pulumi/pulumi':
         specifier: ^3.122.0
         version: 3.122.0(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
@@ -1230,6 +1233,9 @@ packages:
 
   '@pulumi/azure-native@2.48.0':
     resolution: {integrity: sha512-HrnpQX9JmcnbECwpGpgKqao0ygE/3Nxfc/0p8ch1ka8rGmO9jxDdOf74IxnIi/cdyE7iH391Qoo0Qoeoopcbeg==}
+
+  '@pulumi/docker-build@0.0.3':
+    resolution: {integrity: sha512-WUdHuQ0twAKQ/OamxzxxbS5XHXsJrVUzqwHSR9sKmuKtUlIvRctTrZUm9Rf5uO6mSoCh6lilm43fTNGH+8MA3g==}
 
   '@pulumi/docker@4.5.4':
     resolution: {integrity: sha512-0R978Se7+NZIocYIoCAMC2q2sovar7O743zfnVQBSZRFLB+2pdZFqmpHWniM6rZtq/h5rwHsMfbJ/E6UJhihfw==}
@@ -5420,6 +5426,15 @@ snapshots:
   '@protobufjs/utf8@1.1.0': {}
 
   '@pulumi/azure-native@2.48.0(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+    dependencies:
+      '@pulumi/pulumi': 3.122.0(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+    transitivePeerDependencies:
+      - bluebird
+      - supports-color
+      - ts-node
+      - typescript
+
+  '@pulumi/docker-build@0.0.3(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
     dependencies:
       '@pulumi/pulumi': 3.122.0(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
     transitivePeerDependencies:

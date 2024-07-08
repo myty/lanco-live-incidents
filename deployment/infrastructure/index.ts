@@ -1,12 +1,12 @@
-import * as docker from "@pulumi/docker";
 import * as pulumi from "@pulumi/pulumi";
+import * as docker from "@pulumi/docker-build";
 
 import * as app from "@pulumi/azure-native/app";
 import * as containerregistry from "@pulumi/azure-native/containerregistry";
 import * as operationalinsights from "@pulumi/azure-native/operationalinsights";
 import * as resources from "@pulumi/azure-native/resources";
 
-const resourceGroup = new resources.ResourceGroup("centralPennIncidents-rg");
+const resourceGroup = new resources.ResourceGroup("rg");
 
 const workspace = new operationalinsights.Workspace("loganalytics", {
   resourceGroupName: resourceGroup.name,
@@ -54,14 +54,24 @@ const adminPassword = credentials.apply((
 ) => c.passwords![0].value!);
 
 const customImage = "og-incident-images";
-const myImage = new docker.Image(customImage, {
-  imageName: pulumi.interpolate`${registry.loginServer}/${customImage}:latest`,
-  build: { context: `../../apps/${customImage}/`, platform: "linux/amd64" },
-  registry: {
-    server: registry.loginServer,
+
+const imageTag = pulumi
+  .interpolate`${registry.loginServer}/${customImage}:latest`;
+
+export const myImage = new docker.Image(customImage, {
+  tags: [imageTag],
+  context: {
+    location: `../../apps/${customImage}/`,
+  },
+  platforms: [
+    "linux/amd64",
+  ],
+  push: true,
+  registries: [{
+    address: registry.loginServer,
     username: adminUsername,
     password: adminPassword,
-  },
+  }],
 });
 
 const containerApp = new app.ContainerApp("app", {
@@ -83,9 +93,17 @@ const containerApp = new app.ContainerApp("app", {
     }],
   },
   template: {
+    scale: {
+      minReplicas: 0,
+      maxReplicas: 1,
+    },
     containers: [{
-      name: "myapp",
-      image: myImage.imageName,
+      name: "app",
+      image: imageTag,
+      env: [{
+        name: "INCIDENTS_API",
+        value: "https://lanco-live-incidents.azurewebsites.net/api/incidents",
+      }],
     }],
   },
 });
