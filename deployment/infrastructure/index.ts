@@ -100,6 +100,11 @@ const containerApp = new app.ContainerApp("app", {
     containers: [{
       name: "app",
       image: imageTag,
+      resources: {
+        cpu: 0.25,
+        memory: "0.5Gi",
+      },
+      command: ["deno run -A main.ts"],
       env: [{
         name: "INCIDENTS_API",
         value: "https://lanco-live-incidents.azurewebsites.net/api/incidents",
