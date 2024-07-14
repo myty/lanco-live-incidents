@@ -14,10 +14,9 @@ services:
   og-incident-images:
     build:
       context: ./apps/og-incident-images/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     cpu_count: 1
-    cpu_percent: 50
-    mem_limit: 256m
+    mem_limit: 512m
     command: ["deno", "task", "dev"]
     develop:
       watch:

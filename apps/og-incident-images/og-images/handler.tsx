@@ -4,7 +4,9 @@ import { IncidentServiceFactory } from "./incident-service.ts";
 import { ResponseCache } from "../cache/response-cache.ts";
 
 const incidentService = IncidentServiceFactory.create();
-const internalCache = new ResponseCache({ expirationMs: 1000 * 60 * 60 });
+const internalCache = new ResponseCache({
+  expirationMs: 1000 * 60 * 60 * 24 * 7,
+});
 
 export default async function handler(req: Request): Promise<Response> {
   const id = extractIdFromRequest(req);
@@ -17,6 +19,7 @@ export default async function handler(req: Request): Promise<Response> {
 
   const cachedImageResponse = internalCache.get(blockBlobName);
   if (cachedImageResponse != null) {
+    console.log("Cache hit for", blockBlobName);
     return cachedImageResponse.clone();
   }
 
@@ -51,6 +54,11 @@ export default async function handler(req: Request): Promise<Response> {
   );
 
   if (incident != null) {
+    imageResponse.headers.set(
+      "Cache-Control",
+      "max-age=604800, stale-while-revalidate=86400",
+    );
+
     internalCache.set(blockBlobName, imageResponse.clone());
   }
 

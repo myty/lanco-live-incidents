@@ -1,6 +1,9 @@
-FROM denoland/deno:1.44.4
+FROM denoland/deno:alpine-1.45.2 AS builder
 WORKDIR /app
-USER deno
 COPY . .
-RUN deno cache main.ts
-CMD ["deno", "run", "--allow-net", "--allow-read", "--allow-env", "--allow-sys", "--cached-only", "main.ts"]
+RUN deno compile --allow-net --allow-read --allow-env --allow-sys --output main ./main.ts
+
+FROM ubuntu:24.10
+WORKDIR /app
+COPY --from=builder /app/main ./main
+CMD ["./main"]
