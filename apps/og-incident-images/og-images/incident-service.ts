@@ -9,28 +9,27 @@ interface IncidentService {
   getIncident(id: string): Promise<Incident | undefined>;
 }
 
-class NoopIncidentService implements IncidentService {
-  getIncident() {
-    console.warn("No incident service configured. Returning undefined.");
-    return Promise.resolve(undefined);
+class BaseIncidentService implements IncidentService {
+  getIncident(id: string): Promise<Incident | undefined> {
+    return Promise.reject(
+      `Id, ${id} not found. No incident service configured.`,
+    );
   }
 }
 
-class CentralPennIncidentService implements IncidentService {
+class CentralPennIncidentService extends BaseIncidentService
+  implements IncidentService {
   constructor(private readonly apiUrl: string) {
-    if (!apiUrl) {
-      throw new Error("apiUrl is required");
-    }
+    super();
   }
 
   async getIncident(id: string) {
+    if (!this.apiUrl) {
+      return super.getIncident(id);
+    }
+
     const response = await fetch(this.apiUrl);
-    const incidents: Array<{
-      id: string;
-      location: string;
-      type: string;
-      subType: string;
-    }> = await response.json();
+    const incidents: Array<Incident> = await response.json();
 
     return incidents.find((incident) => incident.id === id);
   }
@@ -42,6 +41,6 @@ export const IncidentServiceFactory = {
 
     return incidentUrl
       ? new CentralPennIncidentService(incidentUrl)
-      : new NoopIncidentService();
+      : new BaseIncidentService();
   },
 };

@@ -5,7 +5,7 @@ import { ResponseCache } from "../cache/response-cache.ts";
 
 const incidentService = IncidentServiceFactory.create();
 const internalCache = new ResponseCache({
-  expirationMs: 1000 * 60 * 60 * 24 * 7,
+  expirationMs: 1000 * 60 * 60 * 24 * 7, // 1 week
 });
 
 export default async function handler(req: Request): Promise<Response> {
